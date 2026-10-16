@@ -563,7 +563,7 @@ function DistrictApp({
     try {
       const blob = await map.current?.screenshot();
       if (blob) {
-        saveBlob(blob, 'obninsk-2040-map.png');
+        saveBlob(blob, 'dimki-ai-map.png');
         setToast('Изображение 3D-сцены сохранено');
       }
     } catch {
@@ -614,27 +614,37 @@ function DistrictApp({
   return (
     <div className="application">
       <header className="topbar">
-        <a className="brand" href="#" aria-label="Обнинск 2040 — городская лаборатория">
-          <span className="brand-symbol">
-            <svg width="28" height="29" viewBox="0 0 28 29" fill="none">
-              <path d="M2 13 14 6l12 7v9l-12 7L2 22V13Z" fill="#6bb8a7" />
-              <path d="m2 13 12 7 12-7M14 20v9" stroke="#163d3d" strokeWidth="1.5" />
-              <path d="m7 8 7-4 7 4v9l-7 4-7-4V8Z" fill="#e6eddf" />
-              <path d="m7 8 7 4 7-4M14 12v9" stroke="#5e9389" strokeWidth="1.3" />
+        <a className="brand" href="#" aria-label="Димки AI">
+          <span className="brand-symbol" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+              <path d="M6 24 13 8h6l7 16H6Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
+              <path
+                d="M11 24v3m10-3v3M12 19h8"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              />
+              <circle cx="25" cy="7" r="3" fill="currentColor" />
             </svg>
           </span>
-          <span>
-            <strong>
-              ОБНИНСК <b>2040</b>
-            </strong>
-            <small>Городская лаборатория</small>
-          </span>
+          <strong>
+            Димки <b>AI</b>
+          </strong>
         </a>
         <nav className="topnav" aria-label="Основная навигация">
-          <button className="active" onClick={() => setTab('overview')}>
-            Конструктор района
+          <button
+            className={tab !== 'scenarios' ? 'active' : ''}
+            aria-current={tab !== 'scenarios' ? 'page' : undefined}
+            onClick={() => {
+              setTab('overview');
+              setSidebarOpen(true);
+            }}
+          >
+            Конструктор
           </button>
           <button
+            className={tab === 'scenarios' ? 'active' : ''}
+            aria-current={tab === 'scenarios' ? 'page' : undefined}
             onClick={() => {
               setTab('scenarios');
               setSidebarOpen(true);
@@ -860,19 +870,26 @@ function DistrictApp({
                           viewBox="0 0 65 65"
                           aria-hidden="true"
                         >
-                          <circle cx="32.5" cy="32.5" r="26" fill="none" stroke="#e2eae4" strokeWidth="5" />
                           <circle
                             cx="32.5"
                             cy="32.5"
                             r="26"
                             fill="none"
-                            stroke="#428f7e"
+                            stroke="var(--line)"
+                            strokeWidth="5"
+                          />
+                          <circle
+                            cx="32.5"
+                            cy="32.5"
+                            r="26"
+                            fill="none"
+                            stroke="var(--accent)"
                             strokeWidth="5"
                             strokeLinecap="round"
                             strokeDasharray={`${((totals?.coveragePercent ?? 0) / 100) * 163.36} 163.36`}
                             transform="rotate(-90 32.5 32.5)"
                           />
-                          <currentMetric.icon x="23" y="23" width="19" height="19" color="#478e7f" />
+                          <currentMetric.icon x="23" y="23" width="19" height="19" color="var(--accent)" />
                         </svg>
                       </div>
                       <div className={`metric-delta ${delta < 0 ? 'negative' : ''}`}>

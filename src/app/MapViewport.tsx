@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { GIS_THEME } from '../map/theme.js';
 import { DistrictScene } from '../map/scene.js';
 import type { MapState, SceneCallbacks, ViewSettings } from '../map/types.js';
 
@@ -77,14 +78,14 @@ export const MapViewport = forwardRef<MapHandle, Props>(function MapViewport(
               <polygon
                 key={b.id}
                 points={b.polygon.map((p) => `${p[0]},${-p[1]}`).join(' ')}
-                fill="#d4dfcd"
+                fill={GIS_THEME.block}
               />
             ))}
             {state.data.roads.map((r) => (
               <polygon
                 key={r.id}
                 points={r.polygon.map((p) => `${p[0]},${-p[1]}`).join(' ')}
-                fill="#919e9c"
+                fill={GIS_THEME.road}
               />
             ))}
             {state.data.edges
@@ -94,7 +95,7 @@ export const MapViewport = forwardRef<MapHandle, Props>(function MapViewport(
                   key={e.id}
                   points={e.geometry.map((p) => `${p[0]},${-p[1]}`).join(' ')}
                   fill="none"
-                  stroke="#f5f1e6"
+                  stroke={GIS_THEME.path}
                   strokeWidth={3}
                 />
               ))}
@@ -102,8 +103,8 @@ export const MapViewport = forwardRef<MapHandle, Props>(function MapViewport(
               <polygon
                 key={b.id}
                 points={b.polygon.map((p) => `${p[0]},${-p[1]}`).join(' ')}
-                fill={b.id === state.selectedId ? '#338f91' : '#c5bba9'}
-                stroke="#718681"
+                fill={b.id === state.selectedId ? GIS_THEME.selection : GIS_THEME.residential[0]}
+                stroke={GIS_THEME.marker}
                 onClick={() => callbacks.onSelect(b.id)}
               />
             ))}

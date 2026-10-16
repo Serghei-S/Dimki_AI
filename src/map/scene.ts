@@ -10,6 +10,7 @@ import type { XY } from '../core/types.js';
 import { pointAlong, lengthOf, projectSegment } from '../core/design-geometry.js';
 import { createMotionPaths, deterministicRandom } from './motion.js';
 import { accessibilityColor, differenceColor } from './palette.js';
+import { GIS_THEME } from './theme.js';
 import {
   bounds,
   world,
@@ -38,7 +39,7 @@ interface Label {
   public: boolean;
   id: string;
 }
-const DAY_BG = '#e5ebe8';
+const DAY_BG = GIS_THEME.background;
 const INITIAL: ViewSettings = {
   layers: {
     buildings: true,
@@ -79,8 +80,8 @@ export class DistrictScene {
   readonly #flow = new FlowLayer();
   readonly #editor = new EditorLayer();
   #dragging: EditHandle | null = null;
-  readonly #sun = new THREE.DirectionalLight('#fff4dd', 3);
-  readonly #ambient = new THREE.HemisphereLight('#eff6ff', '#b1b9a5', 1.7);
+  readonly #sun = new THREE.DirectionalLight('#fffaf2', 3);
+  readonly #ambient = new THREE.HemisphereLight('#f1f6ff', '#bac5ce', 1.7);
   readonly #labels: Label[] = [];
   readonly #labelHost = document.createElement('div');
   readonly #raycaster = new THREE.Raycaster();
@@ -95,7 +96,7 @@ export class DistrictScene {
   #windows!: THREE.InstancedMesh;
   #buildingOrder: string[] = [];
   #complexBuildings = new Map<string, THREE.Mesh>();
-  #windowMaterial = new THREE.MeshStandardMaterial({ color: '#596e78', roughness: 0.38, metalness: 0.18 });
+  #windowMaterial = new THREE.MeshStandardMaterial({ color: '#bacbd8', roughness: 0.5, metalness: 0.12 });
   #frame = 0;
   #last = 0;
   #lastRender = 0;
@@ -293,7 +294,7 @@ export class DistrictScene {
       steps: 1,
     });
     geometry.rotateX(-Math.PI / 2);
-    const slab = new THREE.Mesh(geometry, this.#material('#d2d8ca'));
+    const slab = new THREE.Mesh(geometry, this.#material(GIS_THEME.ground));
     slab.position.y = -12.25;
     slab.receiveShadow = true;
     slab.castShadow = true;
@@ -306,9 +307,9 @@ export class DistrictScene {
     underlay.position.copy(world(c, -14));
     underlay.receiveShadow = true;
     this.#terrain.add(underlay);
-    const blockMat = this.#material('#d7dfcc');
+    const blockMat = this.#material(GIS_THEME.block);
     for (const block of data.blocks) this.#terrain.add(flatPolygon(block.polygon, blockMat, 0.12));
-    const roadMat = this.#material('#8b9698');
+    const roadMat = this.#material(GIS_THEME.road);
     for (const road of data.roads) this.#terrain.add(flatPolygon(road.polygon, roadMat, 0.18));
     const marks: BoxItem[] = [];
     for (const road of data.roads) {
@@ -343,7 +344,7 @@ export class DistrictScene {
           });
       }
     }
-    this.#boxes(marks, this.#material('#e3e5d8'), this.#terrain);
+    this.#boxes(marks, this.#material(GIS_THEME.marking), this.#terrain);
   }
   #buildBuildings(data: DeepReadonly<DistrictData>): void {
     this.#buildingOrder = data.buildings.map((b) => b.id);
@@ -354,7 +355,7 @@ export class DistrictScene {
       doors: BoxItem[] = [],
       canopies: BoxItem[] = [];
     const nodeMap = new Map(data.nodes.map((n) => [n.id, n]));
-    const palette = ['#e8e1d2', '#d9cbb8', '#dedfd1', '#d9d7c7', '#ddd2c4'];
+    const palette = GIS_THEME.residential;
     const random = deterministicRandom(201);
     for (const building of data.buildings) {
       const box = bounds(building.polygon),
@@ -368,10 +369,10 @@ export class DistrictScene {
         building.kind === 'residential'
           ? palette[Math.floor(random() * palette.length)]!
           : building.kind === 'school'
-            ? '#bf9e87'
+            ? GIS_THEME.school
             : building.kind === 'clinic'
-              ? '#b2c7c8'
-              : '#c6c7bd';
+              ? GIS_THEME.clinic
+              : GIS_THEME.civic;
       body.push({
         point: box.center,
         y: height / 2 + 0.6,
@@ -382,7 +383,7 @@ export class DistrictScene {
         point: box.center,
         y: height + 1,
         size: rectangular ? [box.width + 0.6, 0.9, box.depth + 0.6] : [0, 0, 0],
-        color: '#c3c9c3',
+        color: GIS_THEME.roof,
       });
       if (!rectangular) {
         const geometry = new THREE.ExtrudeGeometry(shape(building.polygon), {
@@ -390,7 +391,7 @@ export class DistrictScene {
           bevelEnabled: false,
         });
         geometry.rotateX(-Math.PI / 2);
-        const mesh = new THREE.Mesh(geometry, this.#material(color));
+        const mesh = new THREE.Mesh(geometry, [this.#material(GIS_THEME.roof), this.#material(color)]);
         mesh.position.y = 0.6;
         mesh.castShadow = true;
         mesh.receiveShadow = true;
@@ -414,7 +415,7 @@ export class DistrictScene {
               y: 0.6 + ((floor + 0.55) * height) / building.floors,
               size: [2, 1.45, 0.2],
               angle: Math.atan2(dy, dx),
-              color: random() > 0.17 ? '#526976' : '#93a4a7',
+              color: random() > 0.17 ? '#91a9bc' : '#c3d1dc',
             });
           }
       }
@@ -459,9 +460,9 @@ export class DistrictScene {
       stripes: BoxItem[] = [],
       benches: BoxItem[] = [],
       railings: BoxItem[] = [];
-    const lawn = this.#material('#b8cf9f'),
+    const lawn = this.#material(GIS_THEME.lawn),
       reserve = this.#material('#d7ceb9'),
-      publicGround = this.#material('#c9cec4');
+      publicGround = this.#material(GIS_THEME.publicGround);
     const nodes = new Map(data.nodes.map((n) => [n.id, n]));
     for (const parcel of data.parcels) {
       if (parcel.kind === 'public_park' || parcel.kind === 'landscaping')
@@ -539,9 +540,9 @@ export class DistrictScene {
         (blocked ? networkBad : networkGood).push(a[0], 1.3, -a[1], b[0], 1.3, -b[1]);
       }
     }
-    this.#boxes(paths, this.#material('#e7e4d9'), this.#infrastructure);
+    this.#boxes(paths, this.#material(GIS_THEME.path), this.#infrastructure);
     this.#boxes(gravel, this.#material('#cebd9c'), this.#infrastructure);
-    this.#boxes(stripes, this.#material('#edf0e5'), this.#infrastructure);
+    this.#boxes(stripes, this.#material(GIS_THEME.marking), this.#infrastructure);
     this.#boxes(benches, this.#material('#8b7355'), this.#infrastructure, true);
     this.#boxes(railings, this.#material('#76877e'), this.#infrastructure);
     for (const [positions, color] of [
@@ -832,17 +833,17 @@ export class DistrictScene {
     const current = new Map(this.#state.report.perBuilding.map((b) => [b.buildingId, b])),
       before = new Map(this.#state.baseline.perBuilding.map((b) => [b.buildingId, b]));
     const threshold = this.#state.report.destinations[this.#state.metricId]!.thresholdSeconds;
-    const palette = ['#e8e1d2', '#d9cbb8', '#dedfd1', '#d9d7c7', '#ddd2c4'],
+    const palette = GIS_THEME.residential,
       random = deterministicRandom(201);
     this.#state.data.buildings.forEach((building, i) => {
       let color: string =
         building.kind === 'residential'
           ? palette[Math.floor(random() * palette.length)]!
           : building.kind === 'school'
-            ? '#bf9e87'
+            ? GIS_THEME.school
             : building.kind === 'clinic'
-              ? '#b2c7c8'
-              : '#c6c7bd';
+              ? GIS_THEME.clinic
+              : GIS_THEME.civic;
       const now = current.get(building.id)?.destinations[this.#state.metricId],
         old = before.get(building.id)?.destinations[this.#state.metricId];
       if (now && this.#settings.colorMode === 'accessibility')
@@ -850,9 +851,18 @@ export class DistrictScene {
       if (now && old && this.#settings.colorMode === 'change')
         color = differenceColor(old.travelSeconds, now.travelSeconds);
       this.#body.setColorAt(i, new THREE.Color(color));
-      this.#roof.setColorAt(i, new THREE.Color(color).lerp(new THREE.Color('#d7ded8'), 0.4));
+      // Keep analytical colors legible in plan view; brighten roofs only in the base map.
+      const roofColor = new THREE.Color(color).lerp(
+        new THREE.Color(GIS_THEME.roof),
+        this.#settings.colorMode === 'natural' ? 0.7 : 0.15,
+      );
+      this.#roof.setColorAt(i, roofColor);
       const complex = this.#complexBuildings.get(building.id);
-      if (complex) (complex.material as THREE.MeshStandardMaterial).color.set(color);
+      if (complex) {
+        const [roof, walls] = complex.material as THREE.MeshStandardMaterial[];
+        roof!.color.copy(roofColor);
+        walls!.color.set(color);
+      }
     });
     this.#body.instanceColor!.needsUpdate = true;
     this.#roof.instanceColor!.needsUpdate = true;
@@ -879,7 +889,7 @@ export class DistrictScene {
     this.#clear(this.#route);
     const selectedEdge = this.#state.data.edges.find((edge) => edge.id === this.#state.selectedId);
     if (selectedEdge) {
-      const highlight = lineSegments(selectedEdge.geometry, 1.8, '#166da3');
+      const highlight = lineSegments(selectedEdge.geometry, 1.8, GIS_THEME.selection);
       (highlight.material as THREE.LineBasicMaterial).depthTest = false;
       highlight.renderOrder = 3;
       this.#selection.add(highlight);
@@ -893,13 +903,23 @@ export class DistrictScene {
       );
       const outline = new THREE.LineSegments(
         geometry,
-        new THREE.LineBasicMaterial({ color: '#168d9a', depthTest: false, transparent: true, opacity: 0.95 }),
+        new THREE.LineBasicMaterial({
+          color: GIS_THEME.selection,
+          depthTest: false,
+          transparent: true,
+          opacity: 0.95,
+        }),
       );
       outline.position.copy(world(b.center, height / 2 + 1));
       this.#selection.add(outline);
       const marker = flatPolygon(
         building.polygon,
-        new THREE.MeshBasicMaterial({ color: '#5ab7b2', transparent: true, opacity: 0.5, depthWrite: false }),
+        new THREE.MeshBasicMaterial({
+          color: GIS_THEME.selectionHalo,
+          transparent: true,
+          opacity: 0.5,
+          depthWrite: false,
+        }),
         0.53,
       );
       marker.scale.set(1, 1, 1);
@@ -913,11 +933,11 @@ export class DistrictScene {
         curve.add(new THREE.LineCurve3(positions[i - 1]!, positions[i]!));
       const tube = new THREE.Mesh(
         new THREE.TubeGeometry(curve, Math.max(24, route.geometry.length * 4), 1.8, 5, false),
-        new THREE.MeshBasicMaterial({ color: '#168d9a' }),
+        new THREE.MeshBasicMaterial({ color: GIS_THEME.selection }),
       );
       this.#route.add(tube);
       const end = positions.at(-1)!,
-        target = this.#badge('✓', '#168d9a');
+        target = this.#badge('✓', GIS_THEME.selection);
       target.position.copy(end).add(new THREE.Vector3(0, 20, 0));
       target.scale.set(22, 22, 1);
       this.#route.add(target);
@@ -989,7 +1009,7 @@ export class DistrictScene {
       strength = Math.max(0.12, Math.sin(angle));
     this.#sun.position.set(-this.#radius * 0.65, this.#radius * (0.35 + strength), this.#radius * 0.7);
     this.#sun.intensity = 0.65 + strength * 2.2;
-    this.#sun.color.set(hour >= 18 ? '#ffd2a4' : '#fff4e3');
+    this.#sun.color.set(hour >= 18 ? '#ffd2a4' : '#fffaf2');
     this.#ambient.intensity = 0.7 + strength * 1.2;
     const bg = new THREE.Color(hour >= 19 ? '#c7cfd2' : DAY_BG);
     this.#scene.background = bg;

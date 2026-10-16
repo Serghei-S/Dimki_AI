@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GIS_THEME } from './theme.js';
 import type { DeepReadonly, DistrictData, DesignState, XY } from '../core/types.js';
 import type { EditHandle, EditorView } from './editor-types.js';
 import { EMPTY_EDITOR } from './editor-types.js';
@@ -47,10 +48,10 @@ export class EditorLayer {
         view.overlay?.mode === 'importance' && score
           ? new THREE.Color('#aebbb1').lerp(new THREE.Color('#de6650'), ratio).getStyle()
           : d.id === view.selectedId
-            ? '#1a99b1'
+            ? GIS_THEME.selection
             : edited.has(d.id)
               ? '#d89141'
-              : '#6d9683';
+              : GIS_THEME.marker;
       markers.push({
         point,
         height: 14,
@@ -85,13 +86,13 @@ export class EditorLayer {
     add(markers, new THREE.IcosahedronGeometry(1, 1));
     if (view.active && view.draft?.kind === 'park' && view.draft.polygon) {
       const object = view.draft;
-      this.group.add(lineSegments(object.polygon!, 2.3, '#2d94b6'));
+      this.group.add(lineSegments(object.polygon!, 2.3, GIS_THEME.selection));
       add(
         object.polygon!.slice(0, -1).map((point, index) => ({
           point,
           height: 3.7,
           size: 3.3,
-          color: '#428ca6',
+          color: GIS_THEME.selection,
           handle: { id: object.id, part: 'vertex', index },
         })),
         new THREE.BoxGeometry(1, 1, 1),
@@ -112,7 +113,7 @@ export class EditorLayer {
         new THREE.SphereGeometry(1, 8, 6),
       );
     }
-    if (view.polygon.length > 1) this.group.add(lineSegments(view.polygon, 3, '#3d9c9d', true));
+    if (view.polygon.length > 1) this.group.add(lineSegments(view.polygon, 3, GIS_THEME.selection, true));
     const overlay = view.overlay;
     if (overlay?.mode === 'needs' || overlay?.mode === 'vulnerability') {
       const scores = new Map<string, number>();
