@@ -35,6 +35,7 @@ import {
   Crosshair,
   Upload,
   ChevronDown,
+  FileText,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type {
@@ -59,6 +60,10 @@ import type { EditorView, EditorEvents } from '../map/editor-types.js';
 import { DISTRICTS } from './districts.js';
 import type { DistrictId } from './districts.js';
 import type { ScenarioHistory } from './state.js';
+import type { PlanningReport } from '../reports/report.js';
+const ReportAssistant = lazy(() =>
+  import('./ReportAssistant.js').then((m) => ({ default: m.ReportAssistant })),
+);
 import provenanceUrl from '../../data/obninsk-center.provenance.json?url';
 
 const METRICS: { id: string; name: string; heading: string; icon: LucideIcon }[] = [
@@ -125,12 +130,14 @@ function Dialog({
   children,
   onClose,
   wide = false,
+  report = false,
 }: {
   title: string;
   subtitle?: string;
   children: ReactNode;
   onClose: () => void;
   wide?: boolean;
+  report?: boolean;
 }) {
   const ref = useRef<HTMLDialogElement>(null),
     titleId = useRef(`dialog-${Math.random().toString(36).slice(2)}`);
@@ -141,7 +148,7 @@ function Dialog({
   return (
     <dialog
       ref={ref}
-      className={`dialog ${wide ? 'dialog--wide' : ''}`}
+      className={`dialog ${wide ? 'dialog--wide' : ''} ${report ? 'dialog--report' : ''}`}
       aria-labelledby={titleId.current}
       onCancel={onClose}
       onClick={(e) => {
@@ -236,6 +243,7 @@ function DistrictApp({
   const [previewScenario, setPreviewScenario] = useState<ScenarioInput | null>(null),
     [editorView, setEditorView] = useState<EditorView>(EMPTY_EDITOR);
   const [editorLaunch, setEditorLaunch] = useState(0);
+  const [reportSnapshot, setReportSnapshot] = useState<PlanningReport | null>(null);
   const editorEvents = useRef<EditorEvents | null>(null),
     costCache = useRef(new Map<string, number>());
   const scenarioRef = useRef(history.current);
@@ -615,18 +623,6 @@ function DistrictApp({
     <div className="application">
       <header className="topbar">
         <a className="brand" href="#" aria-label="Димки AI">
-          <span className="brand-symbol" aria-hidden="true">
-            <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
-              <path d="M6 24 13 8h6l7 16H6Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
-              <path
-                d="M11 24v3m10-3v3M12 19h8"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-              <circle cx="25" cy="7" r="3" fill="currentColor" />
-            </svg>
-          </span>
           <strong>
             Димки <b>AI</b>
           </strong>
@@ -654,6 +650,25 @@ function DistrictApp({
           </button>
         </nav>
         <div className="topbar-actions">
+          <button
+            className="report-open-button"
+            aria-label="Открыть отчёт и AI-помощника"
+            title={
+              before ? 'Переключите карту на «После», чтобы создать отчёт сценария' : 'Отчёт и AI-помощник'
+            }
+            disabled={!analysis || !data || busy || before || Boolean(previewScenario)}
+            onClick={() => {
+              if (!analysis || !data) return;
+              void import('../reports/report.js')
+                .then(({ makeReport }) => {
+                  setReportSnapshot(makeReport(data, analysis.result, analysis.baseline, analysis.profileId));
+                })
+                .catch(() => setToast('Не удалось создать отчёт. Повторите расчёт.'));
+            }}
+          >
+            <FileText size={17} />
+            <span>Отчёт</span>
+          </button>
           <button
             className="top-icon"
             aria-label="Сохранить изображение карты"
@@ -1776,6 +1791,18 @@ function DistrictApp({
             <X size={14} />
           </button>
         </div>
+      )}
+      {reportSnapshot && (
+        <Dialog
+          title="Отчёт по району"
+          subtitle={reportSnapshot.district}
+          report
+          onClose={() => setReportSnapshot(null)}
+        >
+          <Suspense fallback={<p className="studio-note">Готовим отчёт…</p>}>
+            <ReportAssistant snapshot={reportSnapshot} />
+          </Suspense>
+        </Dialog>
       )}
       {saveOpen && (
         <Dialog

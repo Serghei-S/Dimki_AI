@@ -5,4 +5,7 @@ __pycache__/
 node_modules/
 dist/
 web-dist/
+.env
+.env.*
+!.env.example
 ~$*

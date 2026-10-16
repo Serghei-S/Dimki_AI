@@ -55,6 +55,6 @@ await build({entryPoints: ['.tools/generated/validators.cjs'], outfile: '.tools/
 await mkdir('dist', {recursive: true});
 const compiler = spawnSync(process.execPath, [join(dirname(require.resolve('typescript/package.json')), 'bin', 'tsc'), '-p', 'tsconfig.json'], {stdio: 'inherit'});
 if (compiler.status !== 0) process.exit(compiler.status ?? 1);
-await build({entryPoints: {'engine': 'src/core/index.ts', 'engine.worker': 'src/core/engine.worker.ts', 'map-logic': 'src/map/logic.ts'},
+await build({entryPoints: {'engine': 'src/core/index.ts', 'engine.worker': 'src/core/engine.worker.ts', 'map-logic': 'src/map/logic.ts', 'report': 'src/reports/index.ts'},
   outdir: 'dist', bundle: true, platform: 'browser', format: 'esm', target: 'es2022', sourcemap: true, minify: true, legalComments: 'eof'});
 console.log('Built browser ESM, Worker, declarations and precompiled JSON Schema validators.');

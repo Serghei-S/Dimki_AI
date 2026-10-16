@@ -23,6 +23,7 @@ import {
 } from './geometry.js';
 import type { Point } from './geometry.js';
 import { SpatialIndex } from './spatial.js';
+import { createLawnSizer } from './lawns.js';
 import type { MotionPath } from './motion.js';
 import type { MapState, SceneCallbacks, ViewSettings } from './types.js';
 
@@ -633,7 +634,8 @@ export class DistrictScene {
     this.#clear(this.#trees);
     const data = this.#state.data,
       random = deterministicRandom(1840),
-      positions: { p: Point; height: number; radius: number; color: string }[] = [];
+      positions: { p: Point; height: number; radius: number; lawnRadius: number; color: string }[] = [];
+    const lawnSize = createLawnSizer(data);
     const parks = data.parcels.filter((p) => p.kind === 'public_park'),
       vacant = data.parcels.filter((p) => p.kind === 'vacant');
     const edges = data.edges.filter((e) => e.active && e.kind !== 'crossing');
@@ -680,14 +682,34 @@ export class DistrictScene {
             continue;
           if (buildingsIndex.at(p[0], p[1]).length) continue;
           if (pathsIndex.at(p[0], p[1]).some((s) => distanceToSegment(p, s.a, s.b) < s.margin)) continue;
+          const lawnRadius = lawnSize(p, block.polygon, 11);
+          if (lawnRadius < 1.2) continue;
           positions.push({
             p,
+            lawnRadius,
             height: 8 + random() * 6,
             radius: 3.8 + random() * 2.7,
             color: ['#7f9c72', '#698f70', '#92a77a', '#759a85'][Math.floor(random() * 4)]!,
           });
         }
     }
+    // One instanced draw for all lawns; the clearance radius keeps grass off paths and buildings.
+    const grass = new THREE.InstancedMesh(
+      new THREE.CircleGeometry(1, 24),
+      this.#material('#99bd88'),
+      Math.max(1, positions.length),
+    );
+    grass.count = positions.length;
+    const lawnTransform = new THREE.Object3D();
+    positions.forEach((t, i) => {
+      lawnTransform.position.copy(world(t.p, 0.3));
+      lawnTransform.rotation.x = -Math.PI / 2;
+      lawnTransform.scale.set(t.lawnRadius, t.lawnRadius, 1);
+      lawnTransform.updateMatrix();
+      grass.setMatrixAt(i, lawnTransform.matrix);
+    });
+    grass.receiveShadow = true;
+    this.#trees.add(grass);
     this.#boxes(
       positions.map((t) => ({ point: t.p, y: t.height * 0.3, size: [0.75, t.height * 0.6, 0.75] })),
       this.#material('#8e8267'),
