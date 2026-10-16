@@ -1,0 +1,411 @@
+{
+  "type": "FeatureCollection",
+  "name": "obninsk-fictional-district-01",
+  "datasetVersion": "1.0.0",
+  "coordinateNotice": "RFC 7946 longitude,latitude; approximate display only. Canonical geometry is local metres in district.json.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "dest_b01_sw",
+      "properties": {
+        "id": "dest_b01_sw",
+        "name": "Продуктовый магазин 1.2",
+        "kind": "grocery",
+        "active": true,
+        "accessNodeIds": [
+          "building_b01_sw_entrance"
+        ],
+        "parcelId": "parcel_b01_sw",
+        "buildingId": "building_b01_sw",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "08:00-20:00 (model assumes open)",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10100724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "park_b02",
+      "properties": {
+        "id": "park_b02",
+        "name": "Сквер 1.3",
+        "kind": "park",
+        "active": true,
+        "accessNodeIds": [
+          "b02_nw_park_gate"
+        ],
+        "parcelId": "parcel_b02_nw",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "24/7",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.1017267
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "park_b10",
+      "properties": {
+        "id": "park_b10",
+        "name": "Сквер 2.1",
+        "kind": "park",
+        "active": false,
+        "accessNodeIds": [
+          "b10_ne_park_gate"
+        ],
+        "parcelId": "parcel_b10_ne",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "24/7",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10460452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "dest_b11_nw",
+      "properties": {
+        "id": "dest_b11_nw",
+        "name": "Школа 2.2",
+        "kind": "school",
+        "active": true,
+        "accessNodeIds": [
+          "building_b11_nw_entrance"
+        ],
+        "parcelId": "parcel_b11_nw",
+        "buildingId": "building_b11_nw",
+        "stopBayId": null,
+        "capacity": 650,
+        "openingHours": "08:00-20:00 (model assumes open)",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10474841
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "dest_b12_se",
+      "properties": {
+        "id": "dest_b12_se",
+        "name": "Поликлиника 2.3",
+        "kind": "clinic",
+        "active": true,
+        "accessNodeIds": [
+          "building_b12_se_entrance"
+        ],
+        "parcelId": "parcel_b12_se",
+        "buildingId": "building_b12_se",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "08:00-20:00 (model assumes open)",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10388506
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "park_main",
+      "properties": {
+        "id": "park_main",
+        "name": "Сосновый парк",
+        "kind": "park",
+        "active": true,
+        "accessNodeIds": [
+          "b13_gate_w",
+          "b13_gate_e",
+          "b13_gate_s",
+          "b13_gate_n"
+        ],
+        "parcelId": "parcel_b13_park",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "24/7",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61574981,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "dest_b21_sw",
+      "properties": {
+        "id": "dest_b21_sw",
+        "name": "Продуктовый магазин 3.2",
+        "kind": "grocery",
+        "active": true,
+        "accessNodeIds": [
+          "building_b21_sw_entrance"
+        ],
+        "parcelId": "parcel_b21_sw",
+        "buildingId": "building_b21_sw",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "08:00-20:00 (model assumes open)",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10676289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "dest_b21_nw",
+      "properties": {
+        "id": "dest_b21_nw",
+        "name": "Районный центр 3.2",
+        "kind": "community",
+        "active": true,
+        "accessNodeIds": [
+          "building_b21_nw_entrance"
+        ],
+        "parcelId": "parcel_b21_nw",
+        "buildingId": "building_b21_nw",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "08:00-20:00 (model assumes open)",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10762624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "park_b22",
+      "properties": {
+        "id": "park_b22",
+        "name": "Сквер 3.3",
+        "kind": "park",
+        "active": false,
+        "accessNodeIds": [
+          "b22_ne_park_gate"
+        ],
+        "parcelId": "parcel_b22_ne",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "24/7",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10748235
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "dest_b23_nw",
+      "properties": {
+        "id": "dest_b23_nw",
+        "name": "Школа 3.4",
+        "kind": "school",
+        "active": true,
+        "accessNodeIds": [
+          "building_b23_nw_entrance"
+        ],
+        "parcelId": "parcel_b23_nw",
+        "buildingId": "building_b23_nw",
+        "stopBayId": null,
+        "capacity": 650,
+        "openingHours": "08:00-20:00 (model assumes open)",
+        "routeIds": [],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10762624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "stop_west",
+      "properties": {
+        "id": "stop_west",
+        "name": "Западная",
+        "kind": "bus_stop",
+        "active": true,
+        "accessNodeIds": [
+          "b00_e"
+        ],
+        "parcelId": null,
+        "buildingId": null,
+        "stopBayId": "bay_b00_e",
+        "capacity": null,
+        "openingHours": "24/7",
+        "routeIds": [
+          "bus_a"
+        ],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "stop_central_w",
+      "properties": {
+        "id": "stop_central_w",
+        "name": "Центральная запад",
+        "kind": "bus_stop",
+        "active": true,
+        "accessNodeIds": [
+          "b11_e"
+        ],
+        "parcelId": null,
+        "buildingId": null,
+        "stopBayId": "bay_b11_e",
+        "capacity": null,
+        "openingHours": "24/7",
+        "routeIds": [
+          "bus_a"
+        ],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "stop_central_e",
+      "properties": {
+        "id": "stop_central_e",
+        "name": "Центральная восток",
+        "kind": "bus_stop",
+        "active": true,
+        "accessNodeIds": [
+          "b12_w"
+        ],
+        "parcelId": null,
+        "buildingId": null,
+        "stopBayId": "bay_b12_w",
+        "capacity": null,
+        "openingHours": "24/7",
+        "routeIds": [
+          "bus_a"
+        ],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "stop_east",
+      "properties": {
+        "id": "stop_east",
+        "name": "Восточная",
+        "kind": "bus_stop",
+        "active": true,
+        "accessNodeIds": [
+          "b23_w"
+        ],
+        "parcelId": null,
+        "buildingId": null,
+        "stopBayId": "bay_b23_w",
+        "capacity": null,
+        "openingHours": "24/7",
+        "routeIds": [
+          "bus_a"
+        ],
+        "displayPointRule": "first access node; accessNodeIds are routing authority",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10719456
+        ]
+      }
+    }
+  ]
+}

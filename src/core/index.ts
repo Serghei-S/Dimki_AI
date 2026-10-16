@@ -1,0 +1,11 @@
+export type * from './types.js';
+export { PlanningEngine, createPlanningEngine } from './engine.js';
+export { EngineError } from './errors.js';
+export { EngineWorkerClient } from './worker-client.js';
+export { createWorkerRuntime } from './worker-runtime.js';
+export type { WorkerRequest, WorkerResponse } from './worker-runtime.js';
+export { compareMetrics, defaultMetrics } from './metrics.js';
+export { edgeBlockReason, edgeTravelSeconds, compileTopology, buildRoutingGraph, shortestToTargets } from './graph.js';
+export type { Topology, RoutingGraph, RouteTree } from './graph.js';
+export type { ErrorCode } from './errors.js';
+export { compareOptimizationScores, OPTIMIZER_RANKING } from './optimizer.js';

@@ -1,0 +1,1240 @@
+[
+  {
+    "projectId": "p_cross_south",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 1563,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7073,
+          "coverageDeltaPercentagePoints": 8.337
+        },
+        "school": {
+          "improvedResidents": 352,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8284,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 1450,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7186,
+          "coverageDeltaPercentagePoints": 1.702
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 3013,
+          "worsenedResidents": 0,
+          "unchangedResidents": 5623,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 840,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7796,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 3013,
+          "worsenedResidents": 0,
+          "unchangedResidents": 5623,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 1780,
+          "worsenedResidents": 0,
+          "unchangedResidents": 6856,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 1563,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7073,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 840,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7796,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 1450,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7186,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_cross_central",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 1563,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7073,
+          "coverageDeltaPercentagePoints": 8.337
+        },
+        "school": {
+          "improvedResidents": 352,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8284,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 1450,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7186,
+          "coverageDeltaPercentagePoints": 1.702
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 3013,
+          "worsenedResidents": 0,
+          "unchangedResidents": 5623,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 1373,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7263,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 3013,
+          "worsenedResidents": 0,
+          "unchangedResidents": 5623,
+          "coverageDeltaPercentagePoints": 8.337
+        },
+        "grocery": {
+          "improvedResidents": 1780,
+          "worsenedResidents": 0,
+          "unchangedResidents": 6856,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 1563,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7073,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 840,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7796,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 1450,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7186,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_kerbs",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 3013,
+          "worsenedResidents": 0,
+          "unchangedResidents": 5623,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 885,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7751,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 3013,
+          "worsenedResidents": 0,
+          "unchangedResidents": 5623,
+          "coverageDeltaPercentagePoints": 8.337
+        },
+        "grocery": {
+          "improvedResidents": 1780,
+          "worsenedResidents": 0,
+          "unchangedResidents": 6856,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_ramp",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 940,
+          "worsenedResidents": 0,
+          "unchangedResidents": 7696,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 543,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8093,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_passage_b10",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_passage_b02",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 352,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8284,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 352,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8284,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 352,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8284,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_park_b10",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 4255,
+          "worsenedResidents": 0,
+          "unchangedResidents": 4381,
+          "coverageDeltaPercentagePoints": 42.45
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 4753,
+          "worsenedResidents": 0,
+          "unchangedResidents": 3883,
+          "coverageDeltaPercentagePoints": 18.099
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 4255,
+          "worsenedResidents": 0,
+          "unchangedResidents": 4381,
+          "coverageDeltaPercentagePoints": 18.099
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_park_b22",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 4261,
+          "worsenedResidents": 0,
+          "unchangedResidents": 4375,
+          "coverageDeltaPercentagePoints": 6.82
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 5711,
+          "worsenedResidents": 0,
+          "unchangedResidents": 2925,
+          "coverageDeltaPercentagePoints": 13.826
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 4261,
+          "worsenedResidents": 0,
+          "unchangedResidents": 4375,
+          "coverageDeltaPercentagePoints": 13.826
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_stop_north",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 2107,
+          "worsenedResidents": 1563,
+          "unchangedResidents": 4966,
+          "coverageDeltaPercentagePoints": 6.716
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 2107,
+          "worsenedResidents": 1563,
+          "unchangedResidents": 4966,
+          "coverageDeltaPercentagePoints": -5.419
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 2107,
+          "worsenedResidents": 1563,
+          "unchangedResidents": 4966,
+          "coverageDeltaPercentagePoints": -5.419
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_stop_south",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 498,
+          "worsenedResidents": 3303,
+          "unchangedResidents": 4835,
+          "coverageDeltaPercentagePoints": -6.82
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 498,
+          "worsenedResidents": 3303,
+          "unchangedResidents": 4835,
+          "coverageDeltaPercentagePoints": -12.239
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 498,
+          "worsenedResidents": 3303,
+          "unchangedResidents": 4835,
+          "coverageDeltaPercentagePoints": -12.239
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_stop_east_north",
+    "contextProjectIds": [],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 2107,
+          "worsenedResidents": 2464,
+          "unchangedResidents": 4065,
+          "coverageDeltaPercentagePoints": -4.076
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 2107,
+          "worsenedResidents": 2464,
+          "unchangedResidents": 4065,
+          "coverageDeltaPercentagePoints": -1.1
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 2107,
+          "worsenedResidents": 2464,
+          "unchangedResidents": 4065,
+          "coverageDeltaPercentagePoints": -1.1
+        },
+        "park": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  },
+  {
+    "projectId": "p_park_paving",
+    "contextProjectIds": [
+      "p_park_b10"
+    ],
+    "changesFromContext": {
+      "walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 4255,
+          "worsenedResidents": 0,
+          "unchangedResidents": 4381,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "step_free": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 4753,
+          "worsenedResidents": 0,
+          "unchangedResidents": 3883,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      },
+      "slow_walk": {
+        "bus_stop": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "park": {
+          "improvedResidents": 4255,
+          "worsenedResidents": 0,
+          "unchangedResidents": 4381,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "school": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "clinic": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        },
+        "grocery": {
+          "improvedResidents": 0,
+          "worsenedResidents": 0,
+          "unchangedResidents": 8636,
+          "coverageDeltaPercentagePoints": 0.0
+        }
+      }
+    },
+    "note": "Counts are per destination type and profile; do not sum them as unique residents. Zero immediate effect is valid; benefits may depend on other projects."
+  }
+]

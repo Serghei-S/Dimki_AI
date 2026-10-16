@@ -1,0 +1,377 @@
+{
+  "type": "FeatureCollection",
+  "name": "obninsk-fictional-district-01",
+  "datasetVersion": "1.0.0",
+  "coordinateNotice": "RFC 7946 longitude,latitude; approximate display only. Canonical geometry is local metres in district.json.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "road_v0",
+      "properties": {
+        "id": "road_v0",
+        "name": "Условная улица 1",
+        "axis": "vertical",
+        "centerM": 0,
+        "widthM": 24,
+        "speedLimitKmh": 30,
+        "lanes": 2,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.59981138,
+              55.09974819
+            ],
+            [
+              36.60018862,
+              55.09974819
+            ],
+            [
+              36.60018862,
+              55.10888529
+            ],
+            [
+              36.59981138,
+              55.10888529
+            ],
+            [
+              36.59981138,
+              55.09974819
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_v1",
+      "properties": {
+        "id": "road_v1",
+        "name": "Условная улица 2",
+        "axis": "vertical",
+        "centerM": 320,
+        "widthM": 20,
+        "speedLimitKmh": 30,
+        "lanes": 2,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.6048727,
+              55.09974819
+            ],
+            [
+              36.60518706,
+              55.09974819
+            ],
+            [
+              36.60518706,
+              55.10888529
+            ],
+            [
+              36.6048727,
+              55.10888529
+            ],
+            [
+              36.6048727,
+              55.09974819
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_v2",
+      "properties": {
+        "id": "road_v2",
+        "name": "Условная улица 3",
+        "axis": "vertical",
+        "centerM": 640,
+        "widthM": 30,
+        "speedLimitKmh": 40,
+        "lanes": 4,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60982398,
+              55.09974819
+            ],
+            [
+              36.61029554,
+              55.09974819
+            ],
+            [
+              36.61029554,
+              55.10888529
+            ],
+            [
+              36.60982398,
+              55.10888529
+            ],
+            [
+              36.60982398,
+              55.09974819
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_v3",
+      "properties": {
+        "id": "road_v3",
+        "name": "Условная улица 4",
+        "axis": "vertical",
+        "centerM": 960,
+        "widthM": 20,
+        "speedLimitKmh": 30,
+        "lanes": 2,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61493246,
+              55.09974819
+            ],
+            [
+              36.61524682,
+              55.09974819
+            ],
+            [
+              36.61524682,
+              55.10888529
+            ],
+            [
+              36.61493246,
+              55.10888529
+            ],
+            [
+              36.61493246,
+              55.09974819
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_v4",
+      "properties": {
+        "id": "road_v4",
+        "name": "Условная улица 5",
+        "axis": "vertical",
+        "centerM": 1280,
+        "widthM": 24,
+        "speedLimitKmh": 30,
+        "lanes": 2,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.6199309,
+              55.09974819
+            ],
+            [
+              36.62030814,
+              55.09974819
+            ],
+            [
+              36.62030814,
+              55.10888529
+            ],
+            [
+              36.6199309,
+              55.10888529
+            ],
+            [
+              36.6199309,
+              55.09974819
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_h0",
+      "properties": {
+        "id": "road_h0",
+        "name": "Условный проезд 1",
+        "axis": "horizontal",
+        "centerM": 0,
+        "widthM": 24,
+        "speedLimitKmh": 30,
+        "lanes": 2,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.59955989,
+              55.09989208
+            ],
+            [
+              36.62055964,
+              55.09989208
+            ],
+            [
+              36.62055964,
+              55.10010792
+            ],
+            [
+              36.59955989,
+              55.10010792
+            ],
+            [
+              36.59955989,
+              55.09989208
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_h1",
+      "properties": {
+        "id": "road_h1",
+        "name": "Условный проезд 2",
+        "axis": "horizontal",
+        "centerM": 320,
+        "widthM": 20,
+        "speedLimitKmh": 30,
+        "lanes": 2,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.59955989,
+              55.10278789
+            ],
+            [
+              36.62055964,
+              55.10278789
+            ],
+            [
+              36.62055964,
+              55.10296776
+            ],
+            [
+              36.59955989,
+              55.10296776
+            ],
+            [
+              36.59955989,
+              55.10278789
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_h2",
+      "properties": {
+        "id": "road_h2",
+        "name": "Условный проезд 3",
+        "axis": "horizontal",
+        "centerM": 640,
+        "widthM": 24,
+        "speedLimitKmh": 30,
+        "lanes": 2,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.59955989,
+              55.10564773
+            ],
+            [
+              36.62055964,
+              55.10564773
+            ],
+            [
+              36.62055964,
+              55.10586357
+            ],
+            [
+              36.59955989,
+              55.10586357
+            ],
+            [
+              36.59955989,
+              55.10564773
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "road_h3",
+      "properties": {
+        "id": "road_h3",
+        "name": "Условный проезд 4",
+        "axis": "horizontal",
+        "centerM": 960,
+        "widthM": 24,
+        "speedLimitKmh": 30,
+        "lanes": 2,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.59955989,
+              55.10852556
+            ],
+            [
+              36.62055964,
+              55.10852556
+            ],
+            [
+              36.62055964,
+              55.10874139
+            ],
+            [
+              36.59955989,
+              55.10874139
+            ],
+            [
+              36.59955989,
+              55.10852556
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

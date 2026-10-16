@@ -1,0 +1,1863 @@
+{
+  "type": "FeatureCollection",
+  "name": "obninsk-fictional-district-01",
+  "datasetVersion": "1.0.0",
+  "coordinateNotice": "RFC 7946 longitude,latitude; approximate display only. Canonical geometry is local metres in district.json.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "parcel_b00_sw",
+      "properties": {
+        "id": "parcel_b00_sw",
+        "blockId": "b00",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60066017,
+              55.10043167
+            ],
+            [
+              36.60201195,
+              55.10043167
+            ],
+            [
+              36.60201195,
+              55.10109717
+            ],
+            [
+              36.60066017,
+              55.10109717
+            ],
+            [
+              36.60066017,
+              55.10043167
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b00_se",
+      "properties": {
+        "id": "parcel_b00_se",
+        "blockId": "b00",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60301793,
+              55.10043167
+            ],
+            [
+              36.60436971,
+              55.10043167
+            ],
+            [
+              36.60436971,
+              55.10109717
+            ],
+            [
+              36.60301793,
+              55.10109717
+            ],
+            [
+              36.60301793,
+              55.10043167
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b00_nw",
+      "properties": {
+        "id": "parcel_b00_nw",
+        "blockId": "b00",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60066017,
+              55.10178065
+            ],
+            [
+              36.60201195,
+              55.10178065
+            ],
+            [
+              36.60201195,
+              55.10244615
+            ],
+            [
+              36.60066017,
+              55.10244615
+            ],
+            [
+              36.60066017,
+              55.10178065
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b00_ne",
+      "properties": {
+        "id": "parcel_b00_ne",
+        "blockId": "b00",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60301793,
+              55.10178065
+            ],
+            [
+              36.60436971,
+              55.10178065
+            ],
+            [
+              36.60436971,
+              55.10244615
+            ],
+            [
+              36.60301793,
+              55.10244615
+            ],
+            [
+              36.60301793,
+              55.10178065
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b01_sw",
+      "properties": {
+        "id": "parcel_b01_sw",
+        "blockId": "b01",
+        "kind": "public_service",
+        "name": "Общественный объект",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60569005,
+              55.10043167
+            ],
+            [
+              36.60704183,
+              55.10043167
+            ],
+            [
+              36.60704183,
+              55.10109717
+            ],
+            [
+              36.60569005,
+              55.10109717
+            ],
+            [
+              36.60569005,
+              55.10043167
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b01_se",
+      "properties": {
+        "id": "parcel_b01_se",
+        "blockId": "b01",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60804781,
+              55.10043167
+            ],
+            [
+              36.60939959,
+              55.10043167
+            ],
+            [
+              36.60939959,
+              55.10109717
+            ],
+            [
+              36.60804781,
+              55.10109717
+            ],
+            [
+              36.60804781,
+              55.10043167
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b01_nw",
+      "properties": {
+        "id": "parcel_b01_nw",
+        "blockId": "b01",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60569005,
+              55.10178065
+            ],
+            [
+              36.60704183,
+              55.10178065
+            ],
+            [
+              36.60704183,
+              55.10244615
+            ],
+            [
+              36.60569005,
+              55.10244615
+            ],
+            [
+              36.60569005,
+              55.10178065
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b01_ne",
+      "properties": {
+        "id": "parcel_b01_ne",
+        "blockId": "b01",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60804781,
+              55.10178065
+            ],
+            [
+              36.60939959,
+              55.10178065
+            ],
+            [
+              36.60939959,
+              55.10244615
+            ],
+            [
+              36.60804781,
+              55.10244615
+            ],
+            [
+              36.60804781,
+              55.10178065
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b02_sw",
+      "properties": {
+        "id": "parcel_b02_sw",
+        "blockId": "b02",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61071993,
+              55.10043167
+            ],
+            [
+              36.61207171,
+              55.10043167
+            ],
+            [
+              36.61207171,
+              55.10109717
+            ],
+            [
+              36.61071993,
+              55.10109717
+            ],
+            [
+              36.61071993,
+              55.10043167
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b02_se",
+      "properties": {
+        "id": "parcel_b02_se",
+        "blockId": "b02",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61307769,
+              55.10043167
+            ],
+            [
+              36.61442947,
+              55.10043167
+            ],
+            [
+              36.61442947,
+              55.10109717
+            ],
+            [
+              36.61307769,
+              55.10109717
+            ],
+            [
+              36.61307769,
+              55.10043167
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b02_nw",
+      "properties": {
+        "id": "parcel_b02_nw",
+        "blockId": "b02",
+        "kind": "public_park",
+        "name": "Сквер у дома",
+        "areaM2": 7396.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61071993,
+              55.1017267
+            ],
+            [
+              36.61207171,
+              55.1017267
+            ],
+            [
+              36.61207171,
+              55.10250011
+            ],
+            [
+              36.61071993,
+              55.10250011
+            ],
+            [
+              36.61071993,
+              55.1017267
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b02_ne",
+      "properties": {
+        "id": "parcel_b02_ne",
+        "blockId": "b02",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61307769,
+              55.10178065
+            ],
+            [
+              36.61442947,
+              55.10178065
+            ],
+            [
+              36.61442947,
+              55.10244615
+            ],
+            [
+              36.61307769,
+              55.10244615
+            ],
+            [
+              36.61307769,
+              55.10178065
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b03_sw",
+      "properties": {
+        "id": "parcel_b03_sw",
+        "blockId": "b03",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61574981,
+              55.10043167
+            ],
+            [
+              36.61710159,
+              55.10043167
+            ],
+            [
+              36.61710159,
+              55.10109717
+            ],
+            [
+              36.61574981,
+              55.10109717
+            ],
+            [
+              36.61574981,
+              55.10043167
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b03_se",
+      "properties": {
+        "id": "parcel_b03_se",
+        "blockId": "b03",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61810757,
+              55.10043167
+            ],
+            [
+              36.61945935,
+              55.10043167
+            ],
+            [
+              36.61945935,
+              55.10109717
+            ],
+            [
+              36.61810757,
+              55.10109717
+            ],
+            [
+              36.61810757,
+              55.10043167
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b03_nw",
+      "properties": {
+        "id": "parcel_b03_nw",
+        "blockId": "b03",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61574981,
+              55.10178065
+            ],
+            [
+              36.61710159,
+              55.10178065
+            ],
+            [
+              36.61710159,
+              55.10244615
+            ],
+            [
+              36.61574981,
+              55.10244615
+            ],
+            [
+              36.61574981,
+              55.10178065
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b03_ne",
+      "properties": {
+        "id": "parcel_b03_ne",
+        "blockId": "b03",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61810757,
+              55.10178065
+            ],
+            [
+              36.61945935,
+              55.10178065
+            ],
+            [
+              36.61945935,
+              55.10244615
+            ],
+            [
+              36.61810757,
+              55.10244615
+            ],
+            [
+              36.61810757,
+              55.10178065
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b10_sw",
+      "properties": {
+        "id": "parcel_b10_sw",
+        "blockId": "b10",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60066017,
+              55.1033095
+            ],
+            [
+              36.60201195,
+              55.1033095
+            ],
+            [
+              36.60201195,
+              55.103975
+            ],
+            [
+              36.60066017,
+              55.103975
+            ],
+            [
+              36.60066017,
+              55.1033095
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b10_se",
+      "properties": {
+        "id": "parcel_b10_se",
+        "blockId": "b10",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60301793,
+              55.1033095
+            ],
+            [
+              36.60436971,
+              55.1033095
+            ],
+            [
+              36.60436971,
+              55.103975
+            ],
+            [
+              36.60301793,
+              55.103975
+            ],
+            [
+              36.60301793,
+              55.1033095
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b10_nw",
+      "properties": {
+        "id": "parcel_b10_nw",
+        "blockId": "b10",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60066017,
+              55.10465848
+            ],
+            [
+              36.60201195,
+              55.10465848
+            ],
+            [
+              36.60201195,
+              55.10532398
+            ],
+            [
+              36.60066017,
+              55.10532398
+            ],
+            [
+              36.60066017,
+              55.10465848
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b10_ne",
+      "properties": {
+        "id": "parcel_b10_ne",
+        "blockId": "b10",
+        "kind": "vacant",
+        "name": "Свободный участок для сквера",
+        "areaM2": 7396.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60301793,
+              55.10460452
+            ],
+            [
+              36.60436971,
+              55.10460452
+            ],
+            [
+              36.60436971,
+              55.10537794
+            ],
+            [
+              36.60301793,
+              55.10537794
+            ],
+            [
+              36.60301793,
+              55.10460452
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b11_sw",
+      "properties": {
+        "id": "parcel_b11_sw",
+        "blockId": "b11",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60569005,
+              55.1033095
+            ],
+            [
+              36.60704183,
+              55.1033095
+            ],
+            [
+              36.60704183,
+              55.103975
+            ],
+            [
+              36.60569005,
+              55.103975
+            ],
+            [
+              36.60569005,
+              55.1033095
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b11_se",
+      "properties": {
+        "id": "parcel_b11_se",
+        "blockId": "b11",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60804781,
+              55.1033095
+            ],
+            [
+              36.60939959,
+              55.1033095
+            ],
+            [
+              36.60939959,
+              55.103975
+            ],
+            [
+              36.60804781,
+              55.103975
+            ],
+            [
+              36.60804781,
+              55.1033095
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b11_nw",
+      "properties": {
+        "id": "parcel_b11_nw",
+        "blockId": "b11",
+        "kind": "school",
+        "name": "Ограждённый школьный участок",
+        "areaM2": 9016.0,
+        "active": true,
+        "fence": {
+          "gateNodeIds": [
+            "building_b11_nw_gate"
+          ],
+          "publicThroughAccess": false
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60559574,
+              55.10460452
+            ],
+            [
+              36.60713614,
+              55.10460452
+            ],
+            [
+              36.60713614,
+              55.10543189
+            ],
+            [
+              36.60559574,
+              55.10543189
+            ],
+            [
+              36.60559574,
+              55.10460452
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b11_ne",
+      "properties": {
+        "id": "parcel_b11_ne",
+        "blockId": "b11",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60804781,
+              55.10465848
+            ],
+            [
+              36.60939959,
+              55.10465848
+            ],
+            [
+              36.60939959,
+              55.10532398
+            ],
+            [
+              36.60804781,
+              55.10532398
+            ],
+            [
+              36.60804781,
+              55.10465848
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b12_sw",
+      "properties": {
+        "id": "parcel_b12_sw",
+        "blockId": "b12",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61071993,
+              55.1033095
+            ],
+            [
+              36.61207171,
+              55.1033095
+            ],
+            [
+              36.61207171,
+              55.103975
+            ],
+            [
+              36.61071993,
+              55.103975
+            ],
+            [
+              36.61071993,
+              55.1033095
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b12_se",
+      "properties": {
+        "id": "parcel_b12_se",
+        "blockId": "b12",
+        "kind": "public_service",
+        "name": "Общественный объект",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61307769,
+              55.1033095
+            ],
+            [
+              36.61442947,
+              55.1033095
+            ],
+            [
+              36.61442947,
+              55.103975
+            ],
+            [
+              36.61307769,
+              55.103975
+            ],
+            [
+              36.61307769,
+              55.1033095
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b12_nw",
+      "properties": {
+        "id": "parcel_b12_nw",
+        "blockId": "b12",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61071993,
+              55.10465848
+            ],
+            [
+              36.61207171,
+              55.10465848
+            ],
+            [
+              36.61207171,
+              55.10532398
+            ],
+            [
+              36.61071993,
+              55.10532398
+            ],
+            [
+              36.61071993,
+              55.10465848
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b12_ne",
+      "properties": {
+        "id": "parcel_b12_ne",
+        "blockId": "b12",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61307769,
+              55.10465848
+            ],
+            [
+              36.61442947,
+              55.10465848
+            ],
+            [
+              36.61442947,
+              55.10532398
+            ],
+            [
+              36.61307769,
+              55.10532398
+            ],
+            [
+              36.61307769,
+              55.10465848
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b13_park",
+      "properties": {
+        "id": "parcel_b13_park",
+        "blockId": "b13",
+        "kind": "public_park",
+        "name": "Сосновый парк",
+        "areaM2": 55696.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61574981,
+              55.10325554
+            ],
+            [
+              36.61945935,
+              55.10325554
+            ],
+            [
+              36.61945935,
+              55.10537794
+            ],
+            [
+              36.61574981,
+              55.10537794
+            ],
+            [
+              36.61574981,
+              55.10325554
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b20_sw",
+      "properties": {
+        "id": "parcel_b20_sw",
+        "blockId": "b20",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60066017,
+              55.10618732
+            ],
+            [
+              36.60201195,
+              55.10618732
+            ],
+            [
+              36.60201195,
+              55.10685282
+            ],
+            [
+              36.60066017,
+              55.10685282
+            ],
+            [
+              36.60066017,
+              55.10618732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b20_se",
+      "properties": {
+        "id": "parcel_b20_se",
+        "blockId": "b20",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60301793,
+              55.10618732
+            ],
+            [
+              36.60436971,
+              55.10618732
+            ],
+            [
+              36.60436971,
+              55.10685282
+            ],
+            [
+              36.60301793,
+              55.10685282
+            ],
+            [
+              36.60301793,
+              55.10618732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b20_nw",
+      "properties": {
+        "id": "parcel_b20_nw",
+        "blockId": "b20",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60066017,
+              55.1075363
+            ],
+            [
+              36.60201195,
+              55.1075363
+            ],
+            [
+              36.60201195,
+              55.1082018
+            ],
+            [
+              36.60066017,
+              55.1082018
+            ],
+            [
+              36.60066017,
+              55.1075363
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b20_ne",
+      "properties": {
+        "id": "parcel_b20_ne",
+        "blockId": "b20",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60301793,
+              55.1075363
+            ],
+            [
+              36.60436971,
+              55.1075363
+            ],
+            [
+              36.60436971,
+              55.1082018
+            ],
+            [
+              36.60301793,
+              55.1082018
+            ],
+            [
+              36.60301793,
+              55.1075363
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b21_sw",
+      "properties": {
+        "id": "parcel_b21_sw",
+        "blockId": "b21",
+        "kind": "public_service",
+        "name": "Общественный объект",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60569005,
+              55.10618732
+            ],
+            [
+              36.60704183,
+              55.10618732
+            ],
+            [
+              36.60704183,
+              55.10685282
+            ],
+            [
+              36.60569005,
+              55.10685282
+            ],
+            [
+              36.60569005,
+              55.10618732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b21_se",
+      "properties": {
+        "id": "parcel_b21_se",
+        "blockId": "b21",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60804781,
+              55.10618732
+            ],
+            [
+              36.60939959,
+              55.10618732
+            ],
+            [
+              36.60939959,
+              55.10685282
+            ],
+            [
+              36.60804781,
+              55.10685282
+            ],
+            [
+              36.60804781,
+              55.10618732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b21_nw",
+      "properties": {
+        "id": "parcel_b21_nw",
+        "blockId": "b21",
+        "kind": "public_service",
+        "name": "Общественный объект",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60569005,
+              55.1075363
+            ],
+            [
+              36.60704183,
+              55.1075363
+            ],
+            [
+              36.60704183,
+              55.1082018
+            ],
+            [
+              36.60569005,
+              55.1082018
+            ],
+            [
+              36.60569005,
+              55.1075363
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b21_ne",
+      "properties": {
+        "id": "parcel_b21_ne",
+        "blockId": "b21",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60804781,
+              55.1075363
+            ],
+            [
+              36.60939959,
+              55.1075363
+            ],
+            [
+              36.60939959,
+              55.1082018
+            ],
+            [
+              36.60804781,
+              55.1082018
+            ],
+            [
+              36.60804781,
+              55.1075363
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b22_sw",
+      "properties": {
+        "id": "parcel_b22_sw",
+        "blockId": "b22",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61071993,
+              55.10618732
+            ],
+            [
+              36.61207171,
+              55.10618732
+            ],
+            [
+              36.61207171,
+              55.10685282
+            ],
+            [
+              36.61071993,
+              55.10685282
+            ],
+            [
+              36.61071993,
+              55.10618732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b22_se",
+      "properties": {
+        "id": "parcel_b22_se",
+        "blockId": "b22",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61307769,
+              55.10618732
+            ],
+            [
+              36.61442947,
+              55.10618732
+            ],
+            [
+              36.61442947,
+              55.10685282
+            ],
+            [
+              36.61307769,
+              55.10685282
+            ],
+            [
+              36.61307769,
+              55.10618732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b22_nw",
+      "properties": {
+        "id": "parcel_b22_nw",
+        "blockId": "b22",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61071993,
+              55.1075363
+            ],
+            [
+              36.61207171,
+              55.1075363
+            ],
+            [
+              36.61207171,
+              55.1082018
+            ],
+            [
+              36.61071993,
+              55.1082018
+            ],
+            [
+              36.61071993,
+              55.1075363
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b22_ne",
+      "properties": {
+        "id": "parcel_b22_ne",
+        "blockId": "b22",
+        "kind": "vacant",
+        "name": "Свободный участок для сквера",
+        "areaM2": 7396.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61307769,
+              55.10748235
+            ],
+            [
+              36.61442947,
+              55.10748235
+            ],
+            [
+              36.61442947,
+              55.10825576
+            ],
+            [
+              36.61307769,
+              55.10825576
+            ],
+            [
+              36.61307769,
+              55.10748235
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b23_sw",
+      "properties": {
+        "id": "parcel_b23_sw",
+        "blockId": "b23",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61574981,
+              55.10618732
+            ],
+            [
+              36.61710159,
+              55.10618732
+            ],
+            [
+              36.61710159,
+              55.10685282
+            ],
+            [
+              36.61574981,
+              55.10685282
+            ],
+            [
+              36.61574981,
+              55.10618732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b23_se",
+      "properties": {
+        "id": "parcel_b23_se",
+        "blockId": "b23",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61810757,
+              55.10618732
+            ],
+            [
+              36.61945935,
+              55.10618732
+            ],
+            [
+              36.61945935,
+              55.10685282
+            ],
+            [
+              36.61810757,
+              55.10685282
+            ],
+            [
+              36.61810757,
+              55.10618732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b23_nw",
+      "properties": {
+        "id": "parcel_b23_nw",
+        "blockId": "b23",
+        "kind": "school",
+        "name": "Ограждённый школьный участок",
+        "areaM2": 9016.0,
+        "active": true,
+        "fence": {
+          "gateNodeIds": [
+            "building_b23_nw_gate"
+          ],
+          "publicThroughAccess": false
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.6156555,
+              55.10748235
+            ],
+            [
+              36.6171959,
+              55.10748235
+            ],
+            [
+              36.6171959,
+              55.10830972
+            ],
+            [
+              36.6156555,
+              55.10830972
+            ],
+            [
+              36.6156555,
+              55.10748235
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "parcel_b23_ne",
+      "properties": {
+        "id": "parcel_b23_ne",
+        "blockId": "b23",
+        "kind": "residential",
+        "name": "Жилой участок",
+        "areaM2": 6364.0,
+        "active": true,
+        "fence": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61810757,
+              55.1075363
+            ],
+            [
+              36.61945935,
+              55.1075363
+            ],
+            [
+              36.61945935,
+              55.1082018
+            ],
+            [
+              36.61810757,
+              55.1082018
+            ],
+            [
+              36.61810757,
+              55.1075363
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

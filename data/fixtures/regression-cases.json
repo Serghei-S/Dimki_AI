@@ -1,0 +1,50 @@
+{
+  "description": "Intentional edge cases for tests; do not merge these overrides into the baseline.",
+  "cases": [
+    {
+      "id": "isolated_home",
+      "scenario": {
+        "id": "fixture_isolated",
+        "name": "Изоляция дома",
+        "description": "Только тест.",
+        "projectIds": [],
+        "budgetRub": 8000000,
+        "operationalOverrides": [
+          {
+            "op": "set_edge_active",
+            "targetId": "building_b00_sw_access",
+            "value": false
+          }
+        ]
+      },
+      "expectation": {
+        "buildingId": "building_b00_sw",
+        "unreachableResidents": 360,
+        "travelSeconds": null
+      }
+    },
+    {
+      "id": "conflicting_stops",
+      "projectIds": [
+        "p_stop_north",
+        "p_stop_south"
+      ],
+      "expectedError": "exclusive group"
+    },
+    {
+      "id": "missing_dependency",
+      "projectIds": [
+        "p_park_paving"
+      ],
+      "expectedError": "dependencies"
+    },
+    {
+      "id": "over_budget",
+      "projectIds": [
+        "p_park_b10"
+      ],
+      "budgetRub": 1000000,
+      "expectedError": "budget"
+    }
+  ]
+}

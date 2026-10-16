@@ -1,0 +1,3392 @@
+{
+  "type": "FeatureCollection",
+  "name": "obninsk-fictional-district-01",
+  "datasetVersion": "1.0.0",
+  "coordinateNotice": "RFC 7946 longitude,latitude; approximate display only. Canonical geometry is local metres in district.json.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "b00_sw",
+      "properties": {
+        "id": "b00_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_s",
+      "properties": {
+        "id": "b00_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_se",
+      "properties": {
+        "id": "b00_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_e",
+      "properties": {
+        "id": "b00_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_ne",
+      "properties": {
+        "id": "b00_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_n",
+      "properties": {
+        "id": "b00_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_nw",
+      "properties": {
+        "id": "b00_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_w",
+      "properties": {
+        "id": "b00_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_cw",
+      "properties": {
+        "id": "b00_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_c",
+      "properties": {
+        "id": "b00_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b00_ce",
+      "properties": {
+        "id": "b00_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b00_sw_entrance",
+      "properties": {
+        "id": "building_b00_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10087234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b00_se_entrance",
+      "properties": {
+        "id": "building_b00_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10087234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b00_nw_entrance",
+      "properties": {
+        "id": "building_b00_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10200548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b00_ne_entrance",
+      "properties": {
+        "id": "building_b00_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b00",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10200548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_sw",
+      "properties": {
+        "id": "b01_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_s",
+      "properties": {
+        "id": "b01_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_se",
+      "properties": {
+        "id": "b01_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_e",
+      "properties": {
+        "id": "b01_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_ne",
+      "properties": {
+        "id": "b01_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_n",
+      "properties": {
+        "id": "b01_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_nw",
+      "properties": {
+        "id": "b01_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_w",
+      "properties": {
+        "id": "b01_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_cw",
+      "properties": {
+        "id": "b01_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_c",
+      "properties": {
+        "id": "b01_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b01_ce",
+      "properties": {
+        "id": "b01_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b01_sw_entrance",
+      "properties": {
+        "id": "building_b01_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10100724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b01_se_entrance",
+      "properties": {
+        "id": "building_b01_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10087234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b01_nw_entrance",
+      "properties": {
+        "id": "building_b01_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10200548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b01_ne_entrance",
+      "properties": {
+        "id": "building_b01_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b01",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10200548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_sw",
+      "properties": {
+        "id": "b02_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_s",
+      "properties": {
+        "id": "b02_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_se",
+      "properties": {
+        "id": "b02_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_e",
+      "properties": {
+        "id": "b02_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_ne",
+      "properties": {
+        "id": "b02_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_n",
+      "properties": {
+        "id": "b02_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_nw",
+      "properties": {
+        "id": "b02_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_w",
+      "properties": {
+        "id": "b02_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_cw",
+      "properties": {
+        "id": "b02_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_c",
+      "properties": {
+        "id": "b02_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_ce",
+      "properties": {
+        "id": "b02_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b02_sw_entrance",
+      "properties": {
+        "id": "building_b02_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.10087234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b02_se_entrance",
+      "properties": {
+        "id": "building_b02_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10087234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b02_nw_park_gate",
+      "properties": {
+        "id": "b02_nw_park_gate",
+        "kind": "park_entrance",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.1017267
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b02_ne_entrance",
+      "properties": {
+        "id": "building_b02_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b02",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10200548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_sw",
+      "properties": {
+        "id": "b03_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_s",
+      "properties": {
+        "id": "b03_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_se",
+      "properties": {
+        "id": "b03_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10014389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_e",
+      "properties": {
+        "id": "b03_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_ne",
+      "properties": {
+        "id": "b03_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_n",
+      "properties": {
+        "id": "b03_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_nw",
+      "properties": {
+        "id": "b03_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10275192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_w",
+      "properties": {
+        "id": "b03_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_cw",
+      "properties": {
+        "id": "b03_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_c",
+      "properties": {
+        "id": "b03_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b03_ce",
+      "properties": {
+        "id": "b03_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10143891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b03_sw_entrance",
+      "properties": {
+        "id": "building_b03_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10087234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b03_se_entrance",
+      "properties": {
+        "id": "building_b03_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10087234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b03_nw_entrance",
+      "properties": {
+        "id": "building_b03_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10200548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b03_ne_entrance",
+      "properties": {
+        "id": "building_b03_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b03",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10200548
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_sw",
+      "properties": {
+        "id": "b10_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_s",
+      "properties": {
+        "id": "b10_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_se",
+      "properties": {
+        "id": "b10_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_e",
+      "properties": {
+        "id": "b10_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_ne",
+      "properties": {
+        "id": "b10_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_n",
+      "properties": {
+        "id": "b10_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_nw",
+      "properties": {
+        "id": "b10_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_w",
+      "properties": {
+        "id": "b10_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_cw",
+      "properties": {
+        "id": "b10_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_c",
+      "properties": {
+        "id": "b10_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_ce",
+      "properties": {
+        "id": "b10_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b10_sw_entrance",
+      "properties": {
+        "id": "building_b10_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10375017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b10_se_entrance",
+      "properties": {
+        "id": "building_b10_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10375017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b10_nw_entrance",
+      "properties": {
+        "id": "building_b10_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10488331
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b10_ne_park_gate",
+      "properties": {
+        "id": "b10_ne_park_gate",
+        "kind": "park_entrance",
+        "active": false,
+        "blockId": "b10",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10460452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_sw",
+      "properties": {
+        "id": "b11_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_s",
+      "properties": {
+        "id": "b11_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_se",
+      "properties": {
+        "id": "b11_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_e",
+      "properties": {
+        "id": "b11_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_ne",
+      "properties": {
+        "id": "b11_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_n",
+      "properties": {
+        "id": "b11_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_nw",
+      "properties": {
+        "id": "b11_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_w",
+      "properties": {
+        "id": "b11_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_cw",
+      "properties": {
+        "id": "b11_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_c",
+      "properties": {
+        "id": "b11_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b11_ce",
+      "properties": {
+        "id": "b11_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_sw_entrance",
+      "properties": {
+        "id": "building_b11_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10375017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_se_entrance",
+      "properties": {
+        "id": "building_b11_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10375017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_nw_entrance",
+      "properties": {
+        "id": "building_b11_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10474841
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_nw_gate",
+      "properties": {
+        "id": "building_b11_nw_gate",
+        "kind": "gate",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10460452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_ne_entrance",
+      "properties": {
+        "id": "building_b11_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b11",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10488331
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_sw",
+      "properties": {
+        "id": "b12_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_s",
+      "properties": {
+        "id": "b12_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_se",
+      "properties": {
+        "id": "b12_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_e",
+      "properties": {
+        "id": "b12_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_ne",
+      "properties": {
+        "id": "b12_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_n",
+      "properties": {
+        "id": "b12_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_nw",
+      "properties": {
+        "id": "b12_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_w",
+      "properties": {
+        "id": "b12_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_cw",
+      "properties": {
+        "id": "b12_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_c",
+      "properties": {
+        "id": "b12_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b12_ce",
+      "properties": {
+        "id": "b12_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b12_sw_entrance",
+      "properties": {
+        "id": "building_b12_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.10375017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b12_se_entrance",
+      "properties": {
+        "id": "building_b12_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10388506
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b12_nw_entrance",
+      "properties": {
+        "id": "building_b12_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.10488331
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b12_ne_entrance",
+      "properties": {
+        "id": "building_b12_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b12",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10488331
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_sw",
+      "properties": {
+        "id": "b13_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_s",
+      "properties": {
+        "id": "b13_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_se",
+      "properties": {
+        "id": "b13_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10300373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_e",
+      "properties": {
+        "id": "b13_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_ne",
+      "properties": {
+        "id": "b13_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_n",
+      "properties": {
+        "id": "b13_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_nw",
+      "properties": {
+        "id": "b13_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10561176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_w",
+      "properties": {
+        "id": "b13_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_cw",
+      "properties": {
+        "id": "b13_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_c",
+      "properties": {
+        "id": "b13_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_ce",
+      "properties": {
+        "id": "b13_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_gate_w",
+      "properties": {
+        "id": "b13_gate_w",
+        "kind": "park_entrance",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61574981,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_gate_e",
+      "properties": {
+        "id": "b13_gate_e",
+        "kind": "park_entrance",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61945935,
+          55.10431674
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_gate_s",
+      "properties": {
+        "id": "b13_gate_s",
+        "kind": "park_entrance",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10325554
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_gate_n",
+      "properties": {
+        "id": "b13_gate_n",
+        "kind": "park_entrance",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10537794
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_loop_sw",
+      "properties": {
+        "id": "b13_loop_sw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10364225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_loop_se",
+      "properties": {
+        "id": "b13_loop_se",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10364225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_loop_ne",
+      "properties": {
+        "id": "b13_loop_ne",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10499123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_loop_nw",
+      "properties": {
+        "id": "b13_loop_nw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10499123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_loop_s",
+      "properties": {
+        "id": "b13_loop_s",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10364225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b13_loop_n",
+      "properties": {
+        "id": "b13_loop_n",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b13",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10499123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_sw",
+      "properties": {
+        "id": "b20_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_s",
+      "properties": {
+        "id": "b20_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_se",
+      "properties": {
+        "id": "b20_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_e",
+      "properties": {
+        "id": "b20_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_ne",
+      "properties": {
+        "id": "b20_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60480982,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_n",
+      "properties": {
+        "id": "b20_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_nw",
+      "properties": {
+        "id": "b20_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_w",
+      "properties": {
+        "id": "b20_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60025149,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_cw",
+      "properties": {
+        "id": "b20_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_c",
+      "properties": {
+        "id": "b20_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60251494,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b20_ce",
+      "properties": {
+        "id": "b20_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b20_sw_entrance",
+      "properties": {
+        "id": "building_b20_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10662799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b20_se_entrance",
+      "properties": {
+        "id": "building_b20_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10662799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b20_nw_entrance",
+      "properties": {
+        "id": "building_b20_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60133606,
+          55.10776113
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b20_ne_entrance",
+      "properties": {
+        "id": "building_b20_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b20",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60369382,
+          55.10776113
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_sw",
+      "properties": {
+        "id": "b21_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_s",
+      "properties": {
+        "id": "b21_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_se",
+      "properties": {
+        "id": "b21_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_e",
+      "properties": {
+        "id": "b21_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_ne",
+      "properties": {
+        "id": "b21_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60976111,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_n",
+      "properties": {
+        "id": "b21_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_nw",
+      "properties": {
+        "id": "b21_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_w",
+      "properties": {
+        "id": "b21_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60524994,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_cw",
+      "properties": {
+        "id": "b21_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_c",
+      "properties": {
+        "id": "b21_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60754482,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b21_ce",
+      "properties": {
+        "id": "b21_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b21_sw_entrance",
+      "properties": {
+        "id": "building_b21_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10676289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b21_se_entrance",
+      "properties": {
+        "id": "building_b21_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10662799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b21_nw_entrance",
+      "properties": {
+        "id": "building_b21_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60636594,
+          55.10762624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b21_ne_entrance",
+      "properties": {
+        "id": "building_b21_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b21",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6087237,
+          55.10776113
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_sw",
+      "properties": {
+        "id": "b22_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_s",
+      "properties": {
+        "id": "b22_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_se",
+      "properties": {
+        "id": "b22_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_e",
+      "properties": {
+        "id": "b22_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_ne",
+      "properties": {
+        "id": "b22_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61486958,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_n",
+      "properties": {
+        "id": "b22_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_nw",
+      "properties": {
+        "id": "b22_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_w",
+      "properties": {
+        "id": "b22_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61035841,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_cw",
+      "properties": {
+        "id": "b22_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_c",
+      "properties": {
+        "id": "b22_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6125747,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_ce",
+      "properties": {
+        "id": "b22_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b22_sw_entrance",
+      "properties": {
+        "id": "building_b22_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.10662799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b22_se_entrance",
+      "properties": {
+        "id": "building_b22_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10662799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b22_nw_entrance",
+      "properties": {
+        "id": "building_b22_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61139582,
+          55.10776113
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b22_ne_park_gate",
+      "properties": {
+        "id": "b22_ne_park_gate",
+        "kind": "park_entrance",
+        "active": false,
+        "blockId": "b22",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61375358,
+          55.10748235
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_sw",
+      "properties": {
+        "id": "b23_sw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_s",
+      "properties": {
+        "id": "b23_s",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_se",
+      "properties": {
+        "id": "b23_se",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10589954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_e",
+      "properties": {
+        "id": "b23_e",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_ne",
+      "properties": {
+        "id": "b23_ne",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61986803,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_n",
+      "properties": {
+        "id": "b23_n",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_nw",
+      "properties": {
+        "id": "b23_nw",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10848958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_w",
+      "properties": {
+        "id": "b23_w",
+        "kind": "sidewalk",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153097,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_cw",
+      "properties": {
+        "id": "b23_cw",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_c",
+      "properties": {
+        "id": "b23_c",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61760458,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b23_ce",
+      "properties": {
+        "id": "b23_ce",
+        "kind": "junction",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10719456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_sw_entrance",
+      "properties": {
+        "id": "building_b23_sw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10662799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_se_entrance",
+      "properties": {
+        "id": "building_b23_se_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10662799
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_nw_entrance",
+      "properties": {
+        "id": "building_b23_nw_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10762624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_nw_gate",
+      "properties": {
+        "id": "building_b23_nw_gate",
+        "kind": "gate",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6164257,
+          55.10748235
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_ne_entrance",
+      "properties": {
+        "id": "building_b23_ne_entrance",
+        "kind": "building_entrance",
+        "active": true,
+        "blockId": "b23",
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61878346,
+          55.10776113
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,2524 @@
+{
+  "type": "FeatureCollection",
+  "name": "obninsk-fictional-district-01",
+  "datasetVersion": "1.0.0",
+  "coordinateNotice": "RFC 7946 longitude,latitude; approximate display only. Canonical geometry is local metres in district.json.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "building_b00_sw",
+      "properties": {
+        "id": "building_b00_sw",
+        "name": "Жилой дом 01",
+        "kind": "residential",
+        "blockId": "b00",
+        "parcelId": "parcel_b00_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b00_sw_entrance"
+        ],
+        "population": {
+          "total": 360,
+          "ageGroups": {
+            "under18": 80,
+            "age18to64": 182,
+            "age65plus": 98
+          },
+          "mobilityNeedsResidents": 7,
+          "households": 140,
+          "householdSizeCounts": {
+            "1": 24,
+            "2": 51,
+            "3": 32,
+            "4": 27,
+            "5": 6
+          },
+          "apartments": 144,
+          "occupiedApartments": 140
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60086451,
+              55.1006565
+            ],
+            [
+              36.60180761,
+              55.1006565
+            ],
+            [
+              36.60180761,
+              55.10087234
+            ],
+            [
+              36.60086451,
+              55.10087234
+            ],
+            [
+              36.60086451,
+              55.1006565
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b00_se",
+      "properties": {
+        "id": "building_b00_se",
+        "name": "Жилой дом 02",
+        "kind": "residential",
+        "blockId": "b00",
+        "parcelId": "parcel_b00_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b00_se_entrance"
+        ],
+        "population": {
+          "total": 156,
+          "ageGroups": {
+            "under18": 31,
+            "age18to64": 84,
+            "age65plus": 41
+          },
+          "mobilityNeedsResidents": 6,
+          "households": 58,
+          "householdSizeCounts": {
+            "1": 6,
+            "2": 20,
+            "3": 20,
+            "4": 10,
+            "5": 2
+          },
+          "apartments": 60,
+          "occupiedApartments": 58
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60322227,
+              55.1006565
+            ],
+            [
+              36.60416537,
+              55.1006565
+            ],
+            [
+              36.60416537,
+              55.10087234
+            ],
+            [
+              36.60322227,
+              55.10087234
+            ],
+            [
+              36.60322227,
+              55.1006565
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b00_nw",
+      "properties": {
+        "id": "building_b00_nw",
+        "name": "Жилой дом 03",
+        "kind": "residential",
+        "blockId": "b00",
+        "parcelId": "parcel_b00_nw",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b00_nw_entrance"
+        ],
+        "population": {
+          "total": 136,
+          "ageGroups": {
+            "under18": 21,
+            "age18to64": 78,
+            "age65plus": 37
+          },
+          "mobilityNeedsResidents": 4,
+          "households": 53,
+          "householdSizeCounts": {
+            "1": 10,
+            "2": 24,
+            "3": 4,
+            "4": 9,
+            "5": 6
+          },
+          "apartments": 60,
+          "occupiedApartments": 53
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60086451,
+              55.10200548
+            ],
+            [
+              36.60180761,
+              55.10200548
+            ],
+            [
+              36.60180761,
+              55.10222132
+            ],
+            [
+              36.60086451,
+              55.10222132
+            ],
+            [
+              36.60086451,
+              55.10200548
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b00_ne",
+      "properties": {
+        "id": "building_b00_ne",
+        "name": "Жилой дом 04",
+        "kind": "residential",
+        "blockId": "b00",
+        "parcelId": "parcel_b00_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b00_ne_entrance"
+        ],
+        "population": {
+          "total": 153,
+          "ageGroups": {
+            "under18": 27,
+            "age18to64": 85,
+            "age65plus": 41
+          },
+          "mobilityNeedsResidents": 5,
+          "households": 59,
+          "householdSizeCounts": {
+            "1": 6,
+            "2": 24,
+            "3": 17,
+            "4": 12,
+            "5": 0
+          },
+          "apartments": 60,
+          "occupiedApartments": 59
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60322227,
+              55.10200548
+            ],
+            [
+              36.60416537,
+              55.10200548
+            ],
+            [
+              36.60416537,
+              55.10222132
+            ],
+            [
+              36.60322227,
+              55.10222132
+            ],
+            [
+              36.60322227,
+              55.10200548
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b01_sw",
+      "properties": {
+        "id": "building_b01_sw",
+        "name": "Продуктовый магазин",
+        "kind": "grocery",
+        "blockId": "b01",
+        "parcelId": "parcel_b01_sw",
+        "footprintAreaM2": 3888.0,
+        "floors": 2,
+        "heightM": 6.4,
+        "entranceNodeIds": [
+          "building_b01_sw_entrance"
+        ],
+        "population": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60580008,
+              55.10052161
+            ],
+            [
+              36.6069318,
+              55.10052161
+            ],
+            [
+              36.6069318,
+              55.10100724
+            ],
+            [
+              36.60580008,
+              55.10100724
+            ],
+            [
+              36.60580008,
+              55.10052161
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b01_se",
+      "properties": {
+        "id": "building_b01_se",
+        "name": "Жилой дом 05",
+        "kind": "residential",
+        "blockId": "b01",
+        "parcelId": "parcel_b01_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b01_se_entrance"
+        ],
+        "population": {
+          "total": 342,
+          "ageGroups": {
+            "under18": 78,
+            "age18to64": 203,
+            "age65plus": 61
+          },
+          "mobilityNeedsResidents": 8,
+          "households": 133,
+          "householdSizeCounts": {
+            "1": 24,
+            "2": 44,
+            "3": 33,
+            "4": 29,
+            "5": 3
+          },
+          "apartments": 144,
+          "occupiedApartments": 133
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60825215,
+              55.1006565
+            ],
+            [
+              36.60919525,
+              55.1006565
+            ],
+            [
+              36.60919525,
+              55.10087234
+            ],
+            [
+              36.60825215,
+              55.10087234
+            ],
+            [
+              36.60825215,
+              55.1006565
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b01_nw",
+      "properties": {
+        "id": "building_b01_nw",
+        "name": "Жилой дом 06",
+        "kind": "residential",
+        "blockId": "b01",
+        "parcelId": "parcel_b01_nw",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b01_nw_entrance"
+        ],
+        "population": {
+          "total": 147,
+          "ageGroups": {
+            "under18": 23,
+            "age18to64": 93,
+            "age65plus": 31
+          },
+          "mobilityNeedsResidents": 4,
+          "households": 55,
+          "householdSizeCounts": {
+            "1": 6,
+            "2": 22,
+            "3": 15,
+            "4": 8,
+            "5": 4
+          },
+          "apartments": 60,
+          "occupiedApartments": 55
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60589439,
+              55.10200548
+            ],
+            [
+              36.60683749,
+              55.10200548
+            ],
+            [
+              36.60683749,
+              55.10222132
+            ],
+            [
+              36.60589439,
+              55.10222132
+            ],
+            [
+              36.60589439,
+              55.10200548
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b01_ne",
+      "properties": {
+        "id": "building_b01_ne",
+        "name": "Жилой дом 07",
+        "kind": "residential",
+        "blockId": "b01",
+        "parcelId": "parcel_b01_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b01_ne_entrance"
+        ],
+        "population": {
+          "total": 156,
+          "ageGroups": {
+            "under18": 25,
+            "age18to64": 96,
+            "age65plus": 35
+          },
+          "mobilityNeedsResidents": 7,
+          "households": 56,
+          "householdSizeCounts": {
+            "1": 8,
+            "2": 15,
+            "3": 17,
+            "4": 13,
+            "5": 3
+          },
+          "apartments": 60,
+          "occupiedApartments": 56
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60825215,
+              55.10200548
+            ],
+            [
+              36.60919525,
+              55.10200548
+            ],
+            [
+              36.60919525,
+              55.10222132
+            ],
+            [
+              36.60825215,
+              55.10222132
+            ],
+            [
+              36.60825215,
+              55.10200548
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b02_sw",
+      "properties": {
+        "id": "building_b02_sw",
+        "name": "Жилой дом 08",
+        "kind": "residential",
+        "blockId": "b02",
+        "parcelId": "parcel_b02_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b02_sw_entrance"
+        ],
+        "population": {
+          "total": 352,
+          "ageGroups": {
+            "under18": 78,
+            "age18to64": 204,
+            "age65plus": 70
+          },
+          "mobilityNeedsResidents": 9,
+          "households": 138,
+          "householdSizeCounts": {
+            "1": 17,
+            "2": 58,
+            "3": 38,
+            "4": 20,
+            "5": 5
+          },
+          "apartments": 144,
+          "occupiedApartments": 138
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61092427,
+              55.1006565
+            ],
+            [
+              36.61186737,
+              55.1006565
+            ],
+            [
+              36.61186737,
+              55.10087234
+            ],
+            [
+              36.61092427,
+              55.10087234
+            ],
+            [
+              36.61092427,
+              55.1006565
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b02_se",
+      "properties": {
+        "id": "building_b02_se",
+        "name": "Жилой дом 09",
+        "kind": "residential",
+        "blockId": "b02",
+        "parcelId": "parcel_b02_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b02_se_entrance"
+        ],
+        "population": {
+          "total": 220,
+          "ageGroups": {
+            "under18": 44,
+            "age18to64": 137,
+            "age65plus": 39
+          },
+          "mobilityNeedsResidents": 8,
+          "households": 90,
+          "householdSizeCounts": {
+            "1": 19,
+            "2": 33,
+            "3": 19,
+            "4": 17,
+            "5": 2
+          },
+          "apartments": 98,
+          "occupiedApartments": 90
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61328203,
+              55.1006565
+            ],
+            [
+              36.61422513,
+              55.1006565
+            ],
+            [
+              36.61422513,
+              55.10087234
+            ],
+            [
+              36.61328203,
+              55.10087234
+            ],
+            [
+              36.61328203,
+              55.1006565
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b02_ne",
+      "properties": {
+        "id": "building_b02_ne",
+        "name": "Жилой дом 10",
+        "kind": "residential",
+        "blockId": "b02",
+        "parcelId": "parcel_b02_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b02_ne_entrance"
+        ],
+        "population": {
+          "total": 268,
+          "ageGroups": {
+            "under18": 54,
+            "age18to64": 166,
+            "age65plus": 48
+          },
+          "mobilityNeedsResidents": 9,
+          "households": 94,
+          "householdSizeCounts": {
+            "1": 15,
+            "2": 25,
+            "3": 27,
+            "4": 13,
+            "5": 14
+          },
+          "apartments": 98,
+          "occupiedApartments": 94
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61328203,
+              55.10200548
+            ],
+            [
+              36.61422513,
+              55.10200548
+            ],
+            [
+              36.61422513,
+              55.10222132
+            ],
+            [
+              36.61328203,
+              55.10222132
+            ],
+            [
+              36.61328203,
+              55.10200548
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b03_sw",
+      "properties": {
+        "id": "building_b03_sw",
+        "name": "Жилой дом 11",
+        "kind": "residential",
+        "blockId": "b03",
+        "parcelId": "parcel_b03_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b03_sw_entrance"
+        ],
+        "population": {
+          "total": 154,
+          "ageGroups": {
+            "under18": 32,
+            "age18to64": 92,
+            "age65plus": 30
+          },
+          "mobilityNeedsResidents": 7,
+          "households": 57,
+          "householdSizeCounts": {
+            "1": 10,
+            "2": 14,
+            "3": 18,
+            "4": 13,
+            "5": 2
+          },
+          "apartments": 60,
+          "occupiedApartments": 57
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61595415,
+              55.1006565
+            ],
+            [
+              36.61689725,
+              55.1006565
+            ],
+            [
+              36.61689725,
+              55.10087234
+            ],
+            [
+              36.61595415,
+              55.10087234
+            ],
+            [
+              36.61595415,
+              55.1006565
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b03_se",
+      "properties": {
+        "id": "building_b03_se",
+        "name": "Жилой дом 12",
+        "kind": "residential",
+        "blockId": "b03",
+        "parcelId": "parcel_b03_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b03_se_entrance"
+        ],
+        "population": {
+          "total": 332,
+          "ageGroups": {
+            "under18": 71,
+            "age18to64": 182,
+            "age65plus": 79
+          },
+          "mobilityNeedsResidents": 13,
+          "households": 137,
+          "householdSizeCounts": {
+            "1": 27,
+            "2": 50,
+            "3": 39,
+            "4": 17,
+            "5": 4
+          },
+          "apartments": 144,
+          "occupiedApartments": 137
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61831191,
+              55.1006565
+            ],
+            [
+              36.61925501,
+              55.1006565
+            ],
+            [
+              36.61925501,
+              55.10087234
+            ],
+            [
+              36.61831191,
+              55.10087234
+            ],
+            [
+              36.61831191,
+              55.1006565
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b03_nw",
+      "properties": {
+        "id": "building_b03_nw",
+        "name": "Жилой дом 13",
+        "kind": "residential",
+        "blockId": "b03",
+        "parcelId": "parcel_b03_nw",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b03_nw_entrance"
+        ],
+        "population": {
+          "total": 243,
+          "ageGroups": {
+            "under18": 48,
+            "age18to64": 137,
+            "age65plus": 58
+          },
+          "mobilityNeedsResidents": 10,
+          "households": 93,
+          "householdSizeCounts": {
+            "1": 18,
+            "2": 26,
+            "3": 27,
+            "4": 18,
+            "5": 4
+          },
+          "apartments": 98,
+          "occupiedApartments": 93
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61595415,
+              55.10200548
+            ],
+            [
+              36.61689725,
+              55.10200548
+            ],
+            [
+              36.61689725,
+              55.10222132
+            ],
+            [
+              36.61595415,
+              55.10222132
+            ],
+            [
+              36.61595415,
+              55.10200548
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b03_ne",
+      "properties": {
+        "id": "building_b03_ne",
+        "name": "Жилой дом 14",
+        "kind": "residential",
+        "blockId": "b03",
+        "parcelId": "parcel_b03_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b03_ne_entrance"
+        ],
+        "population": {
+          "total": 211,
+          "ageGroups": {
+            "under18": 41,
+            "age18to64": 112,
+            "age65plus": 58
+          },
+          "mobilityNeedsResidents": 5,
+          "households": 88,
+          "householdSizeCounts": {
+            "1": 16,
+            "2": 37,
+            "3": 22,
+            "4": 10,
+            "5": 3
+          },
+          "apartments": 98,
+          "occupiedApartments": 88
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61831191,
+              55.10200548
+            ],
+            [
+              36.61925501,
+              55.10200548
+            ],
+            [
+              36.61925501,
+              55.10222132
+            ],
+            [
+              36.61831191,
+              55.10222132
+            ],
+            [
+              36.61831191,
+              55.10200548
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b10_sw",
+      "properties": {
+        "id": "building_b10_sw",
+        "name": "Жилой дом 15",
+        "kind": "residential",
+        "blockId": "b10",
+        "parcelId": "parcel_b10_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b10_sw_entrance"
+        ],
+        "population": {
+          "total": 132,
+          "ageGroups": {
+            "under18": 24,
+            "age18to64": 74,
+            "age65plus": 34
+          },
+          "mobilityNeedsResidents": 3,
+          "households": 56,
+          "householdSizeCounts": {
+            "1": 14,
+            "2": 17,
+            "3": 19,
+            "4": 3,
+            "5": 3
+          },
+          "apartments": 60,
+          "occupiedApartments": 56
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60086451,
+              55.10353433
+            ],
+            [
+              36.60180761,
+              55.10353433
+            ],
+            [
+              36.60180761,
+              55.10375017
+            ],
+            [
+              36.60086451,
+              55.10375017
+            ],
+            [
+              36.60086451,
+              55.10353433
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b10_se",
+      "properties": {
+        "id": "building_b10_se",
+        "name": "Жилой дом 16",
+        "kind": "residential",
+        "blockId": "b10",
+        "parcelId": "parcel_b10_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b10_se_entrance"
+        ],
+        "population": {
+          "total": 234,
+          "ageGroups": {
+            "under18": 39,
+            "age18to64": 139,
+            "age65plus": 56
+          },
+          "mobilityNeedsResidents": 7,
+          "households": 91,
+          "householdSizeCounts": {
+            "1": 11,
+            "2": 34,
+            "3": 32,
+            "4": 11,
+            "5": 3
+          },
+          "apartments": 98,
+          "occupiedApartments": 91
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60322227,
+              55.10353433
+            ],
+            [
+              36.60416537,
+              55.10353433
+            ],
+            [
+              36.60416537,
+              55.10375017
+            ],
+            [
+              36.60322227,
+              55.10375017
+            ],
+            [
+              36.60322227,
+              55.10353433
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b10_nw",
+      "properties": {
+        "id": "building_b10_nw",
+        "name": "Жилой дом 17",
+        "kind": "residential",
+        "blockId": "b10",
+        "parcelId": "parcel_b10_nw",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b10_nw_entrance"
+        ],
+        "population": {
+          "total": 140,
+          "ageGroups": {
+            "under18": 31,
+            "age18to64": 81,
+            "age65plus": 28
+          },
+          "mobilityNeedsResidents": 3,
+          "households": 56,
+          "householdSizeCounts": {
+            "1": 10,
+            "2": 21,
+            "3": 15,
+            "4": 7,
+            "5": 3
+          },
+          "apartments": 60,
+          "occupiedApartments": 56
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60086451,
+              55.10488331
+            ],
+            [
+              36.60180761,
+              55.10488331
+            ],
+            [
+              36.60180761,
+              55.10509915
+            ],
+            [
+              36.60086451,
+              55.10509915
+            ],
+            [
+              36.60086451,
+              55.10488331
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_sw",
+      "properties": {
+        "id": "building_b11_sw",
+        "name": "Жилой дом 18",
+        "kind": "residential",
+        "blockId": "b11",
+        "parcelId": "parcel_b11_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b11_sw_entrance"
+        ],
+        "population": {
+          "total": 337,
+          "ageGroups": {
+            "under18": 76,
+            "age18to64": 175,
+            "age65plus": 86
+          },
+          "mobilityNeedsResidents": 14,
+          "households": 133,
+          "householdSizeCounts": {
+            "1": 26,
+            "2": 44,
+            "3": 37,
+            "4": 18,
+            "5": 8
+          },
+          "apartments": 144,
+          "occupiedApartments": 133
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60589439,
+              55.10353433
+            ],
+            [
+              36.60683749,
+              55.10353433
+            ],
+            [
+              36.60683749,
+              55.10375017
+            ],
+            [
+              36.60589439,
+              55.10375017
+            ],
+            [
+              36.60589439,
+              55.10353433
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_se",
+      "properties": {
+        "id": "building_b11_se",
+        "name": "Жилой дом 19",
+        "kind": "residential",
+        "blockId": "b11",
+        "parcelId": "parcel_b11_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b11_se_entrance"
+        ],
+        "population": {
+          "total": 338,
+          "ageGroups": {
+            "under18": 62,
+            "age18to64": 208,
+            "age65plus": 68
+          },
+          "mobilityNeedsResidents": 10,
+          "households": 133,
+          "householdSizeCounts": {
+            "1": 30,
+            "2": 40,
+            "3": 31,
+            "4": 25,
+            "5": 7
+          },
+          "apartments": 144,
+          "occupiedApartments": 133
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60825215,
+              55.10353433
+            ],
+            [
+              36.60919525,
+              55.10353433
+            ],
+            [
+              36.60919525,
+              55.10375017
+            ],
+            [
+              36.60825215,
+              55.10375017
+            ],
+            [
+              36.60825215,
+              55.10353433
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_nw",
+      "properties": {
+        "id": "building_b11_nw",
+        "name": "Школа",
+        "kind": "school",
+        "blockId": "b11",
+        "parcelId": "parcel_b11_nw",
+        "footprintAreaM2": 3888.0,
+        "floors": 3,
+        "heightM": 9.600000000000001,
+        "entranceNodeIds": [
+          "building_b11_nw_entrance"
+        ],
+        "population": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60580008,
+              55.10474841
+            ],
+            [
+              36.6069318,
+              55.10474841
+            ],
+            [
+              36.6069318,
+              55.10523404
+            ],
+            [
+              36.60580008,
+              55.10523404
+            ],
+            [
+              36.60580008,
+              55.10474841
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b11_ne",
+      "properties": {
+        "id": "building_b11_ne",
+        "name": "Жилой дом 20",
+        "kind": "residential",
+        "blockId": "b11",
+        "parcelId": "parcel_b11_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b11_ne_entrance"
+        ],
+        "population": {
+          "total": 382,
+          "ageGroups": {
+            "under18": 68,
+            "age18to64": 243,
+            "age65plus": 71
+          },
+          "mobilityNeedsResidents": 17,
+          "households": 141,
+          "householdSizeCounts": {
+            "1": 17,
+            "2": 51,
+            "3": 36,
+            "4": 30,
+            "5": 7
+          },
+          "apartments": 144,
+          "occupiedApartments": 141
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60825215,
+              55.10488331
+            ],
+            [
+              36.60919525,
+              55.10488331
+            ],
+            [
+              36.60919525,
+              55.10509915
+            ],
+            [
+              36.60825215,
+              55.10509915
+            ],
+            [
+              36.60825215,
+              55.10488331
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b12_sw",
+      "properties": {
+        "id": "building_b12_sw",
+        "name": "Жилой дом 21",
+        "kind": "residential",
+        "blockId": "b12",
+        "parcelId": "parcel_b12_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b12_sw_entrance"
+        ],
+        "population": {
+          "total": 235,
+          "ageGroups": {
+            "under18": 43,
+            "age18to64": 145,
+            "age65plus": 47
+          },
+          "mobilityNeedsResidents": 6,
+          "households": 91,
+          "householdSizeCounts": {
+            "1": 18,
+            "2": 26,
+            "3": 28,
+            "4": 14,
+            "5": 5
+          },
+          "apartments": 98,
+          "occupiedApartments": 91
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61092427,
+              55.10353433
+            ],
+            [
+              36.61186737,
+              55.10353433
+            ],
+            [
+              36.61186737,
+              55.10375017
+            ],
+            [
+              36.61092427,
+              55.10375017
+            ],
+            [
+              36.61092427,
+              55.10353433
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b12_se",
+      "properties": {
+        "id": "building_b12_se",
+        "name": "Поликлиника",
+        "kind": "clinic",
+        "blockId": "b12",
+        "parcelId": "parcel_b12_se",
+        "footprintAreaM2": 3888.0,
+        "floors": 2,
+        "heightM": 6.4,
+        "entranceNodeIds": [
+          "building_b12_se_entrance"
+        ],
+        "population": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61318772,
+              55.10339943
+            ],
+            [
+              36.61431944,
+              55.10339943
+            ],
+            [
+              36.61431944,
+              55.10388506
+            ],
+            [
+              36.61318772,
+              55.10388506
+            ],
+            [
+              36.61318772,
+              55.10339943
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b12_nw",
+      "properties": {
+        "id": "building_b12_nw",
+        "name": "Жилой дом 22",
+        "kind": "residential",
+        "blockId": "b12",
+        "parcelId": "parcel_b12_nw",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b12_nw_entrance"
+        ],
+        "population": {
+          "total": 298,
+          "ageGroups": {
+            "under18": 53,
+            "age18to64": 175,
+            "age65plus": 70
+          },
+          "mobilityNeedsResidents": 10,
+          "households": 127,
+          "householdSizeCounts": {
+            "1": 28,
+            "2": 47,
+            "3": 35,
+            "4": 14,
+            "5": 3
+          },
+          "apartments": 144,
+          "occupiedApartments": 127
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61092427,
+              55.10488331
+            ],
+            [
+              36.61186737,
+              55.10488331
+            ],
+            [
+              36.61186737,
+              55.10509915
+            ],
+            [
+              36.61092427,
+              55.10509915
+            ],
+            [
+              36.61092427,
+              55.10488331
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b12_ne",
+      "properties": {
+        "id": "building_b12_ne",
+        "name": "Жилой дом 23",
+        "kind": "residential",
+        "blockId": "b12",
+        "parcelId": "parcel_b12_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b12_ne_entrance"
+        ],
+        "population": {
+          "total": 151,
+          "ageGroups": {
+            "under18": 24,
+            "age18to64": 98,
+            "age65plus": 29
+          },
+          "mobilityNeedsResidents": 4,
+          "households": 58,
+          "householdSizeCounts": {
+            "1": 13,
+            "2": 16,
+            "3": 13,
+            "4": 13,
+            "5": 3
+          },
+          "apartments": 60,
+          "occupiedApartments": 58
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61328203,
+              55.10488331
+            ],
+            [
+              36.61422513,
+              55.10488331
+            ],
+            [
+              36.61422513,
+              55.10509915
+            ],
+            [
+              36.61328203,
+              55.10509915
+            ],
+            [
+              36.61328203,
+              55.10488331
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b20_sw",
+      "properties": {
+        "id": "building_b20_sw",
+        "name": "Жилой дом 24",
+        "kind": "residential",
+        "blockId": "b20",
+        "parcelId": "parcel_b20_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b20_sw_entrance"
+        ],
+        "population": {
+          "total": 249,
+          "ageGroups": {
+            "under18": 41,
+            "age18to64": 160,
+            "age65plus": 48
+          },
+          "mobilityNeedsResidents": 9,
+          "households": 96,
+          "householdSizeCounts": {
+            "1": 16,
+            "2": 29,
+            "3": 31,
+            "4": 18,
+            "5": 2
+          },
+          "apartments": 98,
+          "occupiedApartments": 96
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60086451,
+              55.10641215
+            ],
+            [
+              36.60180761,
+              55.10641215
+            ],
+            [
+              36.60180761,
+              55.10662799
+            ],
+            [
+              36.60086451,
+              55.10662799
+            ],
+            [
+              36.60086451,
+              55.10641215
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b20_se",
+      "properties": {
+        "id": "building_b20_se",
+        "name": "Жилой дом 25",
+        "kind": "residential",
+        "blockId": "b20",
+        "parcelId": "parcel_b20_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b20_se_entrance"
+        ],
+        "population": {
+          "total": 343,
+          "ageGroups": {
+            "under18": 77,
+            "age18to64": 191,
+            "age65plus": 75
+          },
+          "mobilityNeedsResidents": 14,
+          "households": 139,
+          "householdSizeCounts": {
+            "1": 29,
+            "2": 46,
+            "3": 36,
+            "4": 26,
+            "5": 2
+          },
+          "apartments": 144,
+          "occupiedApartments": 139
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60322227,
+              55.10641215
+            ],
+            [
+              36.60416537,
+              55.10641215
+            ],
+            [
+              36.60416537,
+              55.10662799
+            ],
+            [
+              36.60322227,
+              55.10662799
+            ],
+            [
+              36.60322227,
+              55.10641215
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b20_nw",
+      "properties": {
+        "id": "building_b20_nw",
+        "name": "Жилой дом 26",
+        "kind": "residential",
+        "blockId": "b20",
+        "parcelId": "parcel_b20_nw",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b20_nw_entrance"
+        ],
+        "population": {
+          "total": 322,
+          "ageGroups": {
+            "under18": 51,
+            "age18to64": 205,
+            "age65plus": 66
+          },
+          "mobilityNeedsResidents": 7,
+          "households": 132,
+          "householdSizeCounts": {
+            "1": 24,
+            "2": 50,
+            "3": 35,
+            "4": 22,
+            "5": 1
+          },
+          "apartments": 144,
+          "occupiedApartments": 132
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60086451,
+              55.10776113
+            ],
+            [
+              36.60180761,
+              55.10776113
+            ],
+            [
+              36.60180761,
+              55.10797697
+            ],
+            [
+              36.60086451,
+              55.10797697
+            ],
+            [
+              36.60086451,
+              55.10776113
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b20_ne",
+      "properties": {
+        "id": "building_b20_ne",
+        "name": "Жилой дом 27",
+        "kind": "residential",
+        "blockId": "b20",
+        "parcelId": "parcel_b20_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b20_ne_entrance"
+        ],
+        "population": {
+          "total": 237,
+          "ageGroups": {
+            "under18": 44,
+            "age18to64": 150,
+            "age65plus": 43
+          },
+          "mobilityNeedsResidents": 9,
+          "households": 92,
+          "householdSizeCounts": {
+            "1": 18,
+            "2": 29,
+            "3": 23,
+            "4": 18,
+            "5": 4
+          },
+          "apartments": 98,
+          "occupiedApartments": 92
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60322227,
+              55.10776113
+            ],
+            [
+              36.60416537,
+              55.10776113
+            ],
+            [
+              36.60416537,
+              55.10797697
+            ],
+            [
+              36.60322227,
+              55.10797697
+            ],
+            [
+              36.60322227,
+              55.10776113
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b21_sw",
+      "properties": {
+        "id": "building_b21_sw",
+        "name": "Продуктовый магазин",
+        "kind": "grocery",
+        "blockId": "b21",
+        "parcelId": "parcel_b21_sw",
+        "footprintAreaM2": 3888.0,
+        "floors": 2,
+        "heightM": 6.4,
+        "entranceNodeIds": [
+          "building_b21_sw_entrance"
+        ],
+        "population": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60580008,
+              55.10627726
+            ],
+            [
+              36.6069318,
+              55.10627726
+            ],
+            [
+              36.6069318,
+              55.10676289
+            ],
+            [
+              36.60580008,
+              55.10676289
+            ],
+            [
+              36.60580008,
+              55.10627726
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b21_se",
+      "properties": {
+        "id": "building_b21_se",
+        "name": "Жилой дом 28",
+        "kind": "residential",
+        "blockId": "b21",
+        "parcelId": "parcel_b21_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b21_se_entrance"
+        ],
+        "population": {
+          "total": 218,
+          "ageGroups": {
+            "under18": 44,
+            "age18to64": 118,
+            "age65plus": 56
+          },
+          "mobilityNeedsResidents": 10,
+          "households": 86,
+          "householdSizeCounts": {
+            "1": 12,
+            "2": 30,
+            "3": 31,
+            "4": 12,
+            "5": 1
+          },
+          "apartments": 98,
+          "occupiedApartments": 86
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60825215,
+              55.10641215
+            ],
+            [
+              36.60919525,
+              55.10641215
+            ],
+            [
+              36.60919525,
+              55.10662799
+            ],
+            [
+              36.60825215,
+              55.10662799
+            ],
+            [
+              36.60825215,
+              55.10641215
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b21_nw",
+      "properties": {
+        "id": "building_b21_nw",
+        "name": "Районный центр",
+        "kind": "community",
+        "blockId": "b21",
+        "parcelId": "parcel_b21_nw",
+        "footprintAreaM2": 3888.0,
+        "floors": 2,
+        "heightM": 6.4,
+        "entranceNodeIds": [
+          "building_b21_nw_entrance"
+        ],
+        "population": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60580008,
+              55.10762624
+            ],
+            [
+              36.6069318,
+              55.10762624
+            ],
+            [
+              36.6069318,
+              55.10811187
+            ],
+            [
+              36.60580008,
+              55.10811187
+            ],
+            [
+              36.60580008,
+              55.10762624
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b21_ne",
+      "properties": {
+        "id": "building_b21_ne",
+        "name": "Жилой дом 29",
+        "kind": "residential",
+        "blockId": "b21",
+        "parcelId": "parcel_b21_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b21_ne_entrance"
+        ],
+        "population": {
+          "total": 371,
+          "ageGroups": {
+            "under18": 64,
+            "age18to64": 215,
+            "age65plus": 92
+          },
+          "mobilityNeedsResidents": 8,
+          "households": 135,
+          "householdSizeCounts": {
+            "1": 22,
+            "2": 35,
+            "3": 38,
+            "4": 35,
+            "5": 5
+          },
+          "apartments": 144,
+          "occupiedApartments": 135
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.60825215,
+              55.10776113
+            ],
+            [
+              36.60919525,
+              55.10776113
+            ],
+            [
+              36.60919525,
+              55.10797697
+            ],
+            [
+              36.60825215,
+              55.10797697
+            ],
+            [
+              36.60825215,
+              55.10776113
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b22_sw",
+      "properties": {
+        "id": "building_b22_sw",
+        "name": "Жилой дом 30",
+        "kind": "residential",
+        "blockId": "b22",
+        "parcelId": "parcel_b22_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b22_sw_entrance"
+        ],
+        "population": {
+          "total": 242,
+          "ageGroups": {
+            "under18": 50,
+            "age18to64": 140,
+            "age65plus": 52
+          },
+          "mobilityNeedsResidents": 11,
+          "households": 92,
+          "householdSizeCounts": {
+            "1": 11,
+            "2": 36,
+            "3": 25,
+            "4": 16,
+            "5": 4
+          },
+          "apartments": 98,
+          "occupiedApartments": 92
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61092427,
+              55.10641215
+            ],
+            [
+              36.61186737,
+              55.10641215
+            ],
+            [
+              36.61186737,
+              55.10662799
+            ],
+            [
+              36.61092427,
+              55.10662799
+            ],
+            [
+              36.61092427,
+              55.10641215
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b22_se",
+      "properties": {
+        "id": "building_b22_se",
+        "name": "Жилой дом 31",
+        "kind": "residential",
+        "blockId": "b22",
+        "parcelId": "parcel_b22_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b22_se_entrance"
+        ],
+        "population": {
+          "total": 238,
+          "ageGroups": {
+            "under18": 43,
+            "age18to64": 132,
+            "age65plus": 63
+          },
+          "mobilityNeedsResidents": 7,
+          "households": 94,
+          "householdSizeCounts": {
+            "1": 20,
+            "2": 28,
+            "3": 25,
+            "4": 18,
+            "5": 3
+          },
+          "apartments": 98,
+          "occupiedApartments": 94
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61328203,
+              55.10641215
+            ],
+            [
+              36.61422513,
+              55.10641215
+            ],
+            [
+              36.61422513,
+              55.10662799
+            ],
+            [
+              36.61328203,
+              55.10662799
+            ],
+            [
+              36.61328203,
+              55.10641215
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b22_nw",
+      "properties": {
+        "id": "building_b22_nw",
+        "name": "Жилой дом 32",
+        "kind": "residential",
+        "blockId": "b22",
+        "parcelId": "parcel_b22_nw",
+        "footprintAreaM2": 1440.0,
+        "floors": 5,
+        "heightM": 16.0,
+        "entranceNodeIds": [
+          "building_b22_nw_entrance"
+        ],
+        "population": {
+          "total": 125,
+          "ageGroups": {
+            "under18": 19,
+            "age18to64": 78,
+            "age65plus": 28
+          },
+          "mobilityNeedsResidents": 5,
+          "households": 55,
+          "householdSizeCounts": {
+            "1": 12,
+            "2": 22,
+            "3": 16,
+            "4": 4,
+            "5": 1
+          },
+          "apartments": 60,
+          "occupiedApartments": 55
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61092427,
+              55.10776113
+            ],
+            [
+              36.61186737,
+              55.10776113
+            ],
+            [
+              36.61186737,
+              55.10797697
+            ],
+            [
+              36.61092427,
+              55.10797697
+            ],
+            [
+              36.61092427,
+              55.10776113
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_sw",
+      "properties": {
+        "id": "building_b23_sw",
+        "name": "Жилой дом 33",
+        "kind": "residential",
+        "blockId": "b23",
+        "parcelId": "parcel_b23_sw",
+        "footprintAreaM2": 1440.0,
+        "floors": 9,
+        "heightM": 28.8,
+        "entranceNodeIds": [
+          "building_b23_sw_entrance"
+        ],
+        "population": {
+          "total": 353,
+          "ageGroups": {
+            "under18": 60,
+            "age18to64": 199,
+            "age65plus": 94
+          },
+          "mobilityNeedsResidents": 15,
+          "households": 134,
+          "householdSizeCounts": {
+            "1": 28,
+            "2": 35,
+            "3": 36,
+            "4": 28,
+            "5": 7
+          },
+          "apartments": 144,
+          "occupiedApartments": 134
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61595415,
+              55.10641215
+            ],
+            [
+              36.61689725,
+              55.10641215
+            ],
+            [
+              36.61689725,
+              55.10662799
+            ],
+            [
+              36.61595415,
+              55.10662799
+            ],
+            [
+              36.61595415,
+              55.10641215
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_se",
+      "properties": {
+        "id": "building_b23_se",
+        "name": "Жилой дом 34",
+        "kind": "residential",
+        "blockId": "b23",
+        "parcelId": "parcel_b23_se",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b23_se_entrance"
+        ],
+        "population": {
+          "total": 247,
+          "ageGroups": {
+            "under18": 54,
+            "age18to64": 133,
+            "age65plus": 60
+          },
+          "mobilityNeedsResidents": 6,
+          "households": 94,
+          "householdSizeCounts": {
+            "1": 18,
+            "2": 26,
+            "3": 28,
+            "4": 17,
+            "5": 5
+          },
+          "apartments": 98,
+          "occupiedApartments": 94
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61831191,
+              55.10641215
+            ],
+            [
+              36.61925501,
+              55.10641215
+            ],
+            [
+              36.61925501,
+              55.10662799
+            ],
+            [
+              36.61831191,
+              55.10662799
+            ],
+            [
+              36.61831191,
+              55.10641215
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_nw",
+      "properties": {
+        "id": "building_b23_nw",
+        "name": "Школа",
+        "kind": "school",
+        "blockId": "b23",
+        "parcelId": "parcel_b23_nw",
+        "footprintAreaM2": 3888.0,
+        "floors": 3,
+        "heightM": 9.600000000000001,
+        "entranceNodeIds": [
+          "building_b23_nw_entrance"
+        ],
+        "population": null,
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61585984,
+              55.10762624
+            ],
+            [
+              36.61699156,
+              55.10762624
+            ],
+            [
+              36.61699156,
+              55.10811187
+            ],
+            [
+              36.61585984,
+              55.10811187
+            ],
+            [
+              36.61585984,
+              55.10762624
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "building_b23_ne",
+      "properties": {
+        "id": "building_b23_ne",
+        "name": "Жилой дом 35",
+        "kind": "residential",
+        "blockId": "b23",
+        "parcelId": "parcel_b23_ne",
+        "footprintAreaM2": 1440.0,
+        "floors": 7,
+        "heightM": 22.400000000000002,
+        "entranceNodeIds": [
+          "building_b23_ne_entrance"
+        ],
+        "population": {
+          "total": 214,
+          "ageGroups": {
+            "under18": 48,
+            "age18to64": 107,
+            "age65plus": 59
+          },
+          "mobilityNeedsResidents": 5,
+          "households": 88,
+          "householdSizeCounts": {
+            "1": 21,
+            "2": 25,
+            "3": 27,
+            "4": 13,
+            "5": 2
+          },
+          "apartments": 98,
+          "occupiedApartments": 88
+        },
+        "synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.61831191,
+              55.10776113
+            ],
+            [
+              36.61925501,
+              55.10776113
+            ],
+            [
+              36.61925501,
+              55.10797697
+            ],
+            [
+              36.61831191,
+              55.10797697
+            ],
+            [
+              36.61831191,
+              55.10776113
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

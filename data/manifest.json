@@ -1,0 +1,51 @@
+{
+  "datasetVersion": "1.0.0",
+  "canonicalFile": "district.json",
+  "hashAlgorithm": "sha256",
+  "files": [
+    {
+      "path": "district.json",
+      "sha256": "8999f4e91494088a9c67101d3658f651c1c18f52056d32d6baf659267c34d304"
+    },
+    {
+      "path": "fixtures/regression-cases.json",
+      "sha256": "1741225bf51760cc53fc30486aaf1a2aa93f25850d767e63c29269d50a7dd120"
+    },
+    {
+      "path": "geojson/blocks.geojson",
+      "sha256": "1d1971446611084a79e6ee9605bd435ff0acb315a888afb2a08ec0003fb77363"
+    },
+    {
+      "path": "geojson/buildings.geojson",
+      "sha256": "d69d4aff976003d8db5cfad31968f33389da78bf796536b26402673e534991dc"
+    },
+    {
+      "path": "geojson/destinations.geojson",
+      "sha256": "d5f4ea4532bd3caeb9650cdbcdfa995d4c3e6e2bd04be222aebe5c50642d1cb5"
+    },
+    {
+      "path": "geojson/edges.geojson",
+      "sha256": "b562f2fca65749bc3db9180d3f2a2599ab81f71f7caa63d4f836c1b4afc8163b"
+    },
+    {
+      "path": "geojson/nodes.geojson",
+      "sha256": "df253970e36b382762c969af90c39de9aedbb567629c3773ccf356972e27d1d5"
+    },
+    {
+      "path": "geojson/parcels.geojson",
+      "sha256": "b77914517ed52da7a891fc6c72faf6d193ef6cd0c9f49c580044ce78920a6bb9"
+    },
+    {
+      "path": "geojson/roads.geojson",
+      "sha256": "9209b471de77ac1ba92256548607dd5b6e7915ddb77a3475e5609d7e5169e383"
+    },
+    {
+      "path": "schema/district.schema.json",
+      "sha256": "ad825d170bd6d5ae67110be3d0effadddb1fe65f2e2e7feae861ed063b3a675f"
+    },
+    {
+      "path": "schema/district.types.ts",
+      "sha256": "fd51a2a56a851c2fbf2043427976d2e9558bacf24ea187fb35cfa6c52cb40e76"
+    }
+  ]
+}

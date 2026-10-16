@@ -1,0 +1,110 @@
+{
+  "source": "Independent Python reference graph and exhaustive search",
+  "datasetFileSha256": "8999f4e91494088a9c67101d3658f651c1c18f52056d32d6baf659267c34d304",
+  "cases": [
+    {
+      "input": {
+        "profileId": "walk",
+        "metricId": "park",
+        "budgetRub": 8000000,
+        "topK": 3
+      },
+      "totalSubsets": 4096,
+      "feasibleSubsets": 1922,
+      "frontierSize": 11,
+      "alternatives": [
+        {
+          "projectIds": [
+            "p_park_b10",
+            "p_park_b22",
+            "p_park_paving",
+            "p_passage_b10"
+          ],
+          "score": {
+            "withinThresholdResidents": 8636,
+            "reachableResidents": 8636,
+            "weightedTravelSecondsReachable": 2699551.969659,
+            "capexRub": 4750000,
+            "annualOpexRub": 166250
+          }
+        },
+        {
+          "projectIds": [
+            "p_park_b10",
+            "p_park_b22",
+            "p_passage_b10"
+          ],
+          "score": {
+            "withinThresholdResidents": 8636,
+            "reachableResidents": 8636,
+            "weightedTravelSecondsReachable": 2716113.663777,
+            "capexRub": 4450000,
+            "annualOpexRub": 155750
+          }
+        },
+        {
+          "projectIds": [
+            "p_park_b10",
+            "p_park_b22",
+            "p_park_paving"
+          ],
+          "score": {
+            "withinThresholdResidents": 8636,
+            "reachableResidents": 8636,
+            "weightedTravelSecondsReachable": 2755666.243344,
+            "capexRub": 4400000,
+            "annualOpexRub": 154000
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "profileId": "step_free",
+        "metricId": "bus_stop",
+        "budgetRub": 3000000,
+        "topK": 3
+      },
+      "totalSubsets": 4096,
+      "feasibleSubsets": 186,
+      "frontierSize": 4,
+      "alternatives": [
+        {
+          "projectIds": [],
+          "score": {
+            "withinThresholdResidents": 4610,
+            "reachableResidents": 8636,
+            "weightedTravelSecondsReachable": 4468852.470588,
+            "capexRub": 0,
+            "annualOpexRub": 0
+          }
+        },
+        {
+          "projectIds": [
+            "p_cross_south",
+            "p_stop_east_north"
+          ],
+          "score": {
+            "withinThresholdResidents": 4515,
+            "reachableResidents": 8636,
+            "weightedTravelSecondsReachable": 4172496.470588,
+            "capexRub": 2350000,
+            "annualOpexRub": 82250
+          }
+        },
+        {
+          "projectIds": [
+            "p_stop_east_north"
+          ],
+          "score": {
+            "withinThresholdResidents": 4515,
+            "reachableResidents": 8636,
+            "weightedTravelSecondsReachable": 4365231.058824,
+            "capexRub": 550000,
+            "annualOpexRub": 19250
+          }
+        }
+      ]
+    }
+  ]
+}

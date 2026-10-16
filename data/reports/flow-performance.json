@@ -1,0 +1,34 @@
+{
+  "measuredAt": "2026-10-16T13:58:40.083Z",
+  "runtime": "v24.19.0",
+  "method": "7 sequential warm runs; median; Node, no GPU or Worker transport included",
+  "rows": [
+    {
+      "nodes": 188,
+      "edges": 277,
+      "homes": 35,
+      "coldSnapshotMs": 12.24,
+      "warmSnapshotMedianMs": 0.8,
+      "explicitRoutesMedianMs": 1.3,
+      "residents": 8636
+    },
+    {
+      "nodes": 4700,
+      "edges": 6925,
+      "homes": 875,
+      "coldSnapshotMs": 53.78,
+      "warmSnapshotMedianMs": 8.05,
+      "explicitRoutesMedianMs": 67.67,
+      "residents": 215900
+    },
+    {
+      "nodes": 18800,
+      "edges": 27700,
+      "homes": 3500,
+      "coldSnapshotMs": 127.12,
+      "warmSnapshotMedianMs": 27.14,
+      "explicitRoutesMedianMs": 624.2,
+      "residents": 863600
+    }
+  ]
+}
