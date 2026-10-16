@@ -41,12 +41,21 @@ import {
 } from '../core/design-rules.js';
 import { nearestNetworkPoint, polygonArea } from '../core/design-geometry.js';
 import { upsertObject, dragObject } from './design-state.js';
+import type { Analysis } from './useAnalysis.js';
+import { PlacementImpact } from './PlacementImpact.js';
 
 interface Props {
   active: boolean;
+  launch: number;
   client: PlanningService | null;
   baseData: DeepReadonly<DistrictData> | null;
   district: DeepReadonly<DistrictData> | null;
+  analysis: Analysis | null;
+  calculationBusy: boolean;
+  calculationError: string | null;
+  baselineView: boolean;
+  onKindChange: (kind: Destination['kind']) => void;
+  onProfileChange: (id: string) => void;
   scenario: ScenarioInput;
   profileId: string;
   selectedId: string | null;
@@ -62,6 +71,7 @@ const n = (value: number | null | undefined) =>
   value === null || value === undefined ? '—' : value.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
 const errorText = (error: unknown) => (error instanceof Error ? error.message : String(error));
 export function DesignWorkbench(props: Props) {
+  const [panel, setPanel] = useState<'place' | 'objects' | 'analysis'>('place');
   const [kind, setKind] = useState<Destination['kind']>('bus_stop'),
     [tool, setTool] = useState<EditorTool>('select'),
     [draft, setDraft] = useState<EditableObject | null>(null),
@@ -107,15 +117,37 @@ export function DesignWorkbench(props: Props) {
   const latestScenarioKey = useRef(scenarioKey);
   latestScenarioKey.current = scenarioKey;
   const latestSelection = useRef(props.selectedId);
+  const lastOpenedObject = useRef<string | null>(null);
+  const editorSession = useRef<number | null>(null);
   latestSelection.current = props.selectedId;
   useEffect(() => {
-    if (!props.active) return;
+    if (!props.active || editorSession.current !== props.launch) return;
     const selected =
       props.scenario.design?.objects.find((o) => o.id === props.selectedId) ??
       (district && props.selectedId ? objectFromDestination(district, props.selectedId) : null);
     setDraft(selected ? structuredClone(selected) : null);
-    if (selected) setKind(selected.kind);
+    if (selected) {
+      setKind(selected.kind);
+      props.onKindChange(selected.kind);
+      if (lastOpenedObject.current !== selected.id || panel === 'place') setPanel('objects');
+      lastOpenedObject.current = selected.id;
+    } else {
+      lastOpenedObject.current = null;
+    }
   }, [props.selectedId, scenarioKey, props.active]);
+  useEffect(() => {
+    if (!props.active) {
+      editorSession.current = null;
+      return;
+    }
+    editorSession.current = props.launch;
+    cancel();
+    setPanel('place');
+    setDraft(null);
+    props.onSelect(null);
+    props.onKindChange(kind);
+    setTool('place');
+  }, [props.active, props.launch]);
   useEffect(() => {
     setResult(null);
     setOverlay(false);
@@ -150,6 +182,11 @@ export function DesignWorkbench(props: Props) {
     [],
   );
   const objects = district?.destinations.filter((d) => d.active) ?? [];
+  const persistedObject = draft
+    ? (props.scenario.design?.objects.find((o) => o.id === draft.id) ??
+      (district ? objectFromDestination(district, draft.id) : null))
+    : null;
+  const pendingParameters = draft && JSON.stringify(draft) !== JSON.stringify(persistedObject);
   const selectedResult =
     result?.mode === 'importance' ? result.objects.find((o) => o.id === draft?.id) : null;
   async function commit(scenario: ScenarioInput, id?: string) {
@@ -183,7 +220,12 @@ export function DesignWorkbench(props: Props) {
         const snap = nearestNetworkPoint(district, point);
         return snap && snap.distanceM <= rules.snapDistanceM ? snap.point : point;
       });
-    return commit(upsertObject(props.scenario, normalized), object.id);
+    const success = await commit(upsertObject(props.scenario, normalized), object.id);
+    if (success && !normalized.active) {
+      props.onSelect(null);
+      setDraft(null);
+    }
+    return success;
   }
   function restored(id: string) {
     const next = {
@@ -193,9 +235,12 @@ export function DesignWorkbench(props: Props) {
         objects: (props.scenario.design?.objects ?? []).filter((o) => o.id !== id),
       },
     };
-    void commit(next);
-    setDraft(null);
-    props.onSelect(null);
+    void commit(next).then((success) => {
+      if (success) {
+        setDraft(null);
+        props.onSelect(null);
+      }
+    });
   }
   function remove() {
     if (!draft) return;
@@ -290,6 +335,7 @@ export function DesignWorkbench(props: Props) {
   }
   async function run(mode: DesignAnalysisInput['mode'], point?: XY) {
     if (!props.client) return;
+    setPanel('analysis');
     job.current?.abort();
     const controller = new AbortController();
     job.current = controller;
@@ -299,7 +345,7 @@ export function DesignWorkbench(props: Props) {
     const input: DesignAnalysisInput = {
       scenario: props.scenario,
       profileId: props.profileId,
-      kind: draft?.kind ?? kind,
+      kind,
       mode,
       ...(point && draft ? { point, objectId: draft.id } : {}),
     };
@@ -379,7 +425,12 @@ export function DesignWorkbench(props: Props) {
   }
   function changeKind(value: Destination['kind']) {
     setKind(value);
-    if (draft) {
+    props.onKindChange(value);
+    job.current?.abort();
+    setBusy(false);
+    setResult(null);
+    setOverlay(false);
+    if (draft && panel === 'objects') {
       const point = draft.entrances[0] ?? coordinates,
         next = makeObject(value, point, draft.id);
       setDraft({ ...next, name: draft.name });
@@ -423,8 +474,39 @@ export function DesignWorkbench(props: Props) {
   if (!props.active) return null;
   return (
     <section className="design-studio" aria-label="Свободный редактор объектов">
+      <nav className="studio-navigation" aria-label="Режим редактора">
+        {(
+          [
+            ['place', 'Разместить'],
+            ['objects', 'Объекты'],
+            ['analysis', 'Анализ'],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            aria-pressed={panel === id}
+            onClick={() => {
+              cancel();
+              setPanel(id);
+              if (id === 'place') {
+                props.onSelect(null);
+                setDraft(null);
+                setTool('place');
+              }
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
       <div className="section-heading">
-        <h2>Свободный редактор</h2>
+        <h2>
+          {panel === 'place'
+            ? 'Новый объект'
+            : panel === 'objects'
+              ? 'Редактирование объекта'
+              : 'Анализ размещения'}
+        </h2>
         <button
           className="icon-button"
           aria-label="Правила свободного редактора"
@@ -433,9 +515,25 @@ export function DesignWorkbench(props: Props) {
           <Settings2 size={16} />
         </button>
       </div>
-      <p className="studio-note">
-        Любая точка тротуара или дорожки. Привязка создаёт новый узел, а не выбирает готовое место.
-      </p>
+      {panel === 'place' && (
+        <p className="studio-note">
+          Выберите тип и нажмите на тротуар или дорожку. Объект встанет в выбранную точку сети.
+        </p>
+      )}
+      <label className="studio-profile">
+        Пешеходный профиль
+        <select
+          aria-label="Профиль движения в редакторе"
+          value={props.profileId}
+          onChange={(e) => props.onProfileChange(e.target.value)}
+        >
+          {props.baseData?.profiles.map((profile) => (
+            <option key={profile.id} value={profile.id}>
+              {profile.name}
+            </option>
+          ))}
+        </select>
+      </label>
       <label className="field-label" htmlFor="object-kind">
         Категория объекта
       </label>
@@ -450,32 +548,38 @@ export function DesignWorkbench(props: Props) {
           </option>
         ))}
       </select>
-      <div className="studio-tools">
-        <button
-          className={tool === 'place' ? 'active' : ''}
-          disabled={saving}
-          onClick={() => {
-            props.onSelect(null);
-            setDraft(null);
-            setTool('place');
-          }}
-        >
-          <Plus size={14} />
-          Поставить на карте
-        </button>
-        <button
-          className={tool === 'polygon' ? 'active' : ''}
-          onClick={() => {
-            props.onSelect(null);
-            setDraft(null);
-            setKind('park');
-            setPolygon([]);
-            setTool('polygon');
-          }}
-        >
-          Нарисовать парк
-        </button>
-      </div>
+      {panel === 'place' && (
+        <>
+          <div className="studio-tools">
+            <button
+              className={tool === 'place' ? 'active' : ''}
+              disabled={saving}
+              onClick={() => {
+                props.onSelect(null);
+                setDraft(null);
+                setTool('place');
+              }}
+            >
+              <Plus size={14} />
+              Поставить на карте
+            </button>
+            {kind === 'park' && (
+              <button
+                className={tool === 'polygon' ? 'active' : ''}
+                onClick={() => {
+                  props.onSelect(null);
+                  setDraft(null);
+                  setKind('park');
+                  setPolygon([]);
+                  setTool('polygon');
+                }}
+              >
+                Нарисовать парк
+              </button>
+            )}
+          </div>
+        </>
+      )}
       {tool !== 'select' && (
         <div className="studio-hint" role="status">
           {tool === 'place'
@@ -490,52 +594,54 @@ export function DesignWorkbench(props: Props) {
           </button>
         </div>
       )}
-      <details className="coordinate-placement">
-        <summary>Размещение по координатам</summary>
-        <div className="studio-pair">
-          <label>
-            X, м
-            <input
-              aria-label="Координата X нового объекта"
-              type="number"
-              step="0.1"
-              value={coordinates[0]}
-              onChange={(e) => setCoordinates([Number(e.target.value), coordinates[1]])}
-            />
-          </label>
-          <label>
-            Y, м
-            <input
-              aria-label="Координата Y нового объекта"
-              type="number"
-              step="0.1"
-              value={coordinates[1]}
-              onChange={(e) => setCoordinates([coordinates[0], Number(e.target.value)])}
-            />
-          </label>
-        </div>
-        <button
-          className="secondary-button full-width"
-          disabled={saving}
-          onClick={() => {
-            if (tool === 'polygon') place(coordinates);
-            else if (tool === 'entrance' || tool === 'relocate') place(coordinates);
-            else {
-              const snap = district && nearestNetworkPoint(district, coordinates);
-              if (snap && snap.distanceM <= rules.snapDistanceM) void save(makeObject(kind, snap.point));
-              else setError('Рядом с указанными координатами нет пешеходной сети');
-            }
-          }}
-        >
-          {tool === 'polygon'
-            ? 'Добавить вершину'
-            : tool === 'relocate'
-              ? 'Проверить перенос'
-              : tool === 'entrance'
-                ? 'Добавить вход'
-                : 'Разместить по координатам'}
-        </button>
-      </details>
+      {(panel === 'place' || tool === 'entrance' || tool === 'relocate') && (
+        <details className="coordinate-placement">
+          <summary>Размещение по координатам</summary>
+          <div className="studio-pair">
+            <label>
+              X, м
+              <input
+                aria-label="Координата X нового объекта"
+                type="number"
+                step="0.1"
+                value={coordinates[0]}
+                onChange={(e) => setCoordinates([Number(e.target.value), coordinates[1]])}
+              />
+            </label>
+            <label>
+              Y, м
+              <input
+                aria-label="Координата Y нового объекта"
+                type="number"
+                step="0.1"
+                value={coordinates[1]}
+                onChange={(e) => setCoordinates([coordinates[0], Number(e.target.value)])}
+              />
+            </label>
+          </div>
+          <button
+            className="secondary-button full-width"
+            disabled={saving}
+            onClick={() => {
+              if (tool === 'polygon') place(coordinates);
+              else if (tool === 'entrance' || tool === 'relocate') place(coordinates);
+              else {
+                const snap = district && nearestNetworkPoint(district, coordinates);
+                if (snap && snap.distanceM <= rules.snapDistanceM) void save(makeObject(kind, snap.point));
+                else setError('Рядом с указанными координатами нет пешеходной сети');
+              }
+            }}
+          >
+            {tool === 'polygon'
+              ? 'Добавить вершину'
+              : tool === 'relocate'
+                ? 'Проверить перенос'
+                : tool === 'entrance'
+                  ? 'Добавить вход'
+                  : 'Разместить по координатам'}
+          </button>
+        </details>
+      )}
       {tool === 'polygon' && (
         <div className="studio-tools">
           <button disabled={polygon.length < 3 || saving} onClick={() => void finishPolygon()}>
@@ -558,30 +664,39 @@ export function DesignWorkbench(props: Props) {
           {error}
         </div>
       )}
-      <div className="studio-object-list" aria-label="Объекты для редактирования">
-        {objects.map((object) => (
-          <button
-            key={object.id}
-            className={object.id === props.selectedId ? 'active' : ''}
-            onClick={() => {
-              props.onSelect(object.id);
-              setTool('select');
-            }}
-          >
-            <MapPin size={12} />
-            <span>{object.name}</span>
-            <small>{OBJECT_KINDS[object.kind]}</small>
-          </button>
-        ))}
-      </div>
-      {draft && (
+      {panel === 'objects' && (
+        <details className="studio-object-picker" open={!draft}>
+          <summary>
+            {draft ? 'Выбрать другой объект' : `Выберите объект на карте или из списка · ${objects.length}`}
+          </summary>
+          <div className="studio-object-list" aria-label="Объекты для редактирования">
+            {objects.map((object) => (
+              <button
+                key={object.id}
+                className={object.id === props.selectedId ? 'active' : ''}
+                onClick={() => {
+                  props.onSelect(object.id);
+                  setTool('select');
+                }}
+              >
+                <MapPin size={12} />
+                <span>{object.name}</span>
+                <small>{OBJECT_KINDS[object.kind]}</small>
+              </button>
+            ))}
+          </div>
+        </details>
+      )}
+      {draft && panel === 'objects' && (
         <section className="studio-object-card">
           <h3>{draft.name}</h3>
           <p className="studio-note">
             Выберите маркер и перетащите его. Синие квадраты — вершины, жёлтые точки — входы. Стрелки на
             клавиатуре двигают выбранный объект на 5 м.
           </p>
-          {dragging && <div className="studio-hint">Перетаскивание · пересчёт до 12 раз/с</div>}
+          {dragging && (
+            <div className="studio-hint">Перетаскивание · показатели обновляются по мере расчёта</div>
+          )}
           <label className="field-label" htmlFor="edit-name">
             Название
           </label>
@@ -626,24 +741,27 @@ export function DesignWorkbench(props: Props) {
                   ? `Условный интервал ${STOP_HEADWAYS[draft.level] / 60} мин, ожидание ${STOP_HEADWAYS[draft.level] / 120} мин.`
                   : ''}
               </p>
-              <div className="studio-pair">
-                {[0, 1].map((axis) => (
-                  <label key={axis}>
-                    {axis ? 'Y' : 'X'}, м
-                    <input
-                      aria-label={`Положение объекта ${axis ? 'Y' : 'X'}`}
-                      type="number"
-                      step="0.1"
-                      value={draft.entrances[0]?.[axis] ?? 0}
-                      onChange={(e) => {
-                        const point: XY = [...(draft.entrances[0] ?? coordinates)];
-                        point[axis] = Number(e.target.value);
-                        setDraft({ ...draft, entrances: [point] });
-                      }}
-                    />
-                  </label>
-                ))}
-              </div>
+              <details className="coordinate-placement">
+                <summary>Положение по координатам</summary>
+                <div className="studio-pair">
+                  {[0, 1].map((axis) => (
+                    <label key={axis}>
+                      {axis ? 'Y' : 'X'}, м
+                      <input
+                        aria-label={`Положение объекта ${axis ? 'Y' : 'X'}`}
+                        type="number"
+                        step="0.1"
+                        value={draft.entrances[0]?.[axis] ?? 0}
+                        onChange={(e) => {
+                          const point: XY = [...(draft.entrances[0] ?? coordinates)];
+                          point[axis] = Number(e.target.value);
+                          setDraft({ ...draft, entrances: [point] });
+                        }}
+                      />
+                    </label>
+                  ))}
+                </div>
+              </details>
             </>
           ) : (
             <>
@@ -748,6 +866,12 @@ export function DesignWorkbench(props: Props) {
             <Check size={14} />
             Применить параметры
           </button>
+          {pendingParameters && !dragging && (
+            <p className="studio-note" role="status">
+              Есть неприменённые параметры. Результаты ниже относятся к сохранённому варианту; нажмите
+              «Применить параметры» для пересчёта.
+            </p>
+          )}
           <div className="studio-tools">
             <button disabled={draft.kind === 'park'} onClick={() => setTool('relocate')}>
               <Move size={13} />
@@ -779,17 +903,17 @@ export function DesignWorkbench(props: Props) {
                   )
                 }
               >
-                Обслуживает {n(selectedResult.servedResidents)} жителей
+                Потенциальная зона: {n(selectedResult.servedResidents)} жителей
               </button>
               {selectedResult.capacity !== null && (
                 <button
                   onClick={() =>
                     setExplanation(
-                      'Нагрузка = жители, для которых объект ближайший / эффективная вместимость × 100%. Более 100% означает условную перегрузку; перераспределение жителей при переполнении не моделируется.',
+                      'Потенциальные жители ближайших домов / эффективная вместимость × 100%. Для парка это стресс-сценарий одновременного посещения всей зоны. Для школы нужны школьные возраста и зачисление; для магазина, клиники и остановки — частота обращений и период времени. Этот коэффициент не является фактической загрузкой.',
                     )
                   }
                 >
-                  Вместимость {n(selectedResult.capacity)} · нагрузка{' '}
+                  Вместимость {n(selectedResult.capacity)} · отношение к населению зоны{' '}
                   {selectedResult.capacity === 0 && selectedResult.servedResidents > 0
                     ? '∞'
                     : n(selectedResult.loadPercent)}
@@ -806,239 +930,274 @@ export function DesignWorkbench(props: Props) {
           )}
         </section>
       )}
-      <section className="studio-analysis">
-        <h3>Аналитика размещения</h3>
-        <p className="studio-note">
-          Категория: {OBJECT_KINDS[draft?.kind ?? kind]} · радиус {rules.distanceThresholdM} м по сети.
-        </p>
-        <div className="studio-tools">
-          <button disabled={busy} onClick={() => void run('needs')}>
-            Где нужнее всего?
-          </button>
-          <button disabled={busy} onClick={() => void run('importance')}>
-            Карта важности
-          </button>
-          <button disabled={busy} onClick={() => void run('vulnerability')}>
-            Уязвимость сети
-          </button>
-        </div>
-        {busy && (
-          <div className="studio-hint" role="status">
-            <LoaderCircle className="spin" size={13} />
-            Считаем {n(progress)}%
-            <button
-              onClick={() => {
-                job.current?.abort();
-                setBusy(false);
-              }}
-            >
-              Отменить
-            </button>
-          </div>
-        )}
-        {result && (
-          <>
-            <button className="studio-number" onClick={() => setExplanation(explainSummary)}>
-              Средний путь {n(result.totals.meanDistanceM)} м · в радиусе {n(result.totals.withinResidents)}{' '}
-              из {n(result.totals.evaluatedResidents)} жителей
-            </button>
-            {result.totals.meanServiceSeconds !== null && (
-              <button
-                className="studio-number"
-                onClick={() =>
-                  setExplanation(
-                    'Время до посадки = время ходьбы по выбранному кратчайшему по метрам пути (скорость, покрытие, переходы) + половина условного интервала остановки. Интервалы уровней: 15 / 10 / 5 минут. Это отдельный показатель; обычная пешая доступность выше не меняется.',
-                  )
-                }
-              >
-                До посадки с ожиданием: {n(result.totals.meanServiceSeconds / 60)} мин
+      <PlacementImpact
+        analysis={props.analysis}
+        busy={props.calculationBusy}
+        error={props.calculationError}
+        selectedId={props.selectedId}
+        kind={kind}
+        baseData={props.baseData}
+        onSelect={props.onSelect}
+        compact={panel === 'place'}
+        baselineView={props.baselineView}
+      />
+      {panel === 'analysis' && (
+        <>
+          <section className="studio-analysis">
+            <h3>Аналитика размещения</h3>
+            <p className="studio-note">
+              Категория: {OBJECT_KINDS[kind]} · радиус {rules.distanceThresholdM} м по сети.
+            </p>
+            <div className="studio-tools">
+              <button disabled={busy} onClick={() => void run('needs')}>
+                Где нужнее всего?
               </button>
-            )}
-            {result.mode === 'needs' && (
-              <>
-                <p className="studio-note">
-                  Проверено {result.evaluatedCandidates} точек, шаг до {n(result.spacingM)} м плюс узлы сети.
-                  Точный эффект одного нового входа в проверенных точках; цвет между ними интерполирован.
-                  Зелёный — больше эффект, серый — нет эффекта. Для парка «Поставить сюда» создаёт один ручной
-                  вход. Топ-3 разнесены минимум на 80 м.
-                </p>
-                {result.top.map((candidate, index) => (
-                  <article className="studio-result" key={candidate.id}>
-                    <h4>Место {index + 1}</h4>
-                    <button onClick={() => explainRows(candidate.rows ?? result.rows)}>
-                      −{n(candidate.meanReductionM)} м среднего пути · +{n(candidate.gainResidents)} жителей в
-                      радиусе {rules.distanceThresholdM} м
-                    </button>
-                    <p>
-                      Новая достижимость: {n(candidate.gainReachableResidents)} · X {n(candidate.point[0])}, Y{' '}
-                      {n(candidate.point[1])}
-                    </p>
-                    <button
-                      className="secondary-button full-width"
-                      disabled={saving}
-                      onClick={() =>
-                        void save({ ...makeObject(result.kind, candidate.point), autoEntrances: false })
-                      }
-                    >
-                      Поставить сюда
-                    </button>
-                  </article>
-                ))}
-              </>
-            )}
-            {result.mode === 'vulnerability' &&
-              [...result.vulnerabilities]
-                .sort(
-                  (a, b) =>
-                    b.lostReachableResidents - a.lostReachableResidents ||
-                    b.lostResidents - a.lostResidents ||
-                    b.affectedResidents - a.affectedResidents,
-                )
-                .slice(0, 3)
-                .map((edge) => (
-                  <article className="studio-result" key={edge.edgeId}>
-                    <strong>{edge.edgeId}</strong>
-                    <button onClick={() => setExplanation(explainSummary)}>
-                      Закрытие: {n(edge.lostResidents)} потеряют радиус, {n(edge.lostReachableResidents)} —
-                      достижимость; хуже {n(edge.affectedResidents)} жителям.
-                    </button>
-                  </article>
-                ))}
-            {result.mode === 'importance' && (
-              <p className="studio-note">
-                Цвет объектов показывает последствия удаления. Краснее — больше жителей потеряют доступ или
-                получат более длинный путь. Индекс цвета = потери порога + потери достижимости + 0,1 × жители
-                с ухудшением, относительно максимума. Выберите объект для чисел.
-              </p>
-            )}
-            {result.comparisons.length > 0 && (
-              <div className="studio-comparison" role="region" aria-label="Сравнение состояний">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Вариант</th>
-                      <th>Среднее, м</th>
-                      <th>В радиусе</th>
-                      <th>Выиграли</th>
-                      <th>Проиграли</th>
-                      <th>Недостижимы</th>
-                      <th>Стоимость, ₽</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.comparisons.map((row, index) => (
-                      <tr key={index}>
-                        <th>
-                          {result.mode === 'relocation' ? (
-                            <button
-                              onClick={() => {
-                                previewRelocation(index);
-                                explainRows(row.rows);
-                              }}
-                            >
-                              {row.name}
-                            </button>
-                          ) : (
-                            row.name
-                          )}
-                        </th>
-                        <td>
-                          <button onClick={() => explainRows(row.rows)}>{n(row.totals.meanDistanceM)}</button>
-                        </td>
-                        <td>
-                          <button onClick={() => explainRows(row.rows)}>
-                            {n(row.totals.withinResidents)}
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            onClick={() => {
-                              explainRows(row.rows);
-                              setAuditFilter('won');
-                            }}
-                          >
-                            {n(row.change.improvedResidents)}
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            onClick={() => {
-                              explainRows(row.rows);
-                              setAuditFilter('lost');
-                            }}
-                          >
-                            {n(row.change.worsenedResidents)}
-                          </button>
-                        </td>
-                        <td>
-                          <button onClick={() => explainRows(row.rows)}>
-                            {n(row.totals.evaluatedResidents - row.totals.reachableResidents)}
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            onClick={() => {
-                              setRulesOpen(true);
-                              setExplanation(
-                                `Стоимость варианта «${row.name}»: ${n(row.costRub)} ₽ (округление общей суммы до рубля). ${row.costItems.map((item) => `${item.name}: ${item.formula} = ${n(item.amountRub)} ₽`).join('; ') || 'Платных изменений нет'}. Отмена нового объекта отменяет его стоимость.`,
-                              );
-                            }}
-                          >
-                            {n(row.costRub)}
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <button disabled={busy} onClick={() => void run('importance')}>
+                Карта важности
+              </button>
+              <button disabled={busy} onClick={() => void run('vulnerability')}>
+                Уязвимость сети
+              </button>
+            </div>
+            {busy && (
+              <div className="studio-hint" role="status">
+                <LoaderCircle className="spin" size={13} />
+                Считаем {n(progress)}%
+                <button
+                  onClick={() => {
+                    job.current?.abort();
+                    setBusy(false);
+                  }}
+                >
+                  Отменить
+                </button>
               </div>
             )}
-            {result.mode === 'relocation' && draft && relocationPoint && (
+            {result && (
               <>
-                <p className="studio-note">
-                  Нажимайте на состояния в таблице для просмотра. Предварительный расчёт не ограничен
-                  бюджетом; применение проверяет реальный бюджет.
-                </p>
-                <button
-                  className="primary-button full-width"
-                  onClick={() => void save({ ...draft, entrances: [relocationPoint] })}
-                >
-                  Применить перенос
+                {selectedResult && (
+                  <article className="studio-result">
+                    <h4>{selectedResult.name}</h4>
+                    <button onClick={() => explainRows(selectedResult.withoutRows)}>
+                      Удаление: {n(selectedResult.change.worsenedResidents)} жителям станет дальше;{' '}
+                      {n(selectedResult.change.lostWithinResidents)} потеряют доступ в{' '}
+                      {rules.distanceThresholdM} м, {n(selectedResult.change.lostReachableResidents)} —
+                      достижимость.
+                    </button>
+                    <button className="secondary-button full-width" onClick={() => setPanel('objects')}>
+                      Редактировать объект
+                    </button>
+                  </article>
+                )}
+                <button className="studio-number" onClick={() => setExplanation(explainSummary)}>
+                  Средний путь {n(result.totals.meanDistanceM)} м · в радиусе{' '}
+                  {n(result.totals.withinResidents)} из {n(result.totals.evaluatedResidents)} жителей
                 </button>
-                <button className="text-button" onClick={() => props.onPreview(null)}>
-                  Закончить просмотр
-                </button>
+                {result.totals.meanServiceSeconds !== null && (
+                  <button
+                    className="studio-number"
+                    onClick={() =>
+                      setExplanation(
+                        'Минимум времени ходьбы + половины заданного интервала среди достижимых остановок. Интервалы уровней: 15 / 10 / 5 минут — сценарное допущение. Равномерное прибытие, без пропуска рейсов и переполнения. Реальные маршруты, направления и расписания не проверены; это не прогноз времени посадки.',
+                      )
+                    }
+                  >
+                    Ходьба + условное ожидание: {n(result.totals.meanServiceSeconds / 60)} мин
+                  </button>
+                )}
+                {result.mode === 'needs' && (
+                  <>
+                    <p className="studio-note">
+                      Проверено {result.evaluatedCandidates} точек, шаг до {n(result.spacingM)} м плюс узлы
+                      сети. Точный эффект одного нового входа в проверенных точках; цвет между ними
+                      интерполирован. Зелёный — больше эффект, серый — нет эффекта. Для парка «Поставить сюда»
+                      создаёт один ручной вход. Топ-3 разнесены минимум на 80 м.
+                    </p>
+                    {result.top.map((candidate, index) => (
+                      <article className="studio-result" key={candidate.id}>
+                        <h4>Место {index + 1}</h4>
+                        <button onClick={() => explainRows(candidate.rows ?? result.rows)}>
+                          −{n(candidate.meanReductionM)} м среднего пути · +{n(candidate.gainResidents)}{' '}
+                          жителей в радиусе {rules.distanceThresholdM} м
+                        </button>
+                        <p>
+                          Новая достижимость: {n(candidate.gainReachableResidents)} · X{' '}
+                          {n(candidate.point[0])}, Y {n(candidate.point[1])}
+                        </p>
+                        <button
+                          className="secondary-button full-width"
+                          disabled={saving}
+                          onClick={() =>
+                            void save({ ...makeObject(result.kind, candidate.point), autoEntrances: false })
+                          }
+                        >
+                          Поставить сюда
+                        </button>
+                      </article>
+                    ))}
+                  </>
+                )}
+                {result.mode === 'vulnerability' &&
+                  [...result.vulnerabilities]
+                    .sort(
+                      (a, b) =>
+                        b.lostReachableResidents - a.lostReachableResidents ||
+                        b.lostResidents - a.lostResidents ||
+                        b.affectedResidents - a.affectedResidents,
+                    )
+                    .slice(0, 3)
+                    .map((edge) => (
+                      <article className="studio-result" key={edge.edgeId}>
+                        <strong>{edge.edgeId}</strong>
+                        <button onClick={() => setExplanation(explainSummary)}>
+                          Закрытие: {n(edge.lostResidents)} потеряют радиус, {n(edge.lostReachableResidents)}{' '}
+                          — достижимость; хуже {n(edge.affectedResidents)} жителям.
+                        </button>
+                      </article>
+                    ))}
+                {result.mode === 'importance' && (
+                  <p className="studio-note">
+                    Цвет объектов показывает последствия удаления. Краснее — больше жителей потеряют доступ
+                    или получат более длинный путь. Индекс цвета = потери порога + потери достижимости + 0,1 ×
+                    жители с ухудшением, относительно максимума. Выберите объект для чисел.
+                  </p>
+                )}
+                {result.comparisons.length > 0 && (
+                  <div className="studio-comparison" role="region" aria-label="Сравнение состояний">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Вариант</th>
+                          <th>Среднее, м</th>
+                          <th>В радиусе</th>
+                          <th>Выиграли</th>
+                          <th>Проиграли</th>
+                          <th>Недостижимы</th>
+                          <th>Стоимость, ₽</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {result.comparisons.map((row, index) => (
+                          <tr key={index}>
+                            <th>
+                              {result.mode === 'relocation' ? (
+                                <button
+                                  onClick={() => {
+                                    previewRelocation(index);
+                                    explainRows(row.rows);
+                                  }}
+                                >
+                                  {row.name}
+                                </button>
+                              ) : (
+                                row.name
+                              )}
+                            </th>
+                            <td>
+                              <button onClick={() => explainRows(row.rows)}>
+                                {n(row.totals.meanDistanceM)}
+                              </button>
+                            </td>
+                            <td>
+                              <button onClick={() => explainRows(row.rows)}>
+                                {n(row.totals.withinResidents)}
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                onClick={() => {
+                                  explainRows(row.rows);
+                                  setAuditFilter('won');
+                                }}
+                              >
+                                {n(row.change.improvedResidents)}
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                onClick={() => {
+                                  explainRows(row.rows);
+                                  setAuditFilter('lost');
+                                }}
+                              >
+                                {n(row.change.worsenedResidents)}
+                              </button>
+                            </td>
+                            <td>
+                              <button onClick={() => explainRows(row.rows)}>
+                                {n(row.totals.evaluatedResidents - row.totals.reachableResidents)}
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                onClick={() => {
+                                  setRulesOpen(true);
+                                  setExplanation(
+                                    `Стоимость варианта «${row.name}»: ${n(row.costRub)} ₽ (округление общей суммы до рубля). ${row.costItems.map((item) => `${item.name}: ${item.formula} = ${n(item.amountRub)} ₽`).join('; ') || 'Платных изменений нет'}. Отмена нового объекта отменяет его стоимость.`,
+                                  );
+                                }}
+                              >
+                                {n(row.costRub)}
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+                {result.mode === 'relocation' && draft && relocationPoint && (
+                  <>
+                    <p className="studio-note">
+                      Нажимайте на состояния в таблице для просмотра. Предварительный расчёт не ограничен
+                      бюджетом; применение проверяет реальный бюджет.
+                    </p>
+                    <button
+                      className="primary-button full-width"
+                      onClick={() => void save({ ...draft, entrances: [relocationPoint] })}
+                    >
+                      Применить перенос
+                    </button>
+                    <button className="text-button" onClick={() => props.onPreview(null)}>
+                      Закончить просмотр
+                    </button>
+                  </>
+                )}
+                {overlay && (
+                  <button className="text-button" onClick={() => setOverlay(false)}>
+                    Убрать аналитическую подсветку
+                  </button>
+                )}
               </>
             )}
-            {overlay && (
-              <button className="text-button" onClick={() => setOverlay(false)}>
-                Убрать аналитическую подсветку
-              </button>
-            )}
-          </>
-        )}
-      </section>
-      <section className="studio-analysis">
-        <h3>Сравнить сценарии А / Б / В</h3>
-        <p className="studio-note">Исходный и текущий включены. Добавьте сохранённые варианты (до 6).</p>
-        {props.saved.slice(0, 20).map((item, index) => (
-          <label className="studio-check" key={index}>
-            <input
-              type="checkbox"
-              checked={comparisonChoices.includes(index)}
-              onChange={(e) =>
-                setComparisonChoices((old) =>
-                  e.target.checked ? [...old, index].slice(0, 6) : old.filter((i) => i !== index),
-                )
-              }
-            />
-            {item.name}
-          </label>
-        ))}
-        <button className="secondary-button full-width" disabled={busy} onClick={() => void run('compare')}>
-          Сравнить выбранные сценарии
-        </button>
-      </section>
+          </section>
+          <section className="studio-analysis">
+            <h3>Сравнить сценарии А / Б / В</h3>
+            <p className="studio-note">Исходный и текущий включены. Добавьте сохранённые варианты (до 6).</p>
+            {props.saved.slice(0, 20).map((item, index) => (
+              <label className="studio-check" key={index}>
+                <input
+                  type="checkbox"
+                  checked={comparisonChoices.includes(index)}
+                  onChange={(e) =>
+                    setComparisonChoices((old) =>
+                      e.target.checked ? [...old, index].slice(0, 6) : old.filter((i) => i !== index),
+                    )
+                  }
+                />
+                {item.name}
+              </label>
+            ))}
+            <button
+              className="secondary-button full-width"
+              disabled={busy}
+              onClick={() => void run('compare')}
+            >
+              Сравнить выбранные сценарии
+            </button>
+          </section>
+        </>
+      )}
       <button className="text-button" onClick={() => setRulesOpen((v) => !v)}>
         Все правила, нормативы и стоимости
       </button>

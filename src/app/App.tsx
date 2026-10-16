@@ -235,6 +235,7 @@ function DistrictApp({
     [tab, setTab] = useState<'overview' | 'projects' | 'scenarios' | 'studio'>('overview');
   const [previewScenario, setPreviewScenario] = useState<ScenarioInput | null>(null),
     [editorView, setEditorView] = useState<EditorView>(EMPTY_EDITOR);
+  const [editorLaunch, setEditorLaunch] = useState(0);
   const editorEvents = useRef<EditorEvents | null>(null),
     costCache = useRef(new Map<string, number>());
   const scenarioRef = useRef(history.current);
@@ -323,6 +324,8 @@ function DistrictApp({
     completedAnalysis.scenario === effectiveScenario
       ? completedAnalysis
       : null;
+  const committedDistrict = useRef<DeepReadonly<DistrictData> | null>(null);
+  if (analysis?.scenario === history.current) committedDistrict.current = analysis.district;
   const selectedRoute = useSelectedRoute(client, analysis, selectedId);
   const selectedEdge = analysis?.district.edges.find((edge) => edge.id === selectedId);
   const selectedLoad = analysis?.loads.edges.find((edge) => edge.edgeId === selectedId);
@@ -639,15 +642,8 @@ function DistrictApp({
           >
             Сценарии
           </button>
-          <button onClick={() => setInfoOpen(true)}>
-            О модели <ArrowUpRight size={13} />
-          </button>
         </nav>
         <div className="topbar-actions">
-          <span className="local-status">
-            <i />
-            Локальный проект
-          </span>
           <button
             className="top-icon"
             aria-label="Сохранить изображение карты"
@@ -669,101 +665,133 @@ function DistrictApp({
         </div>
       </header>
       <div className="workspace">
-        <aside className={`sidebar ${sidebarOpen ? 'sidebar--open' : ''}`}>
-          <div className="sidebar-intro">
-            <div className="eyebrow">
-              <span />
-              Учебный район{' '}
-              <button
-                className="mobile-close icon-button"
-                aria-label="Закрыть панель"
-                onClick={() => setSidebarOpen(false)}
-              >
-                <X size={17} />
+        <aside
+          className={`sidebar ${sidebarOpen ? 'sidebar--open' : ''} ${tab === 'studio' ? 'sidebar--studio' : ''}`}
+        >
+          {tab === 'studio' ? (
+            <header className="editor-panel-heading">
+              <button className="text-button" onClick={() => setTab('overview')}>
+                <ArrowRight size={14} style={{ transform: 'rotate(180deg)' }} /> К району
               </button>
-            </div>
-            <h1>{districtInfo.name}</h1>
-            <p>{districtInfo.description}</p>
-            <label className="district-switch">
-              <span>Территория</span>
-              <select
-                aria-label="Выбор территории"
-                value={districtId}
-                onChange={(e) => onDistrictChange(e.target.value as DistrictId, history)}
+              <button
+                className="icon-button"
+                aria-label="Закрыть редактор объектов"
+                onClick={() => {
+                  setTab('overview');
+                  setSidebarOpen(false);
+                }}
               >
-                <option value="obninsk-center">Центр Обнинска · реальная геометрия</option>
-                <option value="sosnovy">Сосновый · прежний район</option>
-              </select>
-            </label>
-            <div className="object-search">
-              <Search size={15} />
-              <input
-                aria-label="Найти дом или объект"
-                placeholder="Найти дом или объект"
-                value={query}
-                onFocus={() => setSearchOpen(true)}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  setSearchOpen(true);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape') setSearchOpen(false);
-                  if (e.key === 'Enter' && searchResults[0]) choose(searchResults[0].id);
-                }}
-              />
-              {searchOpen && query && (
-                <div className="search-results">
-                  {searchResults.length ? (
-                    searchResults.map((item) => (
-                      <button key={item.id} onClick={() => choose(item.id)}>
-                        <Building2 size={16} />
-                        <span>
-                          <strong>{item.name}</strong>
-                          <small>{item.detail}</small>
-                        </span>
-                        <ArrowUpRight size={13} />
-                      </button>
-                    ))
-                  ) : (
-                    <p>Объекты не найдены</p>
+                <X size={18} />
+              </button>
+              <h1>Объекты на карте</h1>
+              <p>{districtInfo.name}</p>
+            </header>
+          ) : (
+            <>
+              <div className="sidebar-intro">
+                <div className="eyebrow">
+                  <span />
+                  Учебный район{' '}
+                  <button
+                    className="mobile-close icon-button"
+                    aria-label="Закрыть панель"
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <X size={17} />
+                  </button>
+                </div>
+                <h1>{districtInfo.name}</h1>
+                <label className="district-switch">
+                  <span>Территория</span>
+                  <select
+                    aria-label="Выбор территории"
+                    value={districtId}
+                    onChange={(e) => onDistrictChange(e.target.value as DistrictId, history)}
+                  >
+                    <option value="obninsk-center">Центр Обнинска · реальная геометрия</option>
+                    <option value="sosnovy">Сосновый · прежний район</option>
+                  </select>
+                </label>
+                <div className="object-search">
+                  <Search size={15} />
+                  <input
+                    aria-label="Найти дом или объект"
+                    placeholder="Найти дом или объект"
+                    value={query}
+                    onFocus={() => setSearchOpen(true)}
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                      setSearchOpen(true);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Escape') setSearchOpen(false);
+                      if (e.key === 'Enter' && searchResults[0]) choose(searchResults[0].id);
+                    }}
+                  />
+                  {searchOpen && query && (
+                    <div className="search-results">
+                      {searchResults.length ? (
+                        searchResults.map((item) => (
+                          <button key={item.id} onClick={() => choose(item.id)}>
+                            <Building2 size={16} />
+                            <span>
+                              <strong>{item.name}</strong>
+                              <small>{item.detail}</small>
+                            </span>
+                            <ArrowUpRight size={13} />
+                          </button>
+                        ))
+                      ) : (
+                        <p>Объекты не найдены</p>
+                      )}
+                    </div>
                   )}
                 </div>
-              )}
-            </div>
-          </div>
-          <div className="sidebar-tabs" role="tablist" aria-label="Панели района">
-            {(
-              [
-                ['overview', 'Среда'],
-                ['projects', 'Проекты'],
-                ['scenarios', 'Сценарии'],
-                ['studio', 'Редактор'],
-              ] as const
-            ).map(([id, label]) => (
-              <button
-                key={id}
-                role="tab"
-                aria-selected={tab === id}
-                className={tab === id ? 'active' : ''}
-                onClick={() => {
-                  setTab(id);
-                  if (id === 'studio') setBefore(false);
-                  if (id === 'projects')
-                    setSettings((s) => ({ ...s, layers: { ...s.layers, projects: true } }));
-                }}
-              >
-                {label}
-                {id === 'projects' && <span>{history.current.projectIds.length || 12}</span>}
-              </button>
-            ))}
-          </div>
+              </div>
+              <div className="sidebar-tabs" role="tablist" aria-label="Панели района">
+                {(
+                  [
+                    ['overview', 'Среда'],
+                    ['projects', 'Проекты'],
+                    ['scenarios', 'Сценарии'],
+                    ['studio', 'Редактор'],
+                  ] as const
+                ).map(([id, label]) => (
+                  <button
+                    key={id}
+                    role="tab"
+                    aria-selected={tab === id}
+                    className={tab === id ? 'active' : ''}
+                    onClick={() => {
+                      setTab(id);
+                      if (id === 'studio') setBefore(false);
+                      if (id === 'projects')
+                        setSettings((s) => ({ ...s, layers: { ...s.layers, projects: true } }));
+                    }}
+                  >
+                    {label}
+                    {id === 'projects' && <span>{history.current.projectIds.length || 12}</span>}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
           <div className="sidebar-scroll">
             <Suspense fallback={<p className="studio-note">Загрузка редактора…</p>}>
               <DesignWorkbench
                 active={tab === 'studio'}
+                launch={editorLaunch}
                 client={client}
                 baseData={data}
-                district={analysis?.district ?? state?.data ?? data}
+                district={committedDistrict.current ?? data}
+                analysis={analysis}
+                calculationBusy={busy}
+                calculationError={error}
+                baselineView={before}
+                onKindChange={(kind) => {
+                  if (METRICS.some((m) => m.id === kind)) setMetricId(kind);
+                }}
+                onProfileChange={setProfileId}
                 scenario={history.current}
                 profileId={profileId}
                 selectedId={selectedId}
@@ -893,71 +921,77 @@ function DistrictApp({
                         );
                       })}
                     </div>
-                    <section className="network-summary" aria-label="Нагрузка сети">
-                      <div className="section-heading">
-                        <h2>Самые нагруженные участки</h2>
-                        <span>проходов / цикл</span>
+                    <details className="sidebar-detail">
+                      <summary>Сеть и население</summary>
+                      <section className="network-summary" aria-label="Нагрузка сети">
+                        <div className="section-heading">
+                          <h2>Самые нагруженные участки</h2>
+                          <span>проходов / цикл</span>
+                        </div>
+                        {busiestEdges.map((edge, i) => (
+                          <button
+                            key={edge.edgeId}
+                            aria-label={`Показать нагруженный участок ${i + 1}`}
+                            onClick={() => {
+                              setSelectedId(edge.edgeId);
+                              map.current?.focus(edge.edgeId);
+                              setSidebarOpen(false);
+                            }}
+                          >
+                            <span>
+                              <i>{i + 1}</i>Пешеходный участок
+                            </span>
+                            <strong>{number(edge.load)}</strong>
+                            <ArrowUpRight size={13} />
+                          </button>
+                        ))}
+                        <p>Спрос всех жителей. Число фигур не влияет на результат.</p>
+                      </section>
+                      <div className="district-numbers">
+                        <div>
+                          <strong>{number(report?.evaluatedPopulation ?? 8636)}</strong>
+                          <span>жителей</span>
+                        </div>
+                        <div>
+                          <strong>{data.buildings.filter((b) => b.population).length}</strong>
+                          <span>жилых домов</span>
+                        </div>
                       </div>
-                      {busiestEdges.map((edge, i) => (
+                    </details>
+                    <details className="sidebar-detail">
+                      <summary>Бюджет и проекты · {money(cost)}</summary>
+                      <section className="project-summary">
+                        <div className="project-summary-title">
+                          <span className="little-square">
+                            <Layers size={15} />
+                          </span>
+                          <h2>Ваш проект</h2>
+                          <span className="count-badge">{history.current.projectIds.length}</span>
+                        </div>
+                        <div className="project-cost">
+                          <strong>{money(cost)}</strong>
+                          <span>из {money(history.current.budgetRub)}</span>
+                        </div>
+                        <div className="budget-track">
+                          <span
+                            style={{
+                              width: `${history.current.budgetRub ? (cost / history.current.budgetRub) * 100 : 0}%`,
+                            }}
+                          />
+                        </div>
                         <button
-                          key={edge.edgeId}
-                          aria-label={`Показать нагруженный участок ${i + 1}`}
                           onClick={() => {
-                            setSelectedId(edge.edgeId);
-                            map.current?.focus(edge.edgeId);
-                            setSidebarOpen(false);
+                            setTab('projects');
+                            setSettings((s) => ({ ...s, layers: { ...s.layers, projects: true } }));
                           }}
                         >
-                          <span>
-                            <i>{i + 1}</i>Пешеходный участок
-                          </span>
-                          <strong>{number(edge.load)}</strong>
-                          <ArrowUpRight size={13} />
+                          Выбрать улучшения <ArrowRight size={15} />
                         </button>
-                      ))}
-                      <p>Спрос всех жителей. Число фигур не влияет на результат.</p>
-                    </section>
-                    <div className="district-numbers">
-                      <div>
-                        <strong>{number(report?.evaluatedPopulation ?? 8636)}</strong>
-                        <span>жителей</span>
-                      </div>
-                      <div>
-                        <strong>{data.buildings.filter((b) => b.population).length}</strong>
-                        <span>жилых домов</span>
-                      </div>
-                    </div>
-                    <section className="project-summary">
-                      <div className="project-summary-title">
-                        <span className="little-square">
-                          <Layers size={15} />
-                        </span>
-                        <h2>Ваш проект</h2>
-                        <span className="count-badge">{history.current.projectIds.length}</span>
-                      </div>
-                      <div className="project-cost">
-                        <strong>{money(cost)}</strong>
-                        <span>из {money(history.current.budgetRub)}</span>
-                      </div>
-                      <div className="budget-track">
-                        <span
-                          style={{
-                            width: `${history.current.budgetRub ? (cost / history.current.budgetRub) * 100 : 0}%`,
-                          }}
-                        />
-                      </div>
-                      <button
-                        onClick={() => {
-                          setTab('projects');
-                          setSettings((s) => ({ ...s, layers: { ...s.layers, projects: true } }));
-                        }}
-                      >
-                        Выбрать улучшения <ArrowRight size={15} />
-                      </button>
-                    </section>
+                      </section>
+                    </details>
                     <p className="sidebar-footnote">
                       <Info size={13} />
-                      <span>Все жители, объекты и стоимости условные. Расчёт идёт по пешеходной сети.</span>
+                      <span>Население и спрос моделируются. Доступность считается по пешеходной сети.</span>
                     </p>
                   </>
                 )}
@@ -1100,22 +1134,24 @@ function DistrictApp({
               </>
             )}
           </div>
-          <div className="sidebar-bottom">
-            <button
-              className="optimize-button"
-              disabled={!client || busy}
-              onClick={() => {
-                setOptimizerOpen(true);
-                setOptimization(null);
-                setOptimizationError(null);
-              }}
-            >
-              <Sparkles size={17} />
-              <span>Подобрать улучшения</span>
-              <ArrowUpRight size={16} />
-            </button>
-            <span>Расчёт с учётом вашего бюджета</span>
-          </div>
+          {tab !== 'studio' && (
+            <div className="sidebar-bottom">
+              <button
+                className="optimize-button"
+                disabled={!client || busy}
+                onClick={() => {
+                  setOptimizerOpen(true);
+                  setOptimization(null);
+                  setOptimizationError(null);
+                }}
+              >
+                <Sparkles size={17} />
+                <span>Подобрать улучшения</span>
+                <ArrowUpRight size={16} />
+              </button>
+              <span>Расчёт с учётом вашего бюджета</span>
+            </div>
+          )}
         </aside>
         {sidebarOpen && (
           <button
@@ -1153,20 +1189,6 @@ function DistrictApp({
               <strong>{districtInfo.name}</strong>
               <span className="breadcrumb-divider">/</span>
               <span>Городская среда</span>
-            </div>
-            <div className="scene-badges">
-              <span>3D-макет</span>
-              <button
-                onClick={() => setInfoOpen(true)}
-                title={
-                  districtInfo.real
-                    ? 'Геометрия OpenStreetMap; население и расчётные параметры условные'
-                    : 'Данные района синтетические'
-                }
-              >
-                <Info size={12} />
-                {districtInfo.real ? 'OSM + модель' : 'Учебная модель'}
-              </button>
             </div>
           </div>
           <div className="view-bar">
@@ -1358,13 +1380,15 @@ function DistrictApp({
           <button
             className="editor-entry-button"
             onClick={() => {
+              setEditorLaunch((value) => value + 1);
+              setSelectedId(null);
               setTab('studio');
               setSidebarOpen(true);
               setBefore(false);
             }}
           >
             <Plus size={14} />
-            Объект в любой точке
+            {tab === 'studio' ? 'Новый объект' : 'Объект в любой точке'}
           </button>
           {previewScenario && (
             <div className="editor-preview-badge" role="status">

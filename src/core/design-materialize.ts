@@ -10,6 +10,9 @@ import {
   pointAlong,
   validatePolygon,
   projectSegment,
+  distanceToPolygon,
+  nearestParcelPoint,
+  segmentEntersPolygon,
 } from './design-geometry.js';
 import {
   DESIGN_COSTS,
@@ -118,6 +121,31 @@ export function applyDesign(
           'INVALID_SCENARIO',
           `Объект «${object.name}»: рядом со входом нет тротуара или дорожки (предел ${design.rules.snapDistanceM} м)`,
         );
+        if (object.kind === 'park') {
+          const original = source.destinations.find((d) => d.id === object.id);
+          const originalPolygon = source.parcels.find((p) => p.id === original?.parcelId)?.polygon;
+          const originalPoints = original?.accessNodeIds.map(
+            (id) => source.nodes.find((n) => n.id === id)!.xy,
+          );
+          const unchanged =
+            !object.autoEntrances &&
+            JSON.stringify(originalPolygon) === JSON.stringify(object.polygon) &&
+            JSON.stringify(originalPoints) === JSON.stringify(object.entrances);
+          requireCondition(
+            unchanged || distanceToPolygon(snap.point, object.polygon!) <= design.rules.entranceGapM + 1e-7,
+            'INVALID_SCENARIO',
+            `Вход парка «${object.name}» удалён от его территории больше чем на ${design.rules.entranceGapM} м. Переместите вход или измените границу.`,
+          );
+          const boundary = nearestParcelPoint(snap.point, object.polygon!);
+          requireCondition(
+            unchanged ||
+              ![...data.roads, ...data.buildings].some((obstacle) =>
+                segmentEntersPolygon(snap.point, boundary, obstacle.polygon),
+              ),
+            'INVALID_SCENARIO',
+            `Вход парка «${object.name}» соединён с границей через дорогу или здание. Выберите вход со стороны парка.`,
+          );
+        }
         return snap;
       });
     }
@@ -253,7 +281,8 @@ export function applyDesign(
         const p = data.nodes.find((n) => n.id === nodes[0])!.xy;
         const road = [...source.roads].sort((a, b) => roadDistance(a, p) - roadDistance(b, p))[0]!;
         stopBayId = uid('bay');
-        routeIds = source.transitServices.slice(0, object.level + 1).map((s) => s.id);
+        // Moving/upgrading a stop does not create bus routes. New services need their own data.
+        routeIds = old?.kind === 'bus_stop' ? [...old.routeIds] : [];
         data.stopBays.push({
           id: stopBayId,
           name: object.name,
@@ -276,7 +305,9 @@ export function applyDesign(
           ? Math.floor(
               (polygonArea(object.polygon!) / design.rules.parkM2PerVisitor) * CAPACITY_FACTORS[object.level],
             )
-          : object.capacity;
+          : object.capacity === null
+            ? null
+            : Math.floor(object.capacity * CAPACITY_FACTORS[object.level]);
       const destination = {
         id: object.id,
         name: object.name,
@@ -311,6 +342,13 @@ export function applyDesign(
             geometry: XY[] = [[...p], center],
             length = lengthOf(geometry);
           if (length < 0.01) continue;
+          requireCondition(
+            ![...source.roads, ...source.buildings].some((obstacle) =>
+              segmentEntersPolygon(p, center, obstacle.polygon),
+            ),
+            'INVALID_SCENARIO',
+            'Внутренняя дорожка пересекает дорогу или здание',
+          );
           let entered = false;
           for (let d = 0; d <= length; d += Math.min(1, length)) {
             const q = pointAlong(geometry, d);
@@ -321,12 +359,6 @@ export function applyDesign(
               'Прямая внутренняя дорожка выходит за границу вогнутого парка',
             );
             if (inside) entered = true;
-            requireCondition(
-              !source.roads.some((r) => pointInPolygon(q, r.polygon)) &&
-                !source.buildings.some((b) => pointInPolygon(q, b.polygon)),
-              'INVALID_SCENARIO',
-              'Внутренняя дорожка пересекает дорогу или здание',
-            );
           }
           data.edges.push({
             id: uid('park_path'),
@@ -347,6 +379,16 @@ export function applyDesign(
       }
     }
   }
+  // A changed area norm must also update untouched parks, not only edited objects.
+  const levels = new Map(design.objects.map((o) => [o.id, o.level]));
+  data.destinations = data.destinations.map((d) => {
+    const parcel = d.active && d.kind === 'park' ? data.parcels.find((p) => p.id === d.parcelId) : null;
+    if (!parcel) return d;
+    const capacity = Math.floor(
+      (parcel.areaM2 / design.rules.parkM2PerVisitor) * CAPACITY_FACTORS[levels.get(d.id) ?? 0],
+    );
+    return capacity === d.capacity ? d : { ...d, capacity };
+  });
   // Round the final total once; line items retain full precision for audit.
   return { data, capexRub: Math.round(capexRub), costItems };
 }

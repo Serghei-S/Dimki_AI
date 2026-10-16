@@ -15,7 +15,7 @@ import {
   STOP_HEADWAYS,
   objectFromDestination,
 } from './design-rules.js';
-import { compileTopology, buildRoutingGraph, shortestToTargets, edgeTravelSeconds } from './graph.js';
+import { compileTopology, buildRoutingGraph, shortestToTargets } from './graph.js';
 import type { RouteTree } from './graph.js';
 import { bestEntrance } from './metrics.js';
 import { pointAlong, nearestNetworkPoint } from './design-geometry.js';
@@ -30,6 +30,7 @@ function context(
   levels: Map<string, number>,
 ) {
   const topology = compileTopology(data),
+    timeGraph = buildRoutingGraph(topology, data, profile),
     graph = buildRoutingGraph(topology, data, profile),
     homes = data.buildings.filter((b) => b.population);
   for (let i = 0; i < graph.edgeCosts.length; i++)
@@ -53,7 +54,25 @@ function context(
   function summarize(
     tree: RouteTree,
     ownerMap: Map<number, string> = owners,
+    blockedEdge?: number,
   ): { totals: DistanceTotals; rows: DistanceRow[] } {
+    // This is a separate hypothetical service indicator: choose the best walk + wait,
+    // rather than adding a wait to the shortest-by-metres route after it was chosen.
+    const waits = new Map<number, number>();
+    if (kind === 'bus_stop')
+      for (const d of destinations)
+        for (const id of d.accessNodeIds) {
+          const node = topology.nodeIndex.get(id)!,
+            wait = STOP_HEADWAYS[levels.get(d.id) ?? 0]! / 2;
+          waits.set(node, Math.min(waits.get(node) ?? Infinity, wait));
+        }
+    const serviceTree =
+      kind === 'bus_stop'
+        ? shortestToTargets(timeGraph, waits.keys(), {
+            initialCosts: waits,
+            ...(blockedEdge === undefined ? {} : { blockedEdge }),
+          })
+        : null;
     let evaluatedResidents = 0,
       reachableResidents = 0,
       withinResidents = 0,
@@ -69,17 +88,7 @@ function context(
         reachableResidents += weight;
         weighted += entrance.seconds * weight;
         if (entrance.seconds <= threshold + 1e-8) withinResidents += weight;
-        if (kind === 'bus_stop') {
-          let node = entrance.index,
-            walking = 0,
-            guard = 0;
-          while (tree.nextNodes[node]! >= 0) {
-            requireCondition(guard++ < topology.nodeIds.length, 'INVALID_STATE', 'Цикл маршрута');
-            walking += edgeTravelSeconds(data.edges[tree.nextEdges[node]!]!, profile)!;
-            node = tree.nextNodes[node]!;
-          }
-          serviceWeighted += (walking + STOP_HEADWAYS[levels.get(target ?? '') ?? 0]! / 2) * weight;
-        }
+        if (serviceTree) serviceWeighted += bestEntrance(home, topology, serviceTree).seconds * weight;
       }
       return {
         buildingId: home.id,
@@ -229,9 +238,7 @@ export async function analyzeDesign(
         capacity =
           d.kind === 'park' && parcel
             ? Math.floor((parcel.areaM2 / rules.parkM2PerVisitor) * CAPACITY_FACTORS[level]!)
-            : d.capacity === null
-              ? null
-              : Math.floor(d.capacity * CAPACITY_FACTORS[level]!);
+            : d.capacity;
       result.objects.push({
         id: d.id,
         name: d.name,
@@ -357,7 +364,11 @@ export async function analyzeDesign(
       .filter(({ i }) => Number.isFinite(ctx.graph.edgeCosts[i]));
     for (let i = 0; i < edges.length; i++) {
       const { e, index } = { e: edges[i]!.e, index: edges[i]!.i },
-        without = ctx.summarize(shortestToTargets(ctx.graph, ctx.owners.keys(), { blockedEdge: index })),
+        without = ctx.summarize(
+          shortestToTargets(ctx.graph, ctx.owners.keys(), { blockedEdge: index }),
+          ctx.owners,
+          index,
+        ),
         change = compareDistances(ctx.rows, without.rows, rules.distanceThresholdM);
       result.vulnerabilities.push({
         edgeId: e.id,
@@ -375,6 +386,11 @@ export async function analyzeDesign(
       input.scenario.design?.objects.find((o) => o.id === input.objectId) ??
       objectFromDestination(data, input.objectId);
     requireCondition(object && object.active, 'UNKNOWN_ID', 'Объект не найден');
+    requireCondition(
+      object.kind === input.kind,
+      'INVALID_INPUT',
+      'Тип анализа должен совпадать с типом переносимого объекта',
+    );
     requireCondition(
       object.kind !== 'park',
       'INVALID_INPUT',

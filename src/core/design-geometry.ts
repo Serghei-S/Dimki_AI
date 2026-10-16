@@ -61,6 +61,63 @@ export function nearestNetworkPoint(
 export function polygonArea(ring: readonly (readonly number[])[]): number {
   return Math.abs(ring.slice(1).reduce((s, b, i) => s + ring[i]![0]! * b[1]! - b[0]! * ring[i]![1]!, 0)) / 2;
 }
+/** Distance to the parcel, zero when the network entrance lies inside it. */
+export function distanceToPolygon(point: XY, ring: readonly (readonly number[])[]): number {
+  if (pointInPolygon(point, ring)) return 0;
+  return Math.min(
+    ...ring.slice(1).map((b, i) => {
+      const q = projectSegment(point, ring[i]!, b);
+      return Math.hypot(point[0] - q[0], point[1] - q[1]);
+    }),
+  );
+}
+export function nearestParcelPoint(point: XY, ring: readonly (readonly number[])[]): XY {
+  if (pointInPolygon(point, ring)) return [...point];
+  return ring
+    .slice(1)
+    .map((b, i) => projectSegment(point, ring[i]!, b))
+    .sort(
+      (a, b) => Math.hypot(a[0] - point[0], a[1] - point[1]) - Math.hypot(b[0] - point[0], b[1] - point[1]),
+    )[0]!;
+}
+/** Exact boundary splits, then interior tests; narrow obstacles are not skipped by sampling. */
+export function segmentEntersPolygon(a: XY, b: XY, ring: readonly (readonly number[])[]): boolean {
+  const dx = b[0] - a[0],
+    dy = b[1] - a[1],
+    length2 = dx * dx + dy * dy;
+  if (length2 < 1e-14) return false;
+  const cuts = [0, 1];
+  for (let i = 1; i < ring.length; i++) {
+    const c = ring[i - 1]!,
+      d = ring[i]!,
+      ex = d[0]! - c[0]!,
+      ey = d[1]! - c[1]!;
+    const den = dx * ey - dy * ex;
+    if (Math.abs(den) > 1e-12) {
+      const t = ((c[0]! - a[0]) * ey - (c[1]! - a[1]) * ex) / den;
+      const u = ((c[0]! - a[0]) * dy - (c[1]! - a[1]) * dx) / den;
+      if (t > 0 && t < 1 && u >= 0 && u <= 1) cuts.push(t);
+    } else
+      for (const p of [c, d]) {
+        const t = ((p[0]! - a[0]) * dx + (p[1]! - a[1]) * dy) / length2;
+        if (t > 0 && t < 1) cuts.push(t);
+      }
+  }
+  cuts.sort((a, b) => a - b);
+  for (let i = 1; i < cuts.length; i++) {
+    const t = (cuts[i - 1]! + cuts[i]!) / 2,
+      p: XY = [a[0] + dx * t, a[1] + dy * t];
+    if (!pointInPolygon(p, ring)) continue;
+    const boundary = Math.min(
+      ...ring.slice(1).map((b, j) => {
+        const q = projectSegment(p, ring[j]!, b);
+        return Math.hypot(p[0] - q[0], p[1] - q[1]);
+      }),
+    );
+    if (boundary > 1e-7) return true;
+  }
+  return false;
+}
 const cross = (a: readonly number[], b: readonly number[], c: readonly number[]) =>
   (b[0]! - a[0]!) * (c[1]! - a[1]!) - (b[1]! - a[1]!) * (c[0]! - a[0]!);
 export function pointInPolygon(p: readonly number[], ring: readonly (readonly number[])[]): boolean {

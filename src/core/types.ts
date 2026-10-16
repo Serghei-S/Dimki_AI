@@ -1,8 +1,8 @@
 import type { DistrictData, Profile, Scenario, Destination } from '../../data/schema/district.types.js';
-import type {DesignState} from './design-types.js';
+import type { DesignState } from './design-types.js';
 export type * from './design-types.js';
 export type * from '../../data/schema/district.types.js';
-export type DeepReadonly<T> = T extends object ? {readonly [K in keyof T]: DeepReadonly<T[K]>} : T;
+export type DeepReadonly<T> = T extends object ? { readonly [K in keyof T]: DeepReadonly<T[K]> } : T;
 
 export type PopulationGroup = 'all' | 'under18' | 'age18to64' | 'age65plus' | 'mobilityNeeds';
 export interface MetricDefinition {
@@ -25,7 +25,11 @@ export interface ScenarioInput {
   operationalOverrides?: readonly Scenario['operationalOverrides'][number][];
 }
 export type ScenarioRequest = ScenarioInput | DeepReadonly<Scenario>;
-export interface Costs { capexRub: number; annualOpexRub: number; remainingRub: number }
+export interface Costs {
+  capexRub: number;
+  annualOpexRub: number;
+  remainingRub: number;
+}
 export interface BuildingAccess {
   travelSeconds: number | null;
   reachable: boolean;
@@ -54,6 +58,15 @@ export interface ProfileMetrics {
   perBuilding: BuildingMetrics[];
   publicParkAreaM2: number;
   publicParkM2PerResident: number | null;
+  /** Potential catchments on the fastest walking routes, not observed visits or occupancy. */
+  serviceCatchments: Record<string, ServiceCatchment[]>;
+}
+export interface ServiceCatchment {
+  objectId: string;
+  assignedResidents: number;
+  under18Residents: number;
+  withinThresholdResidents: number;
+  effectiveCapacity: number | null;
 }
 export interface MetricChange {
   improvedResidents: number;
@@ -81,7 +94,7 @@ export interface EdgeLoadReport {
   unreachableResidents: number;
   maxLoad: number;
   edgeTraversals: number;
-  edges: {edgeId: string; load: number; forward: number; backward: number; eligible: boolean}[];
+  edges: { edgeId: string; load: number; forward: number; backward: number; eligible: boolean }[];
 }
 export interface MapSnapshot {
   result: DeepReadonly<ScenarioEvaluation>;
@@ -104,8 +117,11 @@ export interface RouteResult {
   nodeIds: string[];
   edgeIds: string[];
   geometry: [number, number][];
-  geojson: { type: 'Feature'; properties: Record<string, string | number | boolean | null>;
-    geometry: { type: 'LineString'; coordinates: [number, number][] } | null };
+  geojson: {
+    type: 'Feature';
+    properties: Record<string, string | number | boolean | null>;
+    geometry: { type: 'LineString'; coordinates: [number, number][] } | null;
+  };
 }
 export interface OptimizationInput {
   design?: DesignState;
@@ -132,7 +148,11 @@ export interface OptimizationAlternative {
   metric: MetricTotals;
   score: OptimizationScore;
 }
-export interface OptimizationProgress { processedSubsets: number; totalSubsets: number; feasibleSubsets: number }
+export interface OptimizationProgress {
+  processedSubsets: number;
+  totalSubsets: number;
+  feasibleSubsets: number;
+}
 export interface OptimizationResult extends OptimizationProgress {
   exact: true;
   frontierSize: number;
@@ -145,7 +165,12 @@ export interface OptimizationControl {
   onProgress?: (progress: OptimizationProgress) => void;
   yieldEvery?: number;
 }
-export interface EngineStats { hits: number; misses: number; entries: number; estimatedBytes: number }
+export interface EngineStats {
+  hits: number;
+  misses: number;
+  entries: number;
+  estimatedBytes: number;
+}
 export interface ScenarioEnvelope {
   formatVersion: 1;
   datasetId: string;
@@ -153,4 +178,9 @@ export interface ScenarioEnvelope {
   datasetSha256: string;
   scenario: ScenarioInput;
 }
-export type Materialized = { data: DistrictData; costs: Costs; scenario: ScenarioInput; costItems?: import('./design-types.js').CostItem[] };
+export type Materialized = {
+  data: DistrictData;
+  costs: Costs;
+  scenario: ScenarioInput;
+  costItems?: import('./design-types.js').CostItem[];
+};
