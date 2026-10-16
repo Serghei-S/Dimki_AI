@@ -41,6 +41,11 @@ export const MapViewport = forwardRef<MapHandle, Props>(function MapViewport(
         onStats: (stats) => latest.current.callbacks.onStats(stats),
         onError: (error) => latest.current.callbacks.onError(error),
         onCamera: (angle) => latest.current.callbacks.onCamera(angle),
+        editor: {
+          point: (point) => latest.current.callbacks.editor?.point(point),
+          drag: (event) => latest.current.callbacks.editor?.drag(event),
+          cancel: () => latest.current.callbacks.editor?.cancel(),
+        },
       });
       scene.current = current;
       current.setSettings(latest.current.settings);

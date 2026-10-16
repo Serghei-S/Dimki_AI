@@ -1,0 +1,70 @@
+{
+  "valid": true,
+  "errors": [],
+  "scenarios": [
+    {
+      "id": "oc_scenario_0",
+      "activeEdges": 744,
+      "costs": {
+        "capexRub": 0,
+        "annualOpexRub": 0,
+        "remainingRub": 8000000
+      },
+      "population": 3692
+    },
+    {
+      "id": "oc_scenario_1",
+      "activeEdges": 746,
+      "costs": {
+        "capexRub": 2090000,
+        "annualOpexRub": 52250,
+        "remainingRub": 5910000
+      },
+      "population": 3692
+    },
+    {
+      "id": "oc_scenario_2",
+      "activeEdges": 746,
+      "costs": {
+        "capexRub": 900000,
+        "annualOpexRub": 22500,
+        "remainingRub": 7100000
+      },
+      "population": 3692
+    },
+    {
+      "id": "oc_scenario_3",
+      "activeEdges": 746,
+      "costs": {
+        "capexRub": 2060000,
+        "annualOpexRub": 51500,
+        "remainingRub": 5940000
+      },
+      "population": 3692
+    },
+    {
+      "id": "oc_scenario_4",
+      "activeEdges": 750,
+      "costs": {
+        "capexRub": 5050000,
+        "annualOpexRub": 126250,
+        "remainingRub": 2950000
+      },
+      "population": 3692
+    },
+    {
+      "id": "oc_scenario_5",
+      "activeEdges": 744,
+      "costs": {
+        "capexRub": 650000,
+        "annualOpexRub": 16250,
+        "remainingRub": 7350000
+      },
+      "population": 3692
+    }
+  ],
+  "geometryToleranceM": 0.15,
+  "nodeMergeToleranceM": 0.05,
+  "scope": "Stored building footprints and road carriageway polygons, all six catalogue scenarios; source fences are not certified.",
+  "notAnOfficialForecast": true
+}

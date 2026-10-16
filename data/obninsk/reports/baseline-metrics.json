@@ -1,0 +1,3503 @@
+{
+  "walk": {
+    "profileId": "walk",
+    "evaluatedPopulation": 3692,
+    "populationInterpretation": "All residents hypothetically using this profile; profile totals must not be added.",
+    "destinations": {
+      "bus_stop": {
+        "thresholdSeconds": 420,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3692,
+        "coveragePercent": 100.0,
+        "meanSecondsReachableOnly": 182.978
+      },
+      "park": {
+        "thresholdSeconds": 600,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3692,
+        "coveragePercent": 100.0,
+        "meanSecondsReachableOnly": 260.478
+      },
+      "school": {
+        "thresholdSeconds": 900,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3598,
+        "coveragePercent": 97.454,
+        "meanSecondsReachableOnly": 655.359
+      },
+      "clinic": {
+        "thresholdSeconds": 900,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3692,
+        "coveragePercent": 100.0,
+        "meanSecondsReachableOnly": 258.555
+      },
+      "grocery": {
+        "thresholdSeconds": 600,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3692,
+        "coveragePercent": 100.0,
+        "meanSecondsReachableOnly": 236.831
+      }
+    },
+    "perBuilding": [
+      {
+        "buildingId": "osm_building_26726476",
+        "residents": 111,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 131.569,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 413.237,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 814.667,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 373.085,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 445.989,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_81809205",
+        "residents": 118,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 102.328,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 161.328,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 650.97,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 198.638,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 10.754,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_81809209",
+        "residents": 131,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 87.996,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 146.996,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 636.638,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 184.306,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 54.98,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_88966157",
+        "residents": 111,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 400.346,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 238.381,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 120.987,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 358.507,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 543.606,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383013",
+        "residents": 105,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 187.037,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 329.307,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 818.949,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 366.617,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 110.141,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383041",
+        "residents": 101,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 150.949,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 209.949,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 699.592,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 247.26,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 110.087,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383047",
+        "residents": 134,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 122.348,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 275.713,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 721.9,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 269.568,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 220.831,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383056",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 221.602,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 305.969,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 643.504,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 201.922,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 387.021,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383080",
+        "residents": 94,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 337.01,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 490.376,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 936.563,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 484.231,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383086",
+        "residents": 85,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 96.436,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 155.436,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 645.078,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 192.746,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383144",
+        "residents": 91,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 251.286,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 310.286,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 799.928,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 347.596,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 91.121,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383193",
+        "residents": 64,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 232.431,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 189.761,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 527.297,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 250.818,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 329.028,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383202",
+        "residents": 149,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 54.033,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 304.738,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 642.274,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 200.692,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 380.332,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383227",
+        "residents": 103,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 197.883,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 185.455,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 522.991,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 246.512,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 294.48,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383234",
+        "residents": 67,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 49.486,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 122.443,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 459.978,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 192.746,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383264",
+        "residents": 94,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 80.049,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 400.611,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 738.147,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 296.565,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 472.684,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383268",
+        "residents": 98,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 141.126,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 200.126,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 689.769,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 237.436,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 74.867,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383276",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 76.024,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 182.301,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 519.837,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 67.505,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 219.284,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383290",
+        "residents": 171,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 195.719,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 92.822,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 430.358,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 153.879,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 338.979,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383294",
+        "residents": 96,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 285.527,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 379.641,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 806.844,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 354.512,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 201.948,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383304",
+        "residents": 153,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 150.503,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 214.186,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 641.389,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 189.057,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 246.938,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383312",
+        "residents": 60,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 207.361,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 104.465,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 442.001,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 165.522,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 350.621,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383317",
+        "residents": 147,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 260.89,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 414.256,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 844.33,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 391.998,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 217.423,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383324",
+        "residents": 69,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 217.972,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 369.003,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 858.646,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 406.313,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 149.838,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383356",
+        "residents": 92,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 197.186,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 256.186,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 745.828,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 293.496,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383362",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 251.407,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 404.772,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 850.959,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 398.627,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 167.75,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383375",
+        "residents": 89,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 257.366,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 321.05,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 748.252,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 295.92,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 259.651,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383384",
+        "residents": 85,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 143.242,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 206.925,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 653.112,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 200.78,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 239.677,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383399",
+        "residents": 105,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 199.113,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 352.478,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 798.665,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 346.333,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 155.645,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383410",
+        "residents": 150,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 228.398,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 356.62,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 781.153,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 328.821,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 357.794,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_90074563",
+        "residents": 55,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 116.095,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 178.302,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 515.838,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 74.256,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 259.355,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_90074576",
+        "residents": 66,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 242.602,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 394.36,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 884.003,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 431.671,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 175.195,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_91764251",
+        "residents": 103,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 95.277,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 158.96,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 605.147,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 152.815,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 191.712,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_92005370",
+        "residents": 158,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 222.008,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 60.043,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 303.008,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 180.168,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 365.268,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_124186928",
+        "residents": 11,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 225.866,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 314.507,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 652.043,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 210.46,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 395.56,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_132208788",
+        "residents": 120,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 225.073,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 287.28,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 624.816,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 183.233,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 368.333,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      }
+    ],
+    "publicParkAreaM2": 4068.32,
+    "publicParkM2PerResident": 1.102
+  },
+  "step_free": {
+    "profileId": "step_free",
+    "evaluatedPopulation": 3692,
+    "populationInterpretation": "All residents hypothetically using this profile; profile totals must not be added.",
+    "destinations": {
+      "bus_stop": {
+        "thresholdSeconds": 420,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3391,
+        "coveragePercent": 91.847,
+        "meanSecondsReachableOnly": 275.468
+      },
+      "park": {
+        "thresholdSeconds": 600,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3238,
+        "coveragePercent": 87.703,
+        "meanSecondsReachableOnly": 396.594
+      },
+      "school": {
+        "thresholdSeconds": 900,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 891,
+        "coveragePercent": 24.133,
+        "meanSecondsReachableOnly": 990.42
+      },
+      "clinic": {
+        "thresholdSeconds": 900,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3692,
+        "coveragePercent": 100.0,
+        "meanSecondsReachableOnly": 385.563
+      },
+      "grocery": {
+        "thresholdSeconds": 600,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3376,
+        "coveragePercent": 91.441,
+        "meanSecondsReachableOnly": 355.724
+      }
+    },
+    "perBuilding": [
+      {
+        "buildingId": "osm_building_26726476",
+        "residents": 111,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 201.682,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 616.821,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1229.061,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 554.307,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 663.962,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_81809205",
+        "residents": 118,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 154.723,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 246.308,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 976.3,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 288.282,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 16.273,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_81809209",
+        "residents": 131,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 133.701,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 225.286,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 955.279,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 267.261,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 81.367,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_88966157",
+        "residents": 111,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 605.783,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "park": {
+            "travelSeconds": 365.324,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 186.396,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 542.197,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 809.883,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383013",
+        "residents": 105,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 277.044,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 493.404,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1223.396,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 535.378,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 163.814,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383041",
+        "residents": 101,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 226.306,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 317.891,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1047.884,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 359.866,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 162.433,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383047",
+        "residents": 134,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 177.306,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 427.986,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1093.485,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 405.467,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 342.793,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383056",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 332.944,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 456.864,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 976.281,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 304.072,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 571.758,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383080",
+        "residents": 94,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 510.523,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "park": {
+            "travelSeconds": 761.204,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1426.702,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 738.685,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383086",
+        "residents": 85,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 145.996,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 237.581,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 967.573,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 279.555,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383144",
+        "residents": 91,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 376.803,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 468.388,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1198.38,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 510.362,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 138.798,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383193",
+        "residents": 64,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 360.8,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 280.92,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 800.337,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 370.927,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 495.328,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383202",
+        "residents": 149,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 72.829,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 455.636,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 975.053,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 302.844,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 570.53,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383227",
+        "residents": 103,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 307.171,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 274.235,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 793.652,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 364.242,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 441.699,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383234",
+        "residents": 67,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 75.455,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 180.47,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 699.887,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 279.555,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383264",
+        "residents": 94,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 124.259,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 593.413,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1112.83,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 440.621,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 703.361,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383268",
+        "residents": 98,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 214.817,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 306.402,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1036.395,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 348.377,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 113.595,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383276",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 118.011,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 272.026,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 791.444,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 103.426,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 322.112,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383290",
+        "residents": 171,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 290.587,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 136.994,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 656.411,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 227.001,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 494.687,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383294",
+        "residents": 96,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 428.908,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "park": {
+            "travelSeconds": 589.312,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1222.685,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 537.897,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 313.482,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383304",
+        "residents": 153,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 233.624,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 332.478,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 965.851,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 281.064,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 379.619,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383312",
+        "residents": 60,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 308.659,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 155.066,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 674.484,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 245.073,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 512.759,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383317",
+        "residents": 147,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 392.363,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 643.044,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1279.176,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 594.388,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 337.503,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383324",
+        "residents": 69,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 325.421,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 554.666,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1284.659,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 596.641,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 225.076,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383356",
+        "residents": 92,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 295.472,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 387.057,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1117.049,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 429.031,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383362",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 377.642,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 628.323,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1293.821,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 605.803,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 260.396,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383375",
+        "residents": 89,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 399.507,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 498.361,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1131.734,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 446.946,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 403.053,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383384",
+        "residents": 85,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 222.352,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 321.207,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 986.705,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 298.687,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 368.348,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383399",
+        "residents": 105,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 296.467,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 547.148,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1212.646,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 524.628,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 241.606,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383410",
+        "residents": 150,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 332.448,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 553.577,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1182.804,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 498.017,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 555.4,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_90074563",
+        "residents": 55,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 176.864,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 266.071,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 785.488,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 113.279,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 380.965,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_90074576",
+        "residents": 66,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 364.783,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 594.028,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1324.02,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 636.003,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 264.438,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_91764251",
+        "residents": 103,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 147.897,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 246.752,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 912.25,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 224.232,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 293.893,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_92005370",
+        "residents": 158,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 331.569,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 91.111,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 467.914,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 267.984,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 535.67,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_124186928",
+        "residents": 11,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 339.563,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 470.117,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 989.535,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 317.325,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 585.011,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_132208788",
+        "residents": 120,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 335.76,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 424.967,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 944.384,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 272.175,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 539.861,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      }
+    ],
+    "publicParkAreaM2": 4068.32,
+    "publicParkM2PerResident": 1.102
+  },
+  "slow_walk": {
+    "profileId": "slow_walk",
+    "evaluatedPopulation": 3692,
+    "populationInterpretation": "All residents hypothetically using this profile; profile totals must not be added.",
+    "destinations": {
+      "bus_stop": {
+        "thresholdSeconds": 420,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3302,
+        "coveragePercent": 89.437,
+        "meanSecondsReachableOnly": 292.143
+      },
+      "park": {
+        "thresholdSeconds": 600,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 2982,
+        "coveragePercent": 80.769,
+        "meanSecondsReachableOnly": 421.233
+      },
+      "school": {
+        "thresholdSeconds": 900,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 891,
+        "coveragePercent": 24.133,
+        "meanSecondsReachableOnly": 1049.302
+      },
+      "clinic": {
+        "thresholdSeconds": 900,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3692,
+        "coveragePercent": 100.0,
+        "meanSecondsReachableOnly": 408.726
+      },
+      "grocery": {
+        "thresholdSeconds": 600,
+        "reachableResidents": 3692,
+        "unreachableResidents": 0,
+        "withinThresholdResidents": 3114,
+        "coveragePercent": 84.345,
+        "meanSecondsReachableOnly": 377.346
+      }
+    },
+    "perBuilding": [
+      {
+        "buildingId": "osm_building_26726476",
+        "residents": 111,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 214.287,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 652.872,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1302.468,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 585.201,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 702.96,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_81809205",
+        "residents": 118,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 164.393,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 261.702,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1033.909,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 305.05,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 17.29,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_81809209",
+        "residents": 131,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 142.058,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 239.367,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1011.574,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 282.715,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 86.452,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_88966157",
+        "residents": 111,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 643.644,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "park": {
+            "travelSeconds": 388.157,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 195.886,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 576.085,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 859.251,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383013",
+        "residents": 105,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 293.109,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 524.242,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1296.449,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 567.59,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 174.052,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383041",
+        "residents": 101,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 240.45,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 337.76,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1109.967,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 381.108,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 172.585,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383047",
+        "residents": 134,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 187.137,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 454.736,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1158.418,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 429.558,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 364.217,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383056",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 352.503,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 485.417,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1035.139,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 323.076,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 606.242,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383080",
+        "residents": 94,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 541.181,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "park": {
+            "travelSeconds": 808.779,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1512.462,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 783.602,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383086",
+        "residents": 85,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 155.12,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 252.43,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1024.637,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 295.778,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383144",
+        "residents": 91,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 400.353,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 497.662,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1269.869,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 541.01,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 147.473,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383193",
+        "residents": 64,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 383.35,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 298.477,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 848.199,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 394.11,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 525.036,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383202",
+        "residents": 149,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 76.131,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 484.113,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1033.835,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 321.772,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 604.938,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383227",
+        "residents": 103,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 326.369,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 291.375,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 841.096,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 387.007,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 468.056,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383234",
+        "residents": 67,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 80.171,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 191.749,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 741.471,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 295.778,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383264",
+        "residents": 94,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 132.026,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 629.251,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1178.972,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 466.909,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 744.821,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383268",
+        "residents": 98,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 228.243,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 325.553,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1097.76,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 368.901,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 120.695,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383276",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 125.387,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 289.028,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 838.75,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 109.89,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 340.994,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383290",
+        "residents": 171,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 308.748,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 145.556,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 695.277,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 241.189,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 524.355,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383294",
+        "residents": 96,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 454.464,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "park": {
+            "travelSeconds": 626.144,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1295.693,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 570.266,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 333.074,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383304",
+        "residents": 153,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 248.225,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 353.258,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1022.807,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 297.38,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 403.346,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383312",
+        "residents": 60,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 327.95,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 164.758,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 714.479,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 260.39,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 543.557,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383317",
+        "residents": 147,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 415.636,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 683.235,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1355.715,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 630.288,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 358.597,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383324",
+        "residents": 69,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 344.51,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 589.333,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1361.541,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 632.681,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 239.144,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383356",
+        "residents": 92,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 313.939,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 411.248,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1183.455,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 454.596,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 0.0,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383362",
+        "residents": 102,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 399.994,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 667.593,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1371.275,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 642.416,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 276.671,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383375",
+        "residents": 89,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 424.476,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "park": {
+            "travelSeconds": 529.509,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1199.058,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 473.631,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 428.244,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383384",
+        "residents": 85,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 236.249,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 341.282,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1044.965,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 316.105,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 391.37,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383399",
+        "residents": 105,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 313.746,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 581.344,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1285.027,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 556.167,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 256.706,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_89383410",
+        "residents": 150,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 350.726,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 588.176,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1253.32,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 527.893,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 590.112,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_90074563",
+        "residents": 55,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 187.918,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 282.7,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 832.422,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 120.359,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 403.525,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_90074576",
+        "residents": 66,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 386.332,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 631.155,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "school": {
+            "travelSeconds": 1403.362,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 674.503,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 280.965,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_91764251",
+        "residents": 103,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 157.141,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 262.174,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 965.856,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 236.997,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 312.261,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_92005370",
+        "residents": 158,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 352.292,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 96.805,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 494.999,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "clinic": {
+            "travelSeconds": 284.733,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 567.899,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_124186928",
+        "residents": 11,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 359.536,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 499.5,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 1049.221,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 337.158,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 620.325,
+            "reachable": true,
+            "withinThreshold": false
+          }
+        }
+      },
+      {
+        "buildingId": "osm_building_132208788",
+        "residents": 120,
+        "destinations": {
+          "bus_stop": {
+            "travelSeconds": 355.495,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "park": {
+            "travelSeconds": 450.277,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "school": {
+            "travelSeconds": 999.999,
+            "reachable": true,
+            "withinThreshold": false
+          },
+          "clinic": {
+            "travelSeconds": 287.936,
+            "reachable": true,
+            "withinThreshold": true
+          },
+          "grocery": {
+            "travelSeconds": 571.102,
+            "reachable": true,
+            "withinThreshold": true
+          }
+        }
+      }
+    ],
+    "publicParkAreaM2": 4068.32,
+    "publicParkM2PerResident": 1.102
+  }
+}

@@ -9,3 +9,4 @@ export {
   applyDistrictChanges,
   sampleHomes,
 } from '../app/state.js';
+export { upsertObject, dragObject } from '../app/design-state.js';

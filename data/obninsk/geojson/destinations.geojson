@@ -1,0 +1,491 @@
+{
+  "type": "FeatureCollection",
+  "name": "destinations",
+  "attribution": "© OpenStreetMap contributors",
+  "license": "ODbL-1.0",
+  "modelNotice": "Hybrid geometry; population and assumptions are synthetic. See provenance file.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "oc_place_89383027",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6114499,
+          55.0907383
+        ]
+      },
+      "properties": {
+        "id": "oc_place_89383027",
+        "name": "площадь Преображения, 1",
+        "kind": "community",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_522"
+        ],
+        "parcelId": "oc_parcel_89383027",
+        "buildingId": "osm_building_89383027",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_place_89383393",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6149423,
+          55.0932202
+        ]
+      },
+      "properties": {
+        "id": "oc_place_89383393",
+        "name": "улица Лейпунского, 3",
+        "kind": "community",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_566"
+        ],
+        "parcelId": "oc_parcel_89383393",
+        "buildingId": "osm_building_89383393",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_place_91563731",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6084596,
+          55.0938964
+        ]
+      },
+      "properties": {
+        "id": "oc_place_91563731",
+        "name": "Школа № 5",
+        "kind": "school",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_576"
+        ],
+        "parcelId": "oc_parcel_91563731",
+        "buildingId": "osm_building_91563731",
+        "stopBayId": null,
+        "capacity": 600,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_place_91683829",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6117304,
+          55.092466
+        ]
+      },
+      "properties": {
+        "id": "oc_place_91683829",
+        "name": "Юбилейная · проспект Ленина, 57",
+        "kind": "community",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_578"
+        ],
+        "parcelId": "oc_parcel_91683829",
+        "buildingId": "osm_building_91683829",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_place_128510708",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6162512,
+          55.0931684
+        ]
+      },
+      "properties": {
+        "id": "oc_place_128510708",
+        "name": "Бристоль · улица Лейпунского, 1",
+        "kind": "community",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_586"
+        ],
+        "parcelId": "oc_parcel_128510708",
+        "buildingId": "osm_building_128510708",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "osm_shop_1438546078",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6134434,
+          55.0931056
+        ]
+      },
+      "properties": {
+        "id": "osm_shop_1438546078",
+        "name": "Магнит",
+        "kind": "grocery",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_531"
+        ],
+        "parcelId": null,
+        "buildingId": "osm_building_89383086",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "08:00-22:00",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "osm_shop_1438546799",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61509889,
+          55.09311033
+        ]
+      },
+      "properties": {
+        "id": "osm_shop_1438546799",
+        "name": "Дикси",
+        "kind": "grocery",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_558"
+        ],
+        "parcelId": null,
+        "buildingId": "osm_building_89383356",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "09:00-22:00",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "osm_shop_4162572489",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61477918,
+          55.09248577
+        ]
+      },
+      "properties": {
+        "id": "osm_shop_4162572489",
+        "name": "Дикси",
+        "kind": "grocery",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_529"
+        ],
+        "parcelId": null,
+        "buildingId": "osm_building_89383080",
+        "stopBayId": null,
+        "capacity": null,
+        "openingHours": "08:00-22:00",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_park_166354778_0",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.611056,
+          55.0930543
+        ]
+      },
+      "properties": {
+        "id": "oc_park_166354778_0",
+        "name": "Зелёная площадка · учебный доступ",
+        "kind": "park",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_589"
+        ],
+        "parcelId": "osm_park_166354778_0",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": 106,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_park_582849934_0",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6153897,
+          55.0928373
+        ]
+      },
+      "properties": {
+        "id": "oc_park_582849934_0",
+        "name": "Зелёная площадка · учебный доступ",
+        "kind": "park",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_139",
+          "oc_n_590",
+          "oc_n_591",
+          "oc_n_592",
+          "oc_n_593",
+          "oc_n_594"
+        ],
+        "parcelId": "osm_park_582849934_0",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": 187,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_park_583379243_0",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61170056,
+          55.09438987
+        ]
+      },
+      "properties": {
+        "id": "oc_park_583379243_0",
+        "name": "Зелёная площадка · учебный доступ",
+        "kind": "park",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_595",
+          "oc_n_596"
+        ],
+        "parcelId": "osm_park_583379243_0",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": 111,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "osm_stop_8714563739",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61679687,
+          55.09312364
+        ]
+      },
+      "properties": {
+        "id": "osm_stop_8714563739",
+        "name": "Вокзал",
+        "kind": "bus_stop",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_597"
+        ],
+        "parcelId": null,
+        "buildingId": null,
+        "stopBayId": "oc_bay_8714563739",
+        "capacity": null,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": [
+          "bus_a"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "osm_stop_11169303055",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61233946,
+          55.09259837
+        ]
+      },
+      "properties": {
+        "id": "osm_stop_11169303055",
+        "name": "Гостиница Юбилейная",
+        "kind": "bus_stop",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_598"
+        ],
+        "parcelId": null,
+        "buildingId": null,
+        "stopBayId": "oc_bay_11169303055",
+        "capacity": null,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": [
+          "bus_a"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "osm_stop_11259529332",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61190073,
+          55.09023536
+        ]
+      },
+      "properties": {
+        "id": "osm_stop_11259529332",
+        "name": "Площадь Преображения",
+        "kind": "bus_stop",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_599"
+        ],
+        "parcelId": null,
+        "buildingId": null,
+        "stopBayId": "oc_bay_11259529332",
+        "capacity": null,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": [
+          "bus_a"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "osm_stop_11259553039",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61280048,
+          55.09267714
+        ]
+      },
+      "properties": {
+        "id": "osm_stop_11259553039",
+        "name": "ул. Лейпунского",
+        "kind": "bus_stop",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_600"
+        ],
+        "parcelId": null,
+        "buildingId": null,
+        "stopBayId": "oc_bay_11259553039",
+        "capacity": null,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": [
+          "bus_a"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_model_clinic",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.6120909,
+          55.0922293
+        ]
+      },
+      "properties": {
+        "id": "oc_model_clinic",
+        "name": "Учебный медпункт · сценарное допущение",
+        "kind": "clinic",
+        "active": true,
+        "accessNodeIds": [
+          "oc_n_541"
+        ],
+        "parcelId": null,
+        "buildingId": "osm_building_89383234",
+        "stopBayId": null,
+        "capacity": 200,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_future_park_0",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.60826715,
+          55.09312064
+        ]
+      },
+      "properties": {
+        "id": "oc_future_park_0",
+        "name": "Новый сквер · проект",
+        "kind": "park",
+        "active": false,
+        "accessNodeIds": [
+          "oc_n_606"
+        ],
+        "parcelId": "oc_proposed_park_0",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": 67,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oc_future_park_1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.61005859,
+          55.09213139
+        ]
+      },
+      "properties": {
+        "id": "oc_future_park_1",
+        "name": "Новый сквер · проект",
+        "kind": "park",
+        "active": false,
+        "accessNodeIds": [
+          "oc_n_608"
+        ],
+        "parcelId": "oc_proposed_park_1",
+        "buildingId": null,
+        "stopBayId": null,
+        "capacity": 67,
+        "openingHours": "Условно открыто; расписание не моделируется",
+        "routeIds": []
+      }
+    }
+  ]
+}

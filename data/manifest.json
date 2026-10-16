@@ -41,11 +41,11 @@
     },
     {
       "path": "schema/district.schema.json",
-      "sha256": "ad825d170bd6d5ae67110be3d0effadddb1fe65f2e2e7feae861ed063b3a675f"
+      "sha256": "5e66f277923d2b4b7a42c01ed45e42138a897839643ff8f5ef14b05a68619654"
     },
     {
       "path": "schema/district.types.ts",
-      "sha256": "fd51a2a56a851c2fbf2043427976d2e9558bacf24ea187fb35cfa6c52cb40e76"
+      "sha256": "892fa3eba616521b0830982c66b0c574395d660c98e8cd3a41cd0518c69c9e1f"
     }
   ]
 }

@@ -2,6 +2,7 @@ import type { WorkerRequest, WorkerResponse } from './worker-runtime.js';
 import type { DistrictData, DeepReadonly, EngineOptions, ScenarioInput, ScenarioRequest, ScenarioEvaluation, RouteResult, OptimizationInput, OptimizationProgress, OptimizationResult, ScenarioEnvelope } from './types.js';
 import { EngineError } from './errors.js';
 import type {MapSnapshot} from './types.js';
+import type {DesignAnalysisInput,DesignAnalysisResult} from './design-types.js';
 
 export class EngineWorkerClient {
   #sequence = 0;
@@ -74,6 +75,7 @@ export class EngineWorkerClient {
   mapSnapshot(scenario: ScenarioRequest, profileId: string, metricId: string, buildingIds: readonly string[] = [], signal?: AbortSignal): Promise<MapSnapshot> {
     return this.#request({type:'map_snapshot', scenario, profileId, metricId, buildingIds}, signal);
   }
+  analyzeDesign(input:DesignAnalysisInput,options:{signal?:AbortSignal;onProgress?:(progress:OptimizationProgress)=>void}={}):Promise<DesignAnalysisResult>{return this.#request({type:'design_analysis',input},options.signal,options.onProgress);}
   networkAccess(scenario: ScenarioRequest, profileId: string, metricId: string, signal?: AbortSignal) {
     return this.#request<{nodeId: string; travelSeconds: number | null; withinThreshold: boolean}[]>({type: 'network_access', scenario, profileId, metricId}, signal);
   }

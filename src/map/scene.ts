@@ -4,6 +4,10 @@ import type { DeepReadonly, DistrictData } from '../core/types.js';
 import { edgeBlockReason } from '../core/graph.js';
 import { ResidentLayer } from './residents.js';
 import { FlowLayer } from './flow-layer.js';
+import { EditorLayer } from './editor-layer.js';
+import type { EditHandle } from './editor-types.js';
+import type { XY } from '../core/types.js';
+import { pointAlong, lengthOf, projectSegment } from '../core/design-geometry.js';
 import { createMotionPaths, deterministicRandom } from './motion.js';
 import { accessibilityColor, differenceColor } from './palette.js';
 import {
@@ -73,6 +77,8 @@ export class DistrictScene {
   readonly #route = new THREE.Group();
   #residents: ResidentLayer | null = null;
   readonly #flow = new FlowLayer();
+  readonly #editor = new EditorLayer();
+  #dragging: EditHandle | null = null;
   readonly #sun = new THREE.DirectionalLight('#fff4dd', 3);
   readonly #ambient = new THREE.HemisphereLight('#eff6ff', '#b1b9a5', 1.7);
   readonly #labels: Label[] = [];
@@ -128,7 +134,10 @@ export class DistrictScene {
     this.#renderer.shadowMap.type = THREE.PCFShadowMap;
     this.#renderer.shadowMap.autoUpdate = false;
     this.#renderer.domElement.className = 'district-canvas';
-    this.#renderer.domElement.setAttribute('aria-label', 'Интерактивная 3D-модель района Сосновый');
+    this.#renderer.domElement.setAttribute(
+      'aria-label',
+      `Интерактивная 3D-модель: ${state.data.metadata.name}`,
+    );
     this.#renderer.domElement.setAttribute('role', 'img');
     this.#renderer.domElement.tabIndex = 0;
     this.#labelHost.className = 'map-labels';
@@ -149,6 +158,7 @@ export class DistrictScene {
       this.#selection,
       this.#route,
       this.#flow.group,
+      this.#editor.group,
     );
     this.#sun.castShadow = true;
     this.#sun.shadow.mapSize.set(2048, 2048);
@@ -183,12 +193,14 @@ export class DistrictScene {
     this.#buildLabels();
     this.#updateColors();
     this.#flow.setData(state.data, state.loads);
+    this.#editor.setData(state.data, state.editor, state.design);
     this.#updateMotion();
     this.#updateSelection();
     this.#setLight(15);
-    this.#renderer.domElement.addEventListener('pointerdown', this.#onPointerDown);
+    this.#renderer.domElement.addEventListener('pointerdown', this.#onPointerDown, true);
     this.#renderer.domElement.addEventListener('pointerup', this.#onPointerUp);
     this.#renderer.domElement.addEventListener('pointermove', this.#onPointerMove);
+    this.#renderer.domElement.addEventListener('pointercancel', this.#onPointerCancel);
     this.#renderer.domElement.addEventListener('keydown', this.#onKey);
     this.#renderer.domElement.addEventListener('webglcontextlost', this.#onContextLost);
     this.#renderer.domElement.addEventListener('webglcontextrestored', this.#onContextRestored);
@@ -300,6 +312,18 @@ export class DistrictScene {
     for (const road of data.roads) this.#terrain.add(flatPolygon(road.polygon, roadMat, 0.18));
     const marks: BoxItem[] = [];
     for (const road of data.roads) {
+      if (road.centerline) {
+        const total = lengthOf(road.centerline);
+        for (let d = 8; d < total - 5; d += 18) {
+          const p = pointAlong(road.centerline, d),
+            a = pointAlong(road.centerline, d - 1),
+            b = pointAlong(road.centerline, d + 1);
+          if (data.roads.some((other) => other.id !== road.id && pointInside(p, other.polygon))) continue;
+          const angle = Math.atan2(b[0] - a[0], -(b[1] - a[1]));
+          marks.push({ point: p, y: 0.23, size: [0.35, 0.06, 6], angle });
+        }
+        continue;
+      }
       const vertical = road.axis === 'vertical',
         start = vertical ? y0 : x0,
         end = vertical ? y1 : x1;
@@ -440,7 +464,8 @@ export class DistrictScene {
       publicGround = this.#material('#c9cec4');
     const nodes = new Map(data.nodes.map((n) => [n.id, n]));
     for (const parcel of data.parcels) {
-      if (parcel.kind === 'public_park') this.#infrastructure.add(flatPolygon(parcel.polygon, lawn, 0.27));
+      if (parcel.kind === 'public_park' || parcel.kind === 'landscaping')
+        this.#infrastructure.add(flatPolygon(parcel.polygon, lawn, 0.27));
       else if (parcel.kind === 'vacant') {
         this.#infrastructure.add(flatPolygon(parcel.polygon, reserve, 0.25));
         this.#infrastructure.add(lineSegments(parcel.polygon, 0.4, '#a68d68', true));
@@ -548,10 +573,37 @@ export class DistrictScene {
       const p = nodes.get(stop.accessNodeIds[0]!)!.xy,
         bay = data.stopBays.find((b) => b.id === stop.stopBayId)!,
         offset = bay.side === 'west' ? -3 : 3;
+      const road = data.roads.find((r) => r.id === bay.roadId);
+      let shelterPoint: Point = [p[0] + offset, p[1]],
+        backPoint: Point = [p[0] + offset * 1.5, p[1]],
+        direction: Point = [0, 1],
+        angle = 0;
+      if (road?.centerline) {
+        const candidates = road.centerline
+          .slice(1)
+          .map((b, i) => {
+            const a = road.centerline![i]!,
+              q = projectSegment(p, a, b);
+            return { a, b, q, distance: Math.hypot(q[0] - p[0], q[1] - p[1]) };
+          })
+          .sort((a, b) => a.distance - b.distance);
+        const nearest = candidates[0]!;
+        const length = Math.hypot(nearest.b[0] - nearest.a[0], nearest.b[1] - nearest.a[1]);
+        if (length) {
+          direction = [(nearest.b[0] - nearest.a[0]) / length, (nearest.b[1] - nearest.a[1]) / length];
+          const normal: Point =
+            nearest.distance > 0.01
+              ? [(p[0] - nearest.q[0]) / nearest.distance, (p[1] - nearest.q[1]) / nearest.distance]
+              : [-direction[1], direction[0]];
+          shelterPoint = [p[0] + normal[0] * 3, p[1] + normal[1] * 3];
+          backPoint = [p[0] + normal[0] * 4.5, p[1] + normal[1] * 4.5];
+          angle = Math.atan2(direction[0], -direction[1]);
+        }
+      }
       const group = new THREE.Group();
       this.#infrastructure.add(group);
       const roof = this.#boxes(
-        [{ point: [p[0] + offset, p[1]], y: 5.1, size: [5.4, 0.6, 10] }],
+        [{ point: shelterPoint, y: 5.1, size: [5.4, 0.6, 10], angle }],
         this.#material('#446e72'),
         group,
         true,
@@ -560,7 +612,7 @@ export class DistrictScene {
       this.#pickables.push(roof);
       this.#boxes(
         [-3.8, 3.8].map((z) => ({
-          point: [p[0] + offset, p[1] + z] as Point,
+          point: [shelterPoint[0] + direction[0] * z, shelterPoint[1] + direction[1] * z] as Point,
           y: 2.6,
           size: [0.35, 5, 0.35],
         })),
@@ -569,7 +621,7 @@ export class DistrictScene {
         true,
       );
       this.#boxes(
-        [{ point: [p[0] + offset * 1.5, p[1]], y: 2.8, size: [0.12, 4.2, 8] }],
+        [{ point: backPoint, y: 2.8, size: [0.12, 4.2, 8], angle }],
         this.#material('#bed5d4', { transparent: true, opacity: 0.55 }),
         group,
       );
@@ -717,6 +769,17 @@ export class DistrictScene {
     for (const label of this.#labels) label.element.remove();
     this.#labels.length = 0;
     const data = this.#state.data;
+    const roadNames = new Set<string>();
+    for (const road of data.roads) {
+      if (!road.centerline || roadNames.has(road.name) || lengthOf(road.centerline) < 50) continue;
+      roadNames.add(road.name);
+      const point = pointAlong(road.centerline, lengthOf(road.centerline) / 2),
+        element = document.createElement('div');
+      element.className = 'place-label street-label';
+      element.textContent = road.name;
+      this.#labelHost.append(element);
+      this.#labels.push({ element, point: world(point, 4), public: true, id: road.id });
+    }
     for (const destination of data.destinations.filter((d) => d.active)) {
       const parcel = destination.parcelId ? data.parcels.find((p) => p.id === destination.parcelId) : null;
       const building = destination.buildingId
@@ -875,8 +938,10 @@ export class DistrictScene {
       this.#renderer.shadowMap.needsUpdate = true;
     }
     if (old.loads !== state.loads) this.#flow.setData(state.data, state.loads);
+    if (old.editor !== state.editor || old.data !== state.data)
+      this.#editor.setData(state.data, state.editor, state.design);
     if (old.routes !== state.routes || old.profileId !== state.profileId) this.#updateMotion();
-    this.#updateColors();
+    if (old.report !== state.report || old.metricId !== state.metricId) this.#updateColors();
     this.#updateSelection();
     this.#invalidate();
   }
@@ -988,7 +1053,10 @@ export class DistrictScene {
     const point = building
       ? bounds(building.polygon).center
       : destination
-        ? data.nodes.find((n) => n.id === destination.accessNodeIds[0])!.xy
+        ? (data.nodes.find((n) => n.id === destination.accessNodeIds[0])?.xy ??
+          (data.parcels.find((p) => p.id === destination.parcelId)
+            ? bounds(data.parcels.find((p) => p.id === destination.parcelId)!.polygon).center
+            : null))
         : edge
           ? bounds(edge.geometry).center
           : null;
@@ -1025,11 +1093,14 @@ export class DistrictScene {
       [
         ...this.#pickables.filter((p) => this.#visible(p)),
         ...(this.#flow.mesh && this.#flow.group.visible ? [this.#flow.mesh] : []),
+        ...this.#editor.pickables,
       ],
       false,
     );
     const first = hits[0];
     if (!first) return null;
+    const handle = this.#editor.handle(first);
+    if (handle) return handle.id;
     if (first.object === this.#flow.mesh) return this.#flow.edgeId(first.instanceId!);
     return first.object === this.#body
       ? (this.#buildingOrder[first.instanceId!] ?? null)
@@ -1038,17 +1109,98 @@ export class DistrictScene {
   #onPointerDown = (event: PointerEvent): void => {
     this.#down = { x: event.clientX, y: event.clientY };
     this.#cameraTransition = null;
+    const editor = this.#state.editor;
+    if (event.button === 0 && editor?.active) {
+      const point = this.#groundPoint(event);
+      if (editor.tool !== 'select') {
+        this.#controls.enabled = false;
+        return;
+      }
+      const hits = this.#raycaster.intersectObjects(this.#editor.pickables, false),
+        handle = hits[0] ? this.#editor.handle(hits[0]) : null;
+      if (handle && handle.id === editor.selectedId && point) {
+        this.#dragging = handle;
+        this.#controls.enabled = false;
+        this.#renderer.domElement.setPointerCapture(event.pointerId);
+        this.#callbacks.editor?.drag({ ...handle, point, phase: 'start' });
+        event.stopImmediatePropagation();
+      }
+    }
   };
   #onPointerUp = (event: PointerEvent): void => {
+    if (this.#dragging) {
+      const point = this.#groundPoint(event),
+        handle = this.#dragging;
+      this.#dragging = null;
+      this.#controls.enabled = true;
+      if (point) this.#callbacks.editor?.drag({ ...handle, point, phase: 'end' });
+      return;
+    }
+    this.#controls.enabled = true;
+    if (
+      event.button === 0 &&
+      this.#state.editor?.active &&
+      this.#state.editor.tool !== 'select' &&
+      Math.hypot(event.clientX - this.#down.x, event.clientY - this.#down.y) < 5
+    ) {
+      const point = this.#groundPoint(event);
+      if (point) this.#callbacks.editor?.point(point);
+      return;
+    }
     if (event.button === 0 && Math.hypot(event.clientX - this.#down.x, event.clientY - this.#down.y) < 5)
       this.#callbacks.onSelect(this.#pick(event));
   };
   #onPointerMove = (event: PointerEvent): void => {
+    if (this.#dragging) {
+      const point = this.#groundPoint(event);
+      if (point) this.#callbacks.editor?.drag({ ...this.#dragging, point, phase: 'move' });
+      return;
+    }
     if (event.buttons === 0) this.#renderer.domElement.style.cursor = this.#pick(event) ? 'pointer' : 'grab';
   };
+  #groundPoint(event: PointerEvent): XY | null {
+    const rect = this.#renderer.domElement.getBoundingClientRect();
+    this.#pointer.set(
+      ((event.clientX - rect.left) / rect.width) * 2 - 1,
+      (-(event.clientY - rect.top) / rect.height) * 2 + 1,
+    );
+    this.#raycaster.setFromCamera(this.#pointer, this.#camera);
+    const hit = this.#raycaster.ray.intersectPlane(
+      new THREE.Plane(new THREE.Vector3(0, 1, 0), 0),
+      new THREE.Vector3(),
+    );
+    if (!hit) return null;
+    hit.sub(this.#district.position);
+    return [hit.x, -hit.z];
+  }
+  #onPointerCancel = (): void => {
+    if (this.#dragging) this.#callbacks.editor?.drag({ ...this.#dragging, point: [0, 0], phase: 'cancel' });
+    this.#dragging = null;
+    this.#controls.enabled = true;
+  };
   #onKey = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape') this.#callbacks.onSelect(null);
-    else if (event.key === 'Home') this.home();
+    if (event.key === 'Escape') {
+      this.#onPointerCancel();
+      this.#callbacks.editor?.cancel();
+      this.#callbacks.onSelect(null);
+    } else if (
+      this.#state.editor?.active &&
+      ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key) &&
+      this.#state.editor.draft
+    ) {
+      event.preventDefault();
+      const object = this.#state.editor.draft,
+        p = object.polygon ? bounds(object.polygon).center : object.entrances[0];
+      if (p) {
+        const point: XY = [
+            p[0] + (event.key === 'ArrowRight' ? 5 : event.key === 'ArrowLeft' ? -5 : 0),
+            p[1] + (event.key === 'ArrowUp' ? 5 : event.key === 'ArrowDown' ? -5 : 0),
+          ],
+          handle = { id: object.id, part: 'object' as const, index: 0 };
+        this.#callbacks.editor?.drag({ ...handle, point: [...p] as XY, phase: 'start' });
+        this.#callbacks.editor?.drag({ ...handle, point, phase: 'end' });
+      }
+    } else if (event.key === 'Home') this.home();
     else if (event.key === '+' || event.key === '=') this.zoom(0.8);
     else if (event.key === '-') this.zoom(1.25);
   };
@@ -1152,14 +1304,16 @@ export class DistrictScene {
     this.#resize.disconnect();
     this.#controls.dispose();
     const canvas = this.#renderer.domElement;
-    canvas.removeEventListener('pointerdown', this.#onPointerDown);
+    canvas.removeEventListener('pointerdown', this.#onPointerDown, true);
     canvas.removeEventListener('pointerup', this.#onPointerUp);
     canvas.removeEventListener('pointermove', this.#onPointerMove);
+    canvas.removeEventListener('pointercancel', this.#onPointerCancel);
     canvas.removeEventListener('keydown', this.#onKey);
     canvas.removeEventListener('webglcontextlost', this.#onContextLost);
     canvas.removeEventListener('webglcontextrestored', this.#onContextRestored);
     this.#residents?.dispose();
     this.#flow.dispose();
+    this.#editor.dispose();
     document.removeEventListener('visibilitychange', this.#onVisibility);
     disposeObject(this.#scene);
     this.#sun.shadow.map?.dispose();

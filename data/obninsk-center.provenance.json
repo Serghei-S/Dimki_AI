@@ -1,0 +1,4466 @@
+{
+  "sourceFile": "sources/obninsk-center.osm.json",
+  "sourceSha256": "17097dfc279c7dc73ea26b3531d73e4b23b4399a918b34adb978647f7a228d05",
+  "osmTimestamp": "2026-10-16T15:04:51Z",
+  "extentWgs84": [
+    36.6072,
+    55.09,
+    36.617,
+    55.0945
+  ],
+  "originWgs84": [
+    36.608,
+    55.09
+  ],
+  "license": "ODbL-1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "licenseUrl": "https://www.openstreetmap.org/copyright",
+  "generator": "tools/build_obninsk.py",
+  "shapelyVersion": "2.2.0",
+  "detailsFile": "sources/obninsk-details.osm.json",
+  "detailsSha256": "9f46a3a4830a43fb972a6d2cbb2ac11de7ade03167efd285aab7b33e630e6f12",
+  "assumptions": {
+    "residentialFloorUsableFactor": 0.78,
+    "apartmentAreaM2": 55,
+    "occupancy": 0.94,
+    "defaultFloors": 4,
+    "defaultFloorHeightM": 3.1,
+    "sidewalkOffsetFromRoadM": 3,
+    "maxInfillLinkM": 45,
+    "maxBuildingAccessM": 100,
+    "defaultSlope": 0.015,
+    "unknownKerbsAssumedLowered": true,
+    "defaultCrossingWaitSeconds": 20
+  },
+  "buildings": {
+    "osm_building_26726476": {
+      "osmType": "way",
+      "osmId": 26726476,
+      "url": "https://www.openstreetmap.org/way/26726476",
+      "tags": {
+        "addr:housenumber": "40",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_81809205": {
+      "osmType": "way",
+      "osmId": 81809205,
+      "url": "https://www.openstreetmap.org/way/81809205",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "58",
+        "addr:street": "проспект Ленина",
+        "building": "apartments",
+        "building:levels": "10",
+        "height": "29"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_81809209": {
+      "osmType": "way",
+      "osmId": 81809209,
+      "url": "https://www.openstreetmap.org/way/81809209",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "60",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "5"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_88966157": {
+      "osmType": "way",
+      "osmId": 88966157,
+      "url": "https://www.openstreetmap.org/way/88966157",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "5",
+        "addr:postcode": "249037",
+        "addr:street": "улица Кончаловского",
+        "building": "apartments",
+        "building:flats": "40",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": false,
+      "entranceOsmId": 8491304352,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383013": {
+      "osmType": "way",
+      "osmId": 89383013,
+      "url": "https://www.openstreetmap.org/way/89383013",
+      "tags": {
+        "addr:housenumber": "11",
+        "addr:street": "улица Красных Зорь",
+        "building": "yes",
+        "building:levels": "4",
+        "height": "15",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383027": {
+      "osmType": "way",
+      "osmId": 89383027,
+      "url": "https://www.openstreetmap.org/way/89383027",
+      "tags": {
+        "addr:housenumber": "1",
+        "addr:street": "площадь Преображения",
+        "amenity": "townhall",
+        "building": "yes",
+        "building:colour": "#ffca86",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": false
+    },
+    "osm_building_89383041": {
+      "osmType": "way",
+      "osmId": 89383041,
+      "url": "https://www.openstreetmap.org/way/89383041",
+      "tags": {
+        "addr:housenumber": "6",
+        "addr:street": "Треугольная площадь",
+        "building": "yes",
+        "building:levels": "4",
+        "roof:shape": "hipped",
+        "source:addr": "survey"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383047": {
+      "osmType": "way",
+      "osmId": 89383047,
+      "url": "https://www.openstreetmap.org/way/89383047",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "9",
+        "addr:street": "улица Красных Зорь",
+        "building": "apartments",
+        "building:levels": "4",
+        "height": "15",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383056": {
+      "osmType": "way",
+      "osmId": 89383056,
+      "url": "https://www.openstreetmap.org/way/89383056",
+      "tags": {
+        "addr:housenumber": "4",
+        "addr:street": "улица Осипенко",
+        "building": "yes",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": true,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383080": {
+      "osmType": "way",
+      "osmId": 89383080,
+      "url": "https://www.openstreetmap.org/way/89383080",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "2",
+        "addr:street": "улица Лейпунского",
+        "building": "apartments",
+        "building:levels": "4",
+        "height": "15",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383086": {
+      "osmType": "way",
+      "osmId": 89383086,
+      "url": "https://www.openstreetmap.org/way/89383086",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "5",
+        "addr:street": "улица Лейпунского",
+        "building": "apartments",
+        "building:levels": "4",
+        "height": "15",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383144": {
+      "osmType": "way",
+      "osmId": 89383144,
+      "url": "https://www.openstreetmap.org/way/89383144",
+      "tags": {
+        "addr:country": "RU",
+        "addr:housenumber": "11А",
+        "addr:street": "улица Красных Зорь",
+        "building": "yes",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383193": {
+      "osmType": "way",
+      "osmId": 89383193,
+      "url": "https://www.openstreetmap.org/way/89383193",
+      "tags": {
+        "addr:housenumber": "65",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "roof:colour": "brown",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": true,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383202": {
+      "osmType": "way",
+      "osmId": 89383202,
+      "url": "https://www.openstreetmap.org/way/89383202",
+      "tags": {
+        "addr:housenumber": "27/2",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383227": {
+      "osmType": "way",
+      "osmId": 89383227,
+      "url": "https://www.openstreetmap.org/way/89383227",
+      "tags": {
+        "addr:housenumber": "63",
+        "addr:street": "Треугольная площадь",
+        "building": "yes",
+        "building:levels": "5"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383234": {
+      "osmType": "way",
+      "osmId": 89383234,
+      "url": "https://www.openstreetmap.org/way/89383234",
+      "tags": {
+        "addr:housenumber": "55",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "4",
+        "height": "15",
+        "roof:colour": "brown",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383264": {
+      "osmType": "way",
+      "osmId": 89383264,
+      "url": "https://www.openstreetmap.org/way/89383264",
+      "tags": {
+        "addr:housenumber": "38",
+        "addr:street": "проспект Ленина",
+        "building": "apartments",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383268": {
+      "osmType": "way",
+      "osmId": 89383268,
+      "url": "https://www.openstreetmap.org/way/89383268",
+      "tags": {
+        "addr:housenumber": "62",
+        "addr:street": "проспект Ленина",
+        "building": "apartments",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383276": {
+      "osmType": "way",
+      "osmId": 89383276,
+      "url": "https://www.openstreetmap.org/way/89383276",
+      "tags": {
+        "addr:housenumber": "53",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "4",
+        "height": "15",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383290": {
+      "osmType": "way",
+      "osmId": 89383290,
+      "url": "https://www.openstreetmap.org/way/89383290",
+      "tags": {
+        "addr:housenumber": "59",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "4",
+        "description": "уточнить номер дома по месту",
+        "height": "15",
+        "roof:colour": "brown",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383294": {
+      "osmType": "way",
+      "osmId": 89383294,
+      "url": "https://www.openstreetmap.org/way/89383294",
+      "tags": {
+        "addr:housenumber": "5",
+        "addr:street": "улица Красных Зорь",
+        "building": "yes",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383304": {
+      "osmType": "way",
+      "osmId": 89383304,
+      "url": "https://www.openstreetmap.org/way/89383304",
+      "tags": {
+        "addr:housenumber": "50",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "5",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383312": {
+      "osmType": "way",
+      "osmId": 89383312,
+      "url": "https://www.openstreetmap.org/way/89383312",
+      "tags": {
+        "addr:housenumber": "61",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "roof:colour": "brown",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": true,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383317": {
+      "osmType": "way",
+      "osmId": 89383317,
+      "url": "https://www.openstreetmap.org/way/89383317",
+      "tags": {
+        "addr:housenumber": "3",
+        "addr:street": "улица Красных Зорь",
+        "building": "yes",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383324": {
+      "osmType": "way",
+      "osmId": 89383324,
+      "url": "https://www.openstreetmap.org/way/89383324",
+      "tags": {
+        "addr:housenumber": "13",
+        "addr:street": "улица Красных Зорь",
+        "building": "yes",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383356": {
+      "osmType": "way",
+      "osmId": 89383356,
+      "url": "https://www.openstreetmap.org/way/89383356",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "1",
+        "addr:street": "улица Лейпунского",
+        "building": "apartments",
+        "building:levels": "4",
+        "height": "15",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383362": {
+      "osmType": "way",
+      "osmId": 89383362,
+      "url": "https://www.openstreetmap.org/way/89383362",
+      "tags": {
+        "addr:housenumber": "7А",
+        "addr:street": "улица Красных Зорь",
+        "building": "yes",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": true,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383375": {
+      "osmType": "way",
+      "osmId": 89383375,
+      "url": "https://www.openstreetmap.org/way/89383375",
+      "tags": {
+        "addr:housenumber": "52",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "4",
+        "roof:colour": "brown",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383384": {
+      "osmType": "way",
+      "osmId": 89383384,
+      "url": "https://www.openstreetmap.org/way/89383384",
+      "tags": {
+        "addr:housenumber": "54",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "4",
+        "height": "15",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383393": {
+      "osmType": "way",
+      "osmId": 89383393,
+      "url": "https://www.openstreetmap.org/way/89383393",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "3",
+        "addr:street": "улица Лейпунского",
+        "building": "commercial",
+        "building:levels": "3",
+        "height": "12",
+        "roof:shape": "flat"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": false
+    },
+    "osm_building_89383399": {
+      "osmType": "way",
+      "osmId": 89383399,
+      "url": "https://www.openstreetmap.org/way/89383399",
+      "tags": {
+        "addr:housenumber": "7",
+        "addr:street": "улица Красных Зорь",
+        "building": "apartments",
+        "building:levels": "4",
+        "height": "15",
+        "roof:height": "3",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_89383410": {
+      "osmType": "way",
+      "osmId": 89383410,
+      "url": "https://www.openstreetmap.org/way/89383410",
+      "tags": {
+        "addr:housenumber": "48",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "5",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_90074563": {
+      "osmType": "way",
+      "osmId": 90074563,
+      "url": "https://www.openstreetmap.org/way/90074563",
+      "tags": {
+        "addr:housenumber": "8",
+        "addr:street": "улица Осипенко",
+        "building": "yes",
+        "building:levels": "2"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_90074576": {
+      "osmType": "way",
+      "osmId": 90074576,
+      "url": "https://www.openstreetmap.org/way/90074576",
+      "tags": {
+        "addr:housenumber": "15",
+        "addr:street": "улица Красных Зорь",
+        "building": "apartments",
+        "building:levels": "4",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_91563731": {
+      "osmType": "way",
+      "osmId": 91563731,
+      "url": "https://www.openstreetmap.org/way/91563731",
+      "tags": {
+        "addr:housenumber": "3",
+        "addr:street": "улица Кончаловского",
+        "building": "yes",
+        "building:levels": "2"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": false
+    },
+    "osm_building_91683829": {
+      "osmType": "way",
+      "osmId": 91683829,
+      "url": "https://www.openstreetmap.org/way/91683829",
+      "tags": {
+        "addr:city": "Обнинск",
+        "addr:housenumber": "57",
+        "addr:street": "проспект Ленина",
+        "building": "yes",
+        "building:levels": "5",
+        "height": "20",
+        "internet_access": "wlan",
+        "name": "Юбилейная",
+        "stars": "3",
+        "tourism": "hotel"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": false
+    },
+    "osm_building_91764251": {
+      "osmType": "way",
+      "osmId": 91764251,
+      "url": "https://www.openstreetmap.org/way/91764251",
+      "tags": {
+        "addr:housenumber": "56",
+        "addr:street": "проспект Ленина",
+        "building": "apartments",
+        "building:levels": "10",
+        "height": "29"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": false,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_92005370": {
+      "osmType": "way",
+      "osmId": 92005370,
+      "url": "https://www.openstreetmap.org/way/92005370",
+      "tags": {
+        "addr:housenumber": "10",
+        "addr:street": "улица Осипенко",
+        "building": "yes"
+      },
+      "useAssumed": true,
+      "floorsAssumed": true,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_124186928": {
+      "osmType": "way",
+      "osmId": 124186928,
+      "url": "https://www.openstreetmap.org/way/124186928",
+      "tags": {
+        "addr:housenumber": "6",
+        "addr:street": "улица Осипенко",
+        "building": "yes",
+        "building:levels": "2",
+        "roof:shape": "hipped"
+      },
+      "useAssumed": true,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    },
+    "osm_building_128510708": {
+      "osmType": "way",
+      "osmId": 128510708,
+      "url": "https://www.openstreetmap.org/way/128510708",
+      "tags": {
+        "addr:housenumber": "1",
+        "addr:street": "улица Лейпунского",
+        "brand": "Бристоль",
+        "brand:wikidata": "Q59155583",
+        "building": "yes",
+        "building:levels": "1",
+        "name": "Бристоль",
+        "shop": "alcohol"
+      },
+      "useAssumed": false,
+      "floorsAssumed": false,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": false
+    },
+    "osm_building_132208788": {
+      "osmType": "way",
+      "osmId": 132208788,
+      "url": "https://www.openstreetmap.org/way/132208788",
+      "tags": {
+        "addr:housenumber": "3",
+        "addr:street": "улица Осипенко",
+        "building": "yes"
+      },
+      "useAssumed": true,
+      "floorsAssumed": true,
+      "heightAssumed": true,
+      "entranceAssumed": true,
+      "entranceOsmId": null,
+      "entranceLinkAssumed": true,
+      "populationSynthetic": true
+    }
+  },
+  "roads": {
+    "osm_road_24493741_0": {
+      "osmType": "way",
+      "osmId": 24493741,
+      "widthAssumed": true
+    },
+    "osm_road_24493743_0": {
+      "osmType": "way",
+      "osmId": 24493743,
+      "widthAssumed": true
+    },
+    "osm_road_25015498_0": {
+      "osmType": "way",
+      "osmId": 25015498,
+      "widthAssumed": true
+    },
+    "osm_road_42280737_0": {
+      "osmType": "way",
+      "osmId": 42280737,
+      "widthAssumed": true
+    },
+    "osm_road_91573544_0": {
+      "osmType": "way",
+      "osmId": 91573544,
+      "widthAssumed": true
+    },
+    "osm_road_94805754_0": {
+      "osmType": "way",
+      "osmId": 94805754,
+      "widthAssumed": true
+    },
+    "osm_road_94805756_0": {
+      "osmType": "way",
+      "osmId": 94805756,
+      "widthAssumed": true
+    },
+    "osm_road_94805758_0": {
+      "osmType": "way",
+      "osmId": 94805758,
+      "widthAssumed": true
+    },
+    "osm_road_132208798_0": {
+      "osmType": "way",
+      "osmId": 132208798,
+      "widthAssumed": true
+    },
+    "osm_road_135552188_0": {
+      "osmType": "way",
+      "osmId": 135552188,
+      "widthAssumed": true
+    },
+    "osm_road_135552191_0": {
+      "osmType": "way",
+      "osmId": 135552191,
+      "widthAssumed": true
+    },
+    "osm_road_135552192_0": {
+      "osmType": "way",
+      "osmId": 135552192,
+      "widthAssumed": true
+    },
+    "osm_road_136998064_0": {
+      "osmType": "way",
+      "osmId": 136998064,
+      "widthAssumed": true
+    },
+    "osm_road_136998065_0": {
+      "osmType": "way",
+      "osmId": 136998065,
+      "widthAssumed": true
+    },
+    "osm_road_169778826_0": {
+      "osmType": "way",
+      "osmId": 169778826,
+      "widthAssumed": true
+    },
+    "osm_road_169778827_0": {
+      "osmType": "way",
+      "osmId": 169778827,
+      "widthAssumed": true
+    },
+    "osm_road_169778830_0": {
+      "osmType": "way",
+      "osmId": 169778830,
+      "widthAssumed": true
+    },
+    "osm_road_169778831_0": {
+      "osmType": "way",
+      "osmId": 169778831,
+      "widthAssumed": true
+    },
+    "osm_road_582876127_0": {
+      "osmType": "way",
+      "osmId": 582876127,
+      "widthAssumed": true
+    },
+    "osm_road_582876128_0": {
+      "osmType": "way",
+      "osmId": 582876128,
+      "widthAssumed": true
+    },
+    "osm_road_582876129_0": {
+      "osmType": "way",
+      "osmId": 582876129,
+      "widthAssumed": true
+    },
+    "osm_road_582876130_0": {
+      "osmType": "way",
+      "osmId": 582876130,
+      "widthAssumed": true
+    },
+    "osm_road_583374467_0": {
+      "osmType": "way",
+      "osmId": 583374467,
+      "widthAssumed": true
+    },
+    "osm_road_583374468_0": {
+      "osmType": "way",
+      "osmId": 583374468,
+      "widthAssumed": true
+    },
+    "osm_road_940941762_0": {
+      "osmType": "way",
+      "osmId": 940941762,
+      "widthAssumed": true
+    },
+    "osm_road_1307660029_0": {
+      "osmType": "way",
+      "osmId": 1307660029,
+      "widthAssumed": true
+    },
+    "osm_road_1307660032_0": {
+      "osmType": "way",
+      "osmId": 1307660032,
+      "widthAssumed": true
+    },
+    "osm_road_1307660036_0": {
+      "osmType": "way",
+      "osmId": 1307660036,
+      "widthAssumed": true
+    },
+    "osm_road_1307660039_0": {
+      "osmType": "way",
+      "osmId": 1307660039,
+      "widthAssumed": true
+    },
+    "osm_road_1307660042_0": {
+      "osmType": "way",
+      "osmId": 1307660042,
+      "widthAssumed": true
+    },
+    "osm_road_1307660046_0": {
+      "osmType": "way",
+      "osmId": 1307660046,
+      "widthAssumed": true
+    }
+  },
+  "edges": {
+    "oc_e_0": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018667
+    },
+    "oc_e_1": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018667
+    },
+    "oc_e_2": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018667
+    },
+    "oc_e_3": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018667
+    },
+    "oc_e_4": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018667
+    },
+    "oc_e_5": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018667
+    },
+    "oc_e_6": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018991
+    },
+    "oc_e_7": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018991
+    },
+    "oc_e_8": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91018991
+    },
+    "oc_e_9": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019003
+    },
+    "oc_e_10": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019003
+    },
+    "oc_e_11": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019003
+    },
+    "oc_e_12": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_13": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_14": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_15": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_16": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_17": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_18": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019052
+    },
+    "oc_e_19": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019052
+    },
+    "oc_e_20": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019052
+    },
+    "oc_e_21": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019052
+    },
+    "oc_e_22": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 95069387
+    },
+    "oc_e_23": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 95069387
+    },
+    "oc_e_24": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 95069387
+    },
+    "oc_e_25": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 95069387
+    },
+    "oc_e_26": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 95069387
+    },
+    "oc_e_27": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 95069387
+    },
+    "oc_e_28": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733803
+    },
+    "oc_e_29": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733803
+    },
+    "oc_e_30": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733810
+    },
+    "oc_e_31": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733810
+    },
+    "oc_e_32": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733810
+    },
+    "oc_e_33": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733810
+    },
+    "oc_e_34": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733810
+    },
+    "oc_e_35": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_36": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_37": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_38": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_39": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_40": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_41": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_42": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208795
+    },
+    "oc_e_43": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208795
+    },
+    "oc_e_44": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208795
+    },
+    "oc_e_45": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208804
+    },
+    "oc_e_46": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208811
+    },
+    "oc_e_47": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208818
+    },
+    "oc_e_48": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208818
+    },
+    "oc_e_49": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208831
+    },
+    "oc_e_50": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208836
+    },
+    "oc_e_51": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208836
+    },
+    "oc_e_52": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208840
+    },
+    "oc_e_53": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208846
+    },
+    "oc_e_54": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208846
+    },
+    "oc_e_55": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208846
+    },
+    "oc_e_56": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208848
+    },
+    "oc_e_57": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208848
+    },
+    "oc_e_58": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208848
+    },
+    "oc_e_59": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208848
+    },
+    "oc_e_60": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 199802452
+    },
+    "oc_e_61": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 199802452
+    },
+    "oc_e_62": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 199802452
+    },
+    "oc_e_63": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_64": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_65": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_66": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_67": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_68": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_69": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669338
+    },
+    "oc_e_70": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669338
+    },
+    "oc_e_71": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049097
+    },
+    "oc_e_72": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049097
+    },
+    "oc_e_73": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049097
+    },
+    "oc_e_74": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049097
+    },
+    "oc_e_75": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049098
+    },
+    "oc_e_76": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049098
+    },
+    "oc_e_77": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049098
+    },
+    "oc_e_78": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049098
+    },
+    "oc_e_79": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049098
+    },
+    "oc_e_80": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049098
+    },
+    "oc_e_81": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049099
+    },
+    "oc_e_82": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_83": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_84": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_85": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_86": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_87": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_88": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_89": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_90": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_91": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049102
+    },
+    "oc_e_92": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455088007
+    },
+    "oc_e_93": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455088008
+    },
+    "oc_e_94": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455088008
+    },
+    "oc_e_95": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876133
+    },
+    "oc_e_96": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876134
+    },
+    "oc_e_97": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582878121
+    },
+    "oc_e_98": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582878121
+    },
+    "oc_e_99": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582878121
+    },
+    "oc_e_100": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582878121
+    },
+    "oc_e_101": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582878121
+    },
+    "oc_e_102": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374478
+    },
+    "oc_e_103": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374478
+    },
+    "oc_e_104": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374485
+    },
+    "oc_e_105": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374485
+    },
+    "oc_e_106": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374649
+    },
+    "oc_e_107": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_108": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_109": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_110": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_111": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_112": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_113": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376101
+    },
+    "oc_e_114": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376101
+    },
+    "oc_e_115": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156811
+    },
+    "oc_e_116": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156811
+    },
+    "oc_e_117": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156812
+    },
+    "oc_e_118": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156817
+    },
+    "oc_e_119": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_120": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_121": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_122": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_123": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_124": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285195
+    },
+    "oc_e_125": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285195
+    },
+    "oc_e_126": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285195
+    },
+    "oc_e_127": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285195
+    },
+    "oc_e_128": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285196
+    },
+    "oc_e_129": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285196
+    },
+    "oc_e_130": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285196
+    },
+    "oc_e_131": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285196
+    },
+    "oc_e_132": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285196
+    },
+    "oc_e_133": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285196
+    },
+    "oc_e_134": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285197
+    },
+    "oc_e_135": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285197
+    },
+    "oc_e_136": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285197
+    },
+    "oc_e_137": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285197
+    },
+    "oc_e_138": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285197
+    },
+    "oc_e_139": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1112044627
+    },
+    "oc_e_140": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1112044628
+    },
+    "oc_e_141": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1112044629
+    },
+    "oc_e_142": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1112044629
+    },
+    "oc_e_143": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1112044630
+    },
+    "oc_e_144": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_145": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_146": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_147": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_148": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_149": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1220632000
+    },
+    "oc_e_150": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1220632000
+    },
+    "oc_e_151": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1220632002
+    },
+    "oc_e_152": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1234939528
+    },
+    "oc_e_153": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1292197301
+    },
+    "oc_e_154": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91764255
+    },
+    "oc_e_155": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91764255
+    },
+    "oc_e_156": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91764255
+    },
+    "oc_e_157": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91764255
+    },
+    "oc_e_158": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945512
+    },
+    "oc_e_159": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945512
+    },
+    "oc_e_160": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945513
+    },
+    "oc_e_161": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945514
+    },
+    "oc_e_162": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945514
+    },
+    "oc_e_163": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945515
+    },
+    "oc_e_164": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947819
+    },
+    "oc_e_165": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947819
+    },
+    "oc_e_166": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947819
+    },
+    "oc_e_167": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947819
+    },
+    "oc_e_168": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947819
+    },
+    "oc_e_169": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947820
+    },
+    "oc_e_170": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947820
+    },
+    "oc_e_171": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947821
+    },
+    "oc_e_172": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947821
+    },
+    "oc_e_173": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947821
+    },
+    "oc_e_174": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947822
+    },
+    "oc_e_175": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947824
+    },
+    "oc_e_176": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947826
+    },
+    "oc_e_177": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947828
+    },
+    "oc_e_178": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947828
+    },
+    "oc_e_179": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_180": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_181": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_182": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_183": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_184": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_185": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_186": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_187": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_188": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949010
+    },
+    "oc_e_189": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949011
+    },
+    "oc_e_190": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949011
+    },
+    "oc_e_191": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949011
+    },
+    "oc_e_192": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949011
+    },
+    "oc_e_193": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949011
+    },
+    "oc_e_194": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949011
+    },
+    "oc_e_195": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949012
+    },
+    "oc_e_196": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949013
+    },
+    "oc_e_197": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949014
+    },
+    "oc_e_198": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949014
+    },
+    "oc_e_199": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949014
+    },
+    "oc_e_200": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_201": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_202": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_203": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_204": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_205": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_206": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_207": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_208": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949016
+    },
+    "oc_e_209": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949016
+    },
+    "oc_e_210": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949016
+    },
+    "oc_e_211": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949016
+    },
+    "oc_e_212": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949016
+    },
+    "oc_e_213": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_214": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_215": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_216": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_217": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949461
+    },
+    "oc_e_218": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949461
+    },
+    "oc_e_219": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949463
+    },
+    "oc_e_220": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949463
+    },
+    "oc_e_221": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949463
+    },
+    "oc_e_222": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 105154752
+    },
+    "oc_e_223": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 105154752
+    },
+    "oc_e_224": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733797
+    },
+    "oc_e_225": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733808
+    },
+    "oc_e_226": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733808
+    },
+    "oc_e_227": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208814
+    },
+    "oc_e_228": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_229": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_230": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_231": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_232": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_233": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_234": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_235": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208832
+    },
+    "oc_e_236": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208845
+    },
+    "oc_e_237": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208845
+    },
+    "oc_e_238": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208845
+    },
+    "oc_e_239": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208845
+    },
+    "oc_e_240": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208845
+    },
+    "oc_e_241": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208852
+    },
+    "oc_e_242": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132408835
+    },
+    "oc_e_243": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132408835
+    },
+    "oc_e_244": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132408835
+    },
+    "oc_e_245": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 166354773
+    },
+    "oc_e_246": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 231789150
+    },
+    "oc_e_247": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256543
+    },
+    "oc_e_248": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256543
+    },
+    "oc_e_249": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256543
+    },
+    "oc_e_250": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256547
+    },
+    "oc_e_251": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256547
+    },
+    "oc_e_252": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256547
+    },
+    "oc_e_253": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669336
+    },
+    "oc_e_254": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669336
+    },
+    "oc_e_255": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669337
+    },
+    "oc_e_256": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 453733811
+    },
+    "oc_e_257": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 453733811
+    },
+    "oc_e_258": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 453733811
+    },
+    "oc_e_259": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180013
+    },
+    "oc_e_260": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180016
+    },
+    "oc_e_261": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180016
+    },
+    "oc_e_262": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180016
+    },
+    "oc_e_263": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180016
+    },
+    "oc_e_264": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180017
+    },
+    "oc_e_265": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180017
+    },
+    "oc_e_266": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180020
+    },
+    "oc_e_267": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049103
+    },
+    "oc_e_268": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049103
+    },
+    "oc_e_269": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049104
+    },
+    "oc_e_270": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049105
+    },
+    "oc_e_271": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049105
+    },
+    "oc_e_272": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_273": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_274": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_275": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_276": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_277": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_278": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_279": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374469
+    },
+    "oc_e_280": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374469
+    },
+    "oc_e_281": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374474
+    },
+    "oc_e_282": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374474
+    },
+    "oc_e_283": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583385426
+    },
+    "oc_e_284": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156805
+    },
+    "oc_e_285": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156806
+    },
+    "oc_e_286": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156807
+    },
+    "oc_e_287": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156808
+    },
+    "oc_e_288": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156809
+    },
+    "oc_e_289": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156810
+    },
+    "oc_e_290": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156810
+    },
+    "oc_e_291": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1215288389
+    },
+    "oc_e_292": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1215288389
+    },
+    "oc_e_293": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1215288389
+    },
+    "oc_e_294": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1215288389
+    },
+    "oc_e_295": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1215288389
+    },
+    "oc_e_296": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1307660023
+    },
+    "oc_e_297": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1307660023
+    },
+    "oc_e_298": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1307660023
+    },
+    "oc_e_299": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1307660059
+    },
+    "oc_e_300": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_301": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_302": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_303": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_304": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_305": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_306": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_307": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_308": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_309": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_310": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_311": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_312": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_313": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_314": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_315": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_316": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_317": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_318": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_319": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_320": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_321": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_322": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_323": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_324": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_325": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_326": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_327": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_328": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_329": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_330": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_331": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_332": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_333": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_334": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_335": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_336": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_337": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_338": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_339": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_340": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_341": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_342": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_343": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_344": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_345": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_346": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_347": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_348": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_349": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_350": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_351": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_352": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_353": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_354": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_355": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_356": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_357": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_358": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_359": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_360": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_361": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_362": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_363": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_364": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_365": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_366": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_367": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_368": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_369": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_370": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_371": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_372": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_373": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_374": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_375": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_376": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_377": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_378": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_379": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_380": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_381": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_382": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_383": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_384": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_385": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_386": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_387": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_388": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_389": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_390": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_391": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_392": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_393": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_394": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_395": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_396": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_397": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_398": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_399": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_400": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_401": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_402": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_403": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_404": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_405": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_406": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_407": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_408": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_409": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_410": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_411": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_412": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_413": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_414": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_415": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_416": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_417": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_418": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_419": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_420": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_421": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_422": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_423": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_424": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_425": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_426": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_427": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_428": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_429": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_430": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_431": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_432": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_433": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_434": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_435": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_436": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_437": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_438": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_439": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_440": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_441": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_442": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_443": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_444": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_445": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_446": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_447": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_448": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_449": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_450": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_451": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_452": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_453": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_454": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_455": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_456": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_457": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_458": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_459": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_460": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_461": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_462": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_463": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_464": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_465": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_466": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_467": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_468": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_469": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_470": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_471": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_472": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_473": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_474": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_475": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_476": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_477": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_478": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_479": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_480": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_481": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_482": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_483": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_484": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_485": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_486": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_487": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_488": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_489": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_490": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_491": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_492": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_493": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_494": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_495": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_496": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_497": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_498": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_499": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_500": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_501": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_502": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_503": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_504": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_505": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_506": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_507": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_508": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_509": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_510": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_511": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_512": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_513": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_514": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_515": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_516": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_517": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_518": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_519": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_520": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_521": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_522": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_523": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_524": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_525": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_526": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_527": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_528": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_529": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_530": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_531": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_532": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_533": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_534": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_535": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_536": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019052
+    },
+    "oc_e_537": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 95069387
+    },
+    "oc_e_538": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_539": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_540": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049097
+    },
+    "oc_e_541": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_542": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582878121
+    },
+    "oc_e_543": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_544": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949014
+    },
+    "oc_e_545": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 105154752
+    },
+    "oc_e_546": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256547
+    },
+    "oc_e_547": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669336
+    },
+    "oc_e_548": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_549": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582876125
+    },
+    "oc_e_550": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1215288389
+    },
+    "oc_e_551": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1215288389
+    },
+    "oc_e_552": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_553": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_554": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_555": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_556": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_557": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_558": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_559": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_560": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_561": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_562": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_563": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_564": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_565": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_566": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_567": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_568": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_569": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_570": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_571": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_572": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_573": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_574": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208848
+    },
+    "oc_e_575": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_576": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_577": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_578": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180016
+    },
+    "oc_e_579": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_580": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945512
+    },
+    "oc_e_581": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947821
+    },
+    "oc_e_582": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208845
+    },
+    "oc_e_583": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208818
+    },
+    "oc_e_584": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_585": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_586": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_587": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_588": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_589": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_590": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_591": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180016
+    },
+    "oc_e_592": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 108225819
+    },
+    "oc_e_593": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_594": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_595": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_596": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_597": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583374485
+    },
+    "oc_e_598": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_599": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_600": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_601": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_602": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_603": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_604": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_605": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049099
+    },
+    "oc_e_606": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_607": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_608": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_609": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_610": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_611": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_612": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_613": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945512
+    },
+    "oc_e_614": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_615": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_616": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_617": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_618": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947821
+    },
+    "oc_e_619": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_620": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_621": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733808
+    },
+    "oc_e_622": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_623": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_624": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208824
+    },
+    "oc_e_625": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_626": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_627": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_628": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_629": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_630": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_631": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_632": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1220632000
+    },
+    "oc_e_633": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_634": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_635": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947821
+    },
+    "oc_e_636": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_637": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_638": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_639": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_640": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_641": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_642": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049100
+    },
+    "oc_e_643": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1217939712
+    },
+    "oc_e_644": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_645": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_646": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_647": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 914156810
+    },
+    "oc_e_648": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_649": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049105
+    },
+    "oc_e_650": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049105
+    },
+    "oc_e_651": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_652": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208832
+    },
+    "oc_e_653": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208832
+    },
+    "oc_e_654": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_655": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_656": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_657": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947830
+    },
+    "oc_e_658": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_659": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180013
+    },
+    "oc_e_660": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180013
+    },
+    "oc_e_661": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_662": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947824
+    },
+    "oc_e_663": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947824
+    },
+    "oc_e_664": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_665": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_666": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_667": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_668": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949463
+    },
+    "oc_e_669": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949463
+    },
+    "oc_e_670": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_671": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_672": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947826
+    },
+    "oc_e_673": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947826
+    },
+    "oc_e_674": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_675": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1112044629
+    },
+    "oc_e_676": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1112044629
+    },
+    "oc_e_677": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_678": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945513
+    },
+    "oc_e_679": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945513
+    },
+    "oc_e_680": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_681": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_682": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019024
+    },
+    "oc_e_683": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_684": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180017
+    },
+    "oc_e_685": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 454180017
+    },
+    "oc_e_686": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_687": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_688": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949460
+    },
+    "oc_e_689": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_690": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256543
+    },
+    "oc_e_691": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 371256543
+    },
+    "oc_e_692": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_693": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947828
+    },
+    "oc_e_694": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947828
+    },
+    "oc_e_695": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_696": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_697": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_698": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_699": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949012
+    },
+    "oc_e_700": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949012
+    },
+    "oc_e_701": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_702": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949014
+    },
+    "oc_e_703": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949014
+    },
+    "oc_e_704": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_705": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945515
+    },
+    "oc_e_706": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103945515
+    },
+    "oc_e_707": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_708": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_709": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_710": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_711": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947819
+    },
+    "oc_e_712": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947819
+    },
+    "oc_e_713": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_714": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_715": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949010
+    },
+    "oc_e_716": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949010
+    },
+    "oc_e_717": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_718": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949012
+    },
+    "oc_e_719": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949012
+    },
+    "oc_e_720": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_721": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_722": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_723": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_724": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733797
+    },
+    "oc_e_725": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 106733797
+    },
+    "oc_e_726": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_727": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_728": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583376100
+    },
+    "oc_e_729": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_730": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_731": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_732": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_733": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_734": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_735": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_736": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947821
+    },
+    "oc_e_737": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103947821
+    },
+    "oc_e_738": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_739": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208846
+    },
+    "oc_e_740": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208846
+    },
+    "oc_e_741": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_742": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208852
+    },
+    "oc_e_743": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208852
+    },
+    "oc_e_744": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_745": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_746": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949015
+    },
+    "oc_e_747": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_748": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208795
+    },
+    "oc_e_749": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208795
+    },
+    "oc_e_750": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_751": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949463
+    },
+    "oc_e_752": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 103949463
+    },
+    "oc_e_753": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_754": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019003
+    },
+    "oc_e_755": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91019003
+    },
+    "oc_e_756": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_757": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_758": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208831
+    },
+    "oc_e_759": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208831
+    },
+    "oc_e_760": {
+      "kind": "modelled_building_entrance"
+    },
+    "oc_e_761": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285195
+    },
+    "oc_e_762": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285195
+    },
+    "oc_e_763": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285195
+    },
+    "oc_e_764": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285195
+    },
+    "oc_e_765": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_766": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_767": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_768": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285194
+    },
+    "oc_e_769": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285196
+    },
+    "oc_e_770": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1004285196
+    },
+    "oc_e_771": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_772": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_773": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_774": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_775": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1307660059
+    },
+    "oc_e_776": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 1307660059
+    },
+    "oc_e_777": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_778": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 431669335
+    },
+    "oc_e_779": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_780": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_781": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049098
+    },
+    "oc_e_782": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 455049098
+    },
+    "oc_e_783": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_784": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_785": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_786": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_787": {
+      "kind": "proposed_road_crossing"
+    },
+    "oc_e_788": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_789": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_790": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_791": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_792": {
+      "kind": "proposed_road_crossing"
+    },
+    "oc_e_793": {
+      "kind": "proposed_courtyard_link"
+    },
+    "oc_e_794": {
+      "kind": "proposed_courtyard_link"
+    },
+    "oc_e_795": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208836
+    },
+    "oc_e_796": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 132208836
+    },
+    "oc_e_797": {
+      "kind": "proposed_park_entrance"
+    },
+    "oc_e_798": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_799": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_800": {
+      "kind": "proposed_park_entrance"
+    },
+    "oc_e_801": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_802": {
+      "kind": "inferred_sidewalk_or_corner"
+    },
+    "oc_e_803": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91764255
+    },
+    "oc_e_804": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 91764255
+    }
+  },
+  "destinations": {
+    "oc_place_89383027": {
+      "kind": "osm_site",
+      "osmId": 89383027
+    },
+    "oc_place_89383393": {
+      "kind": "inferred_building_use",
+      "osmId": 89383393
+    },
+    "oc_place_91563731": {
+      "kind": "osm_site",
+      "osmId": 124186933
+    },
+    "oc_place_91683829": {
+      "kind": "inferred_building_use",
+      "osmId": 91683829
+    },
+    "oc_place_128510708": {
+      "kind": "osm_site",
+      "osmId": 128510708
+    },
+    "osm_shop_1438546078": {
+      "kind": "osm",
+      "osmType": "node",
+      "osmId": 1438546078,
+      "entranceAssumed": true,
+      "openingHoursInformational": true
+    },
+    "osm_shop_1438546799": {
+      "kind": "osm",
+      "osmType": "node",
+      "osmId": 1438546799,
+      "entranceAssumed": true,
+      "openingHoursInformational": true
+    },
+    "osm_shop_4162572489": {
+      "kind": "osm",
+      "osmType": "node",
+      "osmId": 4162572489,
+      "entranceAssumed": true,
+      "openingHoursInformational": true
+    },
+    "oc_park_166354778_0": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 166354778,
+      "entrancesAssumed": true,
+      "parkInterpretationAssumed": true
+    },
+    "oc_park_582849934_0": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 582849934,
+      "entrancesAssumed": true,
+      "parkInterpretationAssumed": true
+    },
+    "oc_park_583379243_0": {
+      "kind": "osm",
+      "osmType": "way",
+      "osmId": 583379243,
+      "entrancesAssumed": true,
+      "parkInterpretationAssumed": true
+    },
+    "osm_stop_8714563739": {
+      "kind": "osm",
+      "osmType": "node",
+      "osmId": 8714563739,
+      "positionSnappedM": 6.554505389579284
+    },
+    "osm_stop_11169303055": {
+      "kind": "osm",
+      "osmType": "node",
+      "osmId": 11169303055,
+      "positionSnappedM": 0.06179218809009978
+    },
+    "osm_stop_11259529332": {
+      "kind": "osm",
+      "osmType": "node",
+      "osmId": 11259529332,
+      "positionSnappedM": 0.08296284631223505
+    },
+    "osm_stop_11259553039": {
+      "kind": "osm",
+      "osmType": "node",
+      "osmId": 11259553039,
+      "positionSnappedM": 2.1250282449048163
+    },
+    "oc_model_clinic": {
+      "kind": "scenario_assumption",
+      "reason": "No confirmed service of this kind inside selected map crop; illustrative service only."
+    },
+    "oc_future_park_0": {
+      "kind": "scenario_assumption"
+    },
+    "oc_future_park_1": {
+      "kind": "scenario_assumption"
+    }
+  },
+  "warnings": [],
+  "summary": {
+    "buildings": 41,
+    "homes": 36,
+    "residents": 3692,
+    "nodes": 611,
+    "edges": 805,
+    "activeEdges": 744,
+    "crossingEdges": 21,
+    "sourceCrossingNodes": 15,
+    "projects": 12,
+    "roads": 31,
+    "stops": 4,
+    "greenAreas": 3
+  }
+}

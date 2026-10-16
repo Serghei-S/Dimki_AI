@@ -1,5 +1,6 @@
 import type { DistrictData, MetricDefinition, Profile, OptimizationInput, OptimizationControl, OptimizationResult, OptimizationAlternative, OptimizationScore, ScenarioInput } from './types.js';
 import type { Topology } from './graph.js';
+import {compileTopology} from './graph.js';
 import { EngineError, requireCondition } from './errors.js';
 import { parseOptimization } from './validation.js';
 import { materializeValidated, resolveProjectOrder } from './scenario.js';
@@ -32,7 +33,8 @@ export async function optimizeProjects(data: DistrictData, topology: Topology, p
   const required = resolveProjectOrder(data, options.requiredProjectIds ?? []), requiredSet = new Set(required);
   const optional = candidates.filter(id => !requiredSet.has(id));
   const overrides = options.operationalOverrides ?? [];
-  materializeValidated(data, {projectIds: required, budgetRub: options.budgetRub, operationalOverrides: overrides});
+  const extension=options.design?{design:options.design}:{};
+  materializeValidated(data, {projectIds: required, budgetRub: options.budgetRub, operationalOverrides: overrides,...extension});
   const byId = new Map(data.projects.map(p => [p.id, p]));
   const totalSubsets = 2 ** optional.length, topK = options.topK ?? 3, frontier: OptimizationAlternative[] = [];
   const identity = (a: OptimizationAlternative) => [...a.projectIds].sort(compareId).join('|');
@@ -55,9 +57,16 @@ export async function optimizeProjects(data: DistrictData, topology: Topology, p
     }
     if (valid) {
       const projectIds = candidates.filter(id => selected.has(id));
-      const scenario: ScenarioInput = {projectIds, budgetRub: options.budgetRub, operationalOverrides: overrides};
-      const snapshot = materializeValidated(data, scenario);
-      const analysis = analyzeProfile(snapshot.data, topology, profile, [metric]);
+      const scenario: ScenarioInput = {projectIds, budgetRub: options.budgetRub, operationalOverrides: overrides,...extension};
+      let snapshot;
+      try{snapshot=materializeValidated(data, scenario);}catch(error){
+        if(error instanceof EngineError && (error.code==='BUDGET_EXCEEDED' || (options.design && error.code==='INVALID_SCENARIO'))){
+          if((mask+1)%yieldEvery===0){control.onProgress?.(progress(mask+1));await new Promise<void>(resolve=>setTimeout(resolve,0));}
+          continue;
+        }
+        throw error;
+      }
+      const analysis = analyzeProfile(snapshot.data, options.design?compileTopology(snapshot.data):topology, profile, [metric]);
       const totals = analysis.report.destinations[metric.id]!, weighted = analysis.metrics.get(metric.id)!.weightedSeconds;
       const alternative: OptimizationAlternative = {projectIds, costs: snapshot.costs, metric: totals,
         score: {withinThresholdResidents: totals.withinThresholdResidents, reachableResidents: totals.reachableResidents,

@@ -110,19 +110,21 @@ class MinHeap {
 }
 
 /** Reverse multi-source Dijkstra: distances are FROM a node TO any supplied target. */
-export function shortestToTargets(graph: RoutingGraph, targetIndices: Iterable<number>): RouteTree {
+export function shortestToTargets(graph: RoutingGraph, targetIndices: Iterable<number>,options?:{initialCosts?:ReadonlyMap<number,number>;blockedEdge?:number}): RouteTree {
   const n = graph.topology.nodeIds.length, distances = new Float64Array(n).fill(Infinity),
     nextNodes = new Int32Array(n).fill(-1), nextEdges = new Int32Array(n).fill(-1), targets = new Int32Array(n).fill(-1);
   const heap = new MinHeap();
   for (const target of [...new Set(targetIndices)].sort((a, b) => a - b)) {
     if (!graph.activeNodes[target]) continue;
-    distances[target] = 0; targets[target] = target; heap.push(target, 0);
+    const initial=options?.initialCosts?.get(target)??0;
+    distances[target] = initial; targets[target] = target; heap.push(target, initial);
   }
   let current: [number, number] | undefined;
   while ((current = heap.pop())) {
     const [node, cost] = current;
     if (cost > distances[node]! + ROUTING_EPSILON) continue;
     for (let at = graph.incomingOffsets[node]!; at < graph.incomingOffsets[node + 1]!; at++) {
+      if(options?.blockedEdge===graph.incomingEdges[at])continue;
       const previous = graph.incomingNodes[at]!, proposed = cost + graph.incomingCosts[at]!;
       if (proposed < distances[previous]! - ROUTING_EPSILON) {
         distances[previous] = proposed; nextNodes[previous] = node; nextEdges[previous] = graph.incomingEdges[at]!;

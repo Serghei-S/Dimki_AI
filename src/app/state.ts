@@ -15,6 +15,7 @@ export function copyScenario(scenario: ScenarioInput): ScenarioInput {
     projectIds: [...scenario.projectIds],
     budgetRub: scenario.budgetRub,
     operationalOverrides: structuredClone(scenario.operationalOverrides ?? []),
+    ...(scenario.design ? { design: structuredClone(scenario.design) } : {}),
   };
 }
 export function scenarioHistory(state: ScenarioHistory, action: HistoryAction): ScenarioHistory {
@@ -111,12 +112,18 @@ export function selectProjects(
 }
 export function applyDistrictChanges(
   data: DeepReadonly<DistrictData>,
-  changes: DeepReadonly<Pick<DistrictData, 'nodes' | 'edges' | 'destinations' | 'parcels'>>,
+  changes: DeepReadonly<Pick<DistrictData, 'nodes' | 'edges' | 'destinations' | 'parcels'>> & {
+    readonly stopBays?: DeepReadonly<DistrictData['stopBays']>;
+  },
 ): DeepReadonly<DistrictData> {
   const replace = <T extends { readonly id: string }>(source: readonly T[], updates: readonly T[]) => {
     if (!updates.length) return source;
     const map = new Map(updates.map((value) => [value.id, value]));
-    return source.map((value) => map.get(value.id) ?? value);
+    const known = new Set(source.map((value) => value.id));
+    return [
+      ...source.map((value) => map.get(value.id) ?? value),
+      ...updates.filter((value) => !known.has(value.id)),
+    ];
   };
   return {
     ...data,
@@ -124,6 +131,7 @@ export function applyDistrictChanges(
     edges: replace(data.edges, changes.edges),
     destinations: replace(data.destinations, changes.destinations),
     parcels: replace(data.parcels, changes.parcels),
+    stopBays: replace(data.stopBays, changes.stopBays ?? []),
   };
 }
 /** Deterministic, population-weighted home sample for future larger datasets. */

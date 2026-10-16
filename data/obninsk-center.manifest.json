@@ -1,0 +1,59 @@
+{
+  "datasetId": "obninsk-center-01",
+  "datasetVersion": "1.0.0",
+  "hashAlgorithm": "sha256",
+  "files": [
+    {
+      "path": "obninsk/geojson/buildings.geojson",
+      "sha256": "a11f9d7ece5d1525b07837826eef8e796cc946fbfa3c6485831dedbfdf96e6a8"
+    },
+    {
+      "path": "obninsk/geojson/destinations.geojson",
+      "sha256": "05b56a8665a7907f19952605f8fde2fcfaa114430e9beabd43515c7eb96a86d3"
+    },
+    {
+      "path": "obninsk/geojson/edges.geojson",
+      "sha256": "a6db6cb2f237031e5d99cfc5342c848aeff65450bf5678600a13000b13f76920"
+    },
+    {
+      "path": "obninsk/geojson/parcels.geojson",
+      "sha256": "e4e1c5bba82568f283a2250edae9aaf9721b2232538ae750b52596e6fc859511"
+    },
+    {
+      "path": "obninsk/geojson/roads.geojson",
+      "sha256": "89d17b2e3fbbc87e8147f9f3b80f56f80d258e93bcf4ba3e74143a70684fd1ed"
+    },
+    {
+      "path": "obninsk/reports/baseline-metrics.json",
+      "sha256": "1300fe33ddc807b29c7d5c57c4f467b4c5f50ecea952b5e711aa3253d7c1e637"
+    },
+    {
+      "path": "obninsk/reports/scenario-comparison.json",
+      "sha256": "fe098af67ea8079726350460f27106c50d45fb32ff4ecd3f35cf90931384d11c"
+    },
+    {
+      "path": "obninsk/reports/validation.json",
+      "sha256": "3282b0bac63271e09727132427e1d96e55c4c1d90f102e5be5ab70fe77d02882"
+    },
+    {
+      "path": "obninsk-center.json",
+      "sha256": "7356c3d5d414d99242ec1ca8c5a1de042880fadeaa76a730527e7c3259772e7b"
+    },
+    {
+      "path": "obninsk-center.provenance.json",
+      "sha256": "005a66cb91a28b1cbed7849b298ecf337d157f4082c938d759600c62fd14b95c"
+    },
+    {
+      "path": "sources/obninsk-center.osm.json",
+      "sha256": "17097dfc279c7dc73ea26b3531d73e4b23b4399a918b34adb978647f7a228d05"
+    },
+    {
+      "path": "sources/obninsk-details.osm.json",
+      "sha256": "9f46a3a4830a43fb972a6d2cbb2ac11de7ade03167efd285aab7b33e630e6f12"
+    },
+    {
+      "path": "sources/obninsk-details.osm.xml",
+      "sha256": "f181b79724d6dd6d00b932bc330cbfd798b02ae27ec420d914c38cd474d18f9e"
+    }
+  ]
+}

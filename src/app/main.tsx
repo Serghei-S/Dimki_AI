@@ -21,10 +21,16 @@ class AppBoundary extends React.Component<{ children: React.ReactNode }, { error
     );
   }
 }
-const root = ReactDOM.createRoot(document.getElementById('root')!);
+// Reuse the root if the entry module is evaluated again during a dev reload.
+const container = document.getElementById('root')! as HTMLElement & { __obninskRoot?: ReactDOM.Root };
+const root = (container.__obninskRoot ??= ReactDOM.createRoot(container));
 root.render(
   <AppBoundary>
     <App />
   </AppBoundary>,
 );
-if (import.meta.hot) import.meta.hot.dispose(() => root.unmount());
+if (import.meta.hot)
+  import.meta.hot.dispose(() => {
+    root.unmount();
+    if (container.__obninskRoot === root) delete container.__obninskRoot;
+  });

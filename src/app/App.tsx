@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
   ArrowUpRight,
@@ -46,12 +46,20 @@ import type {
 } from '../core/types.js';
 import type { PlanningService } from './planning-service.js';
 import type { MapState, SceneCallbacks, SceneStats, ViewSettings } from '../map/types.js';
-import { ACCESS_COLORS } from '../map/palette.js';
 import { MapViewport } from './MapViewport.js';
 import type { MapHandle } from './MapViewport.js';
 import { connectEngine } from './engine-client.js';
 import { useAnalysis, useSelectedRoute } from './useAnalysis.js';
 import { initialScenario, projectCost, scenarioHistory, selectProjects } from './state.js';
+const DesignWorkbench = lazy(() =>
+  import('./DesignWorkbench.js').then((module) => ({ default: module.DesignWorkbench })),
+);
+import { EMPTY_EDITOR } from '../map/editor-types.js';
+import type { EditorView, EditorEvents } from '../map/editor-types.js';
+import { DISTRICTS } from './districts.js';
+import type { DistrictId } from './districts.js';
+import type { ScenarioHistory } from './state.js';
+import provenanceUrl from '../../data/obninsk-center.provenance.json?url';
 
 const METRICS: { id: string; name: string; heading: string; icon: LucideIcon }[] = [
   { id: 'park', name: 'Парки и скверы', heading: 'Доступ к зелёным зонам', icon: Trees },
@@ -97,7 +105,7 @@ function loadSaved(): SavedScenario[] {
     return Array.isArray(value)
       ? (value
           .filter((v) => v && typeof v.id === 'string' && typeof v.name === 'string' && v.envelope)
-          .slice(0, 20) as SavedScenario[])
+          .slice(0, 40) as SavedScenario[])
       : [];
   } catch {
     return [];
@@ -155,19 +163,84 @@ function Dialog({
 }
 
 export function App() {
+  const [districtId, setDistrictId] = useState<DistrictId>(() => {
+    try {
+      return localStorage.getItem('obninsk2040:district') === 'sosnovy' ? 'sosnovy' : 'obninsk-center';
+    } catch {
+      return 'obninsk-center';
+    }
+  });
+  const drafts = useRef(new Map<DistrictId, ScenarioHistory>());
+  return (
+    <DistrictApp
+      key={districtId}
+      districtId={districtId}
+      initialHistory={drafts.current.get(districtId)}
+      onDistrictChange={(next, history) => {
+        drafts.current.set(districtId, history);
+        setDistrictId(next);
+        try {
+          localStorage.setItem('obninsk2040:district', next);
+        } catch {
+          /* Selection remains usable without storage. */
+        }
+      }}
+    />
+  );
+}
+function DistrictApp({
+  districtId,
+  initialHistory,
+  onDistrictChange,
+}: {
+  districtId: DistrictId;
+  initialHistory: ScenarioHistory | undefined;
+  onDistrictChange: (id: DistrictId, history: ScenarioHistory) => void;
+}) {
+  const districtInfo = DISTRICTS[districtId];
+  const [buildingSources, setBuildingSources] = useState<
+    Record<string, { url: string; floorsAssumed: boolean; heightAssumed: boolean; entranceAssumed: boolean }>
+  >({});
+  useEffect(() => {
+    if (!districtInfo.real) return;
+    const controller = new AbortController();
+    void fetch(provenanceUrl, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error('Provenance unavailable');
+        return response.json();
+      })
+      .then((value) => {
+        if (!controller.signal.aborted) setBuildingSources(value.buildings);
+      })
+      .catch(() => {
+        /* Calculation does not depend on source metadata download. */
+      });
+    return () => controller.abort();
+  }, []);
   const [connection, setConnection] = useState<{
       client: PlanningService;
       data: DeepReadonly<DistrictData>;
     } | null>(null),
     [fatal, setFatal] = useState<string | null>(null);
-  const [history, dispatch] = useReducer(scenarioHistory, {
-    current: initialScenario(),
-    past: [],
-    future: [],
-  });
+  const [history, dispatch] = useReducer(
+    scenarioHistory,
+    initialHistory ?? {
+      current: initialScenario(),
+      past: [],
+      future: [],
+    },
+  );
   const [profileId, setProfileId] = useState('walk'),
     [metricId, setMetricId] = useState('park'),
-    [tab, setTab] = useState<'overview' | 'projects' | 'scenarios'>('overview');
+    [tab, setTab] = useState<'overview' | 'projects' | 'scenarios' | 'studio'>('overview');
+  const [previewScenario, setPreviewScenario] = useState<ScenarioInput | null>(null),
+    [editorView, setEditorView] = useState<EditorView>(EMPTY_EDITOR);
+  const editorEvents = useRef<EditorEvents | null>(null),
+    costCache = useRef(new Map<string, number>());
+  const scenarioRef = useRef(history.current);
+  scenarioRef.current = history.current;
+  const projectCheck = useRef(false),
+    [checkingProject, setCheckingProject] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null),
     [before, setBefore] = useState(false),
     [sidebarOpen, setSidebarOpen] = useState(false);
@@ -190,6 +263,14 @@ export function App() {
     planView: false,
     heightScale: 1.5,
   }));
+  const activeOverlay = before ? null : editorView.overlay;
+  const viewportSettings = useMemo(
+    () =>
+      activeOverlay && ['needs', 'vulnerability'].includes(activeOverlay.mode)
+        ? { ...settings, layers: { ...settings.layers, loads: false } }
+        : settings,
+    [settings, activeOverlay?.mode],
+  );
   const [stats, setStats] = useState<SceneStats>({
       fps: 0,
       drawCalls: 0,
@@ -207,7 +288,11 @@ export function App() {
   const [toast, setToast] = useState<string | null>(null),
     [query, setQuery] = useState(''),
     [searchOpen, setSearchOpen] = useState(false);
-  const [saved, setSaved] = useState<SavedScenario[]>(loadSaved),
+  const [saved, setSaved] = useState<SavedScenario[]>(() =>
+      loadSaved()
+        .filter((s) => s.envelope.datasetId === districtInfo.datasetId)
+        .slice(0, 20),
+    ),
     [saveOpen, setSaveOpen] = useState(false),
     [saveName, setSaveName] = useState(''),
     [saving, setSaving] = useState(false);
@@ -226,7 +311,7 @@ export function App() {
     () => ({ projectIds: [], budgetRub: history.current.budgetRub }),
     [history.current.budgetRub],
   );
-  const effectiveScenario = before ? base : history.current;
+  const effectiveScenario = before ? base : (previewScenario ?? history.current);
   const {
     analysis: completedAnalysis,
     busy,
@@ -252,7 +337,7 @@ export function App() {
   useEffect(() => {
     const controller = new AbortController();
     let owned: PlanningService | null = null;
-    void connectEngine(controller.signal)
+    void connectEngine(controller.signal, districtId)
       .then((result) => {
         if (controller.signal.aborted) {
           result.client.dispose();
@@ -283,7 +368,17 @@ export function App() {
   const onError = useCallback((message: string | null) => setSceneError(message), []);
   const onCamera = useCallback((value: number) => setHeading(value), []);
   const callbacks = useMemo<SceneCallbacks>(
-    () => ({ onSelect, onStats, onError, onCamera }),
+    () => ({
+      onSelect,
+      onStats,
+      onError,
+      onCamera,
+      editor: {
+        point: (point) => editorEvents.current?.point(point),
+        drag: (event) => editorEvents.current?.drag(event),
+        cancel: () => editorEvents.current?.cancel(),
+      },
+    }),
     [onSelect, onStats, onError, onCamera],
   );
   const mapState = useMemo<MapState | null>(
@@ -301,9 +396,11 @@ export function App() {
             geometryKey: JSON.stringify({
               projects: analysis.result.scenario.projectIds,
               operations: analysis.result.scenario.operationalOverrides ?? [],
+              design: analysis.result.scenario.design ?? null,
             }),
             selectedId,
             selectedRoute,
+            ...(analysis.result.scenario.design ? { design: analysis.result.scenario.design } : {}),
           }
         : null,
     [analysis, profileId, metricId, selectedId, selectedRoute],
@@ -311,17 +408,36 @@ export function App() {
   // During a profile/metric transition keep the last complete, internally consistent snapshot.
   const renderedState = useRef<MapState | null>(null);
   if (mapState?.report && mapState.report.destinations[metricId]) renderedState.current = mapState;
-  const state = renderedState.current;
+  const renderedMap = renderedState.current;
+  const state = useMemo(
+    () =>
+      renderedMap
+        ? {
+            ...renderedMap,
+            editor: before ? EMPTY_EDITOR : editorView,
+            selectedId,
+            selectedRoute: renderedMap.selectedId === selectedId ? renderedMap.selectedRoute : null,
+          }
+        : null,
+    [renderedMap, editorView, selectedId, before],
+  );
   const report = analysis?.result.profiles[profileId],
     currentMetric = METRICS.find((m) => m.id === metricId)!,
     totals = report?.destinations[metricId];
   const delta =
     analysis?.result.changesFromBaseline[profileId]?.[metricId]?.coverageDeltaPercentagePoints ?? 0;
-  const cost = data ? projectCost(data, history.current.projectIds) : 0;
+  const committedKey = JSON.stringify(history.current);
+  if (completedAnalysis?.scenario === history.current) {
+    costCache.current.set(committedKey, completedAnalysis.result.costs.capexRub);
+    if (costCache.current.size > 80) costCache.current.delete(costCache.current.keys().next().value!);
+  }
+  const cost =
+    costCache.current.get(committedKey) ?? (data ? projectCost(data, history.current.projectIds) : 0);
   const selectedBuilding = data?.buildings.find((b) => b.id === selectedId),
     selectedProject = data?.projects.find((p) => p.id === selectedId),
     selectedDestination = analysis?.district.destinations.find((d) => d.id === selectedId);
   const selectedAccess = report?.perBuilding.find((b) => b.buildingId === selectedId)?.destinations[metricId];
+  const searchableDistrict = analysis?.district ?? state?.data ?? data;
   const searchResults = useMemo(
     () =>
       !data || !query.trim()
@@ -335,7 +451,7 @@ export function App() {
                   ? `${b.floors} этажей · ${b.population?.total} жителей`
                   : 'Общественное здание',
             })),
-            ...data.destinations
+            ...(searchableDistrict?.destinations ?? data.destinations)
               .filter((d) => d.active && ['park', 'bus_stop'].includes(d.kind))
               .map((d) => ({
                 id: d.id,
@@ -347,18 +463,29 @@ export function App() {
               `${item.name} ${item.id}`.toLocaleLowerCase('ru-RU').includes(query.toLocaleLowerCase('ru-RU')),
             )
             .slice(0, 7),
-    [data, query],
+    [data, searchableDistrict, query],
   );
-  function apply(scenario: ScenarioInput) {
+  function apply(scenario: ScenarioInput, capexRub?: number) {
+    if (capexRub !== undefined) costCache.current.set(JSON.stringify(scenario), capexRub);
+    setPreviewScenario(null);
     dispatch({ type: 'apply', scenario });
     setBefore(false);
   }
-  function toggleProject(id: string) {
-    if (!data) return;
+  async function toggleProject(id: string) {
+    if (!data || projectCheck.current) return;
     try {
-      apply(selectProjects(data, history.current, id));
+      const next = selectProjects(data, history.current, id);
+      if (next.design && client) {
+        projectCheck.current = true;
+        setCheckingProject(true);
+        const evaluated = await client.evaluate(next, [profileId]);
+        if (scenarioRef.current === history.current) apply(next, evaluated.costs.capexRub);
+      } else apply(next);
     } catch (err) {
       setToast(err instanceof Error ? err.message : String(err));
+    } finally {
+      projectCheck.current = false;
+      setCheckingProject(false);
     }
   }
   function setBudget(budgetRub: number) {
@@ -384,7 +511,15 @@ export function App() {
           0,
           20,
         );
-      localStorage.setItem(STORAGE, JSON.stringify(next));
+      localStorage.setItem(
+        STORAGE,
+        JSON.stringify(
+          [...next, ...loadSaved().filter((s) => s.envelope.datasetId !== districtInfo.datasetId)].slice(
+            0,
+            40,
+          ),
+        ),
+      );
       setSaved(next);
       setSaveOpen(false);
       setSaveName('');
@@ -450,6 +585,7 @@ export function App() {
           topK: 3,
           ...(keepProjects ? { requiredProjectIds: [...history.current.projectIds] } : {}),
           operationalOverrides: [...(history.current.operationalOverrides ?? [])],
+          ...(history.current.design ? { design: history.current.design } : {}),
         },
         {
           signal: controller.signal,
@@ -546,8 +682,19 @@ export function App() {
                 <X size={17} />
               </button>
             </div>
-            <h1>Сосновый</h1>
-            <p>12 кварталов · 1,23 км² · Обнинск 2040</p>
+            <h1>{districtInfo.name}</h1>
+            <p>{districtInfo.description}</p>
+            <label className="district-switch">
+              <span>Территория</span>
+              <select
+                aria-label="Выбор территории"
+                value={districtId}
+                onChange={(e) => onDistrictChange(e.target.value as DistrictId, history)}
+              >
+                <option value="obninsk-center">Центр Обнинска · реальная геометрия</option>
+                <option value="sosnovy">Сосновый · прежний район</option>
+              </select>
+            </label>
             <div className="object-search">
               <Search size={15} />
               <input
@@ -590,6 +737,7 @@ export function App() {
                 ['overview', 'Среда'],
                 ['projects', 'Проекты'],
                 ['scenarios', 'Сценарии'],
+                ['studio', 'Редактор'],
               ] as const
             ).map(([id, label]) => (
               <button
@@ -599,6 +747,7 @@ export function App() {
                 className={tab === id ? 'active' : ''}
                 onClick={() => {
                   setTab(id);
+                  if (id === 'studio') setBefore(false);
                   if (id === 'projects')
                     setSettings((s) => ({ ...s, layers: { ...s.layers, projects: true } }));
                 }}
@@ -609,6 +758,24 @@ export function App() {
             ))}
           </div>
           <div className="sidebar-scroll">
+            <Suspense fallback={<p className="studio-note">Загрузка редактора…</p>}>
+              <DesignWorkbench
+                active={tab === 'studio'}
+                client={client}
+                baseData={data}
+                district={analysis?.district ?? state?.data ?? data}
+                scenario={history.current}
+                profileId={profileId}
+                selectedId={selectedId}
+                saved={saved}
+                onSelect={onSelect}
+                onApply={apply}
+                onPreview={setPreviewScenario}
+                onView={setEditorView}
+                onNotify={setToast}
+                events={editorEvents}
+              />
+            </Suspense>
             {fatal ? (
               <div className="inline-error">
                 <h3>Не удалось загрузить район</h3>
@@ -834,7 +1001,8 @@ export function App() {
                               type="checkbox"
                               aria-label={p.name}
                               checked={checked}
-                              onChange={() => toggleProject(p.id)}
+                              disabled={checkingProject}
+                              onChange={() => void toggleProject(p.id)}
                             />
                             <span className="project-checkbox">{checked && <Check size={12} />}</span>
                             <div>
@@ -958,7 +1126,7 @@ export function App() {
         )}
         <main className="map-workspace" aria-label="Карта района">
           {state ? (
-            <MapViewport ref={map} state={state} settings={settings} callbacks={callbacks} />
+            <MapViewport ref={map} state={state} settings={viewportSettings} callbacks={callbacks} />
           ) : (
             <div className="map-loading">
               <div className="loading-city">
@@ -982,15 +1150,22 @@ export function App() {
                 <Menu size={18} />
               </button>
               <span className="map-live-dot" />
-              <strong>Сосновый</strong>
+              <strong>{districtInfo.name}</strong>
               <span className="breadcrumb-divider">/</span>
               <span>Городская среда</span>
             </div>
             <div className="scene-badges">
               <span>3D-макет</span>
-              <button onClick={() => setInfoOpen(true)} title="Данные района синтетические">
+              <button
+                onClick={() => setInfoOpen(true)}
+                title={
+                  districtInfo.real
+                    ? 'Геометрия OpenStreetMap; население и расчётные параметры условные'
+                    : 'Данные района синтетические'
+                }
+              >
                 <Info size={12} />
-                Учебная модель
+                {districtInfo.real ? 'OSM + модель' : 'Учебная модель'}
               </button>
             </div>
           </div>
@@ -1180,6 +1355,22 @@ export function App() {
               />
             </section>
           )}
+          <button
+            className="editor-entry-button"
+            onClick={() => {
+              setTab('studio');
+              setSidebarOpen(true);
+              setBefore(false);
+            }}
+          >
+            <Plus size={14} />
+            Объект в любой точке
+          </button>
+          {previewScenario && (
+            <div className="editor-preview-badge" role="status">
+              Предварительный пересчёт
+            </div>
+          )}
           {helpOpen && (
             <section className="help-panel floating-panel">
               <div className="floating-heading">
@@ -1199,240 +1390,197 @@ export function App() {
               <p>Home — весь район · Esc — снять выбор</p>
             </section>
           )}
-          {!layersOpen && (selectedBuilding || selectedProject || selectedDestination || selectedEdge) && (
-            <section className="object-panel floating-panel">
-              <div className="floating-heading">
-                <span className="eyebrow">
-                  {selectedEdge
-                    ? 'Нагрузка участка'
-                    : selectedBuilding
-                      ? 'Объект района'
-                      : selectedProject
-                        ? 'Проект благоустройства'
-                        : 'Инфраструктура'}
-                </span>
-                <button
-                  className="icon-button"
-                  aria-label="Снять выбор объекта"
-                  onClick={() => setSelectedId(null)}
-                >
-                  <X size={17} />
-                </button>
-              </div>
-              <h2>
-                {selectedBuilding?.name ??
-                  selectedProject?.name ??
-                  selectedDestination?.name ??
-                  'Пешеходный участок'}
-              </h2>
-              {selectedBuilding && (
-                <>
-                  <p className="object-subtitle">
-                    Квартал{' '}
-                    {selectedBuilding.blockId
-                      .slice(1)
-                      .split('')
-                      .map((x) => Number(x) + 1)
-                      .join('.')}{' '}
-                    · {selectedBuilding.floors} этажей · {selectedBuilding.heightM.toLocaleString('ru-RU')} м
-                  </p>
-                  <div className="object-population">
-                    <Building2 size={18} />
-                    <span>
-                      {selectedBuilding.population ? (
-                        <>
-                          <strong>{number(selectedBuilding.population.total)}</strong> жителей ·{' '}
-                          {selectedBuilding.population.households} семей
-                        </>
-                      ) : (
-                        'Общественное здание'
-                      )}
-                    </span>
-                  </div>
-                  {selectedBuilding.population && (
-                    <>
-                      <div className="object-route-heading">
-                        <currentMetric.icon size={15} />
-                        <span>{currentMetric.name}</span>
-                      </div>
-                      <div className="object-route-number">
-                        <strong>{minutes(selectedAccess?.travelSeconds)}</strong>
-                        {selectedRoute?.distanceM !== null && selectedRoute?.distanceM !== undefined && (
-                          <span>{Math.round(selectedRoute.distanceM)} м по сети</span>
-                        )}
-                      </div>
-                      <div
-                        className={`route-status ${selectedAccess?.withinThreshold ? 'route-status--good' : ''}`}
-                      >
-                        {selectedAccess?.withinThreshold ? <Check size={13} /> : <Info size={13} />}{' '}
-                        {!analysis
-                          ? 'Обновляем маршрут…'
-                          : selectedAccess?.reachable
-                            ? selectedAccess.withinThreshold
-                              ? 'В пределах выбранного порога'
-                              : 'Дальше выбранного порога'
-                            : 'Нет доступного маршрута'}
-                      </div>
-                      {selectedRoute?.waitingSeconds ? (
-                        <p className="waiting-note">
-                          Ожидание на переходах: {Math.round(selectedRoute.waitingSeconds)} с
-                        </p>
-                      ) : null}
-                      <button
-                        className="secondary-button full-width"
-                        onClick={() => map.current?.focus(selectedBuilding.id)}
-                      >
-                        <Crosshair size={14} />
-                        Приблизить к дому
-                      </button>
-                    </>
-                  )}
-                </>
-              )}
-              {selectedEdge && (
-                <>
-                  <p className="object-subtitle">
-                    {selectedEdge.id} · {Math.round(selectedEdge.lengthM)} м · ширина {selectedEdge.widthM} м
-                  </p>
-                  <div className="object-route-number">
-                    <strong>{number(selectedLoad?.load ?? 0)}</strong>
-                    <span>проходов за цикл</span>
-                  </div>
-                  <p className="object-description">
-                    {selectedLoad?.eligible
-                      ? `${currentMetric.name}. В направлении ребра: ${number(selectedLoad.forward)}; обратно: ${number(selectedLoad.backward)}.`
-                      : 'Участок закрыт или недоступен выбранному профилю.'}
-                  </p>
-                  <p className="waiting-note">
-                    Каждый житель совершает один условный поход к выбранной цели. Это модельный спрос, а не
-                    измеренная плотность толпы или почасовой прогноз.
-                  </p>
-                </>
-              )}
-              {selectedProject && (
-                <>
-                  <p className="object-description">{selectedProject.description}</p>
-                  <div className="object-project-price">
-                    <span>Стоимость проекта</span>
-                    <strong>{money(selectedProject.cost.capexRub)}</strong>
-                  </div>
+          {tab !== 'studio' &&
+            !layersOpen &&
+            (selectedBuilding || selectedProject || selectedDestination || selectedEdge) && (
+              <section className="object-panel floating-panel">
+                <div className="floating-heading">
+                  <span className="eyebrow">
+                    {selectedEdge
+                      ? 'Нагрузка участка'
+                      : selectedBuilding
+                        ? 'Объект района'
+                        : selectedProject
+                          ? 'Проект благоустройства'
+                          : 'Инфраструктура'}
+                  </span>
                   <button
-                    className="primary-button full-width"
-                    onClick={() => toggleProject(selectedProject.id)}
+                    className="icon-button"
+                    aria-label="Снять выбор объекта"
+                    onClick={() => setSelectedId(null)}
                   >
-                    {history.current.projectIds.includes(selectedProject.id) ? (
+                    <X size={17} />
+                  </button>
+                </div>
+                <h2>
+                  {selectedBuilding?.name ??
+                    selectedProject?.name ??
+                    selectedDestination?.name ??
+                    'Пешеходный участок'}
+                </h2>
+                {selectedBuilding && (
+                  <>
+                    <p className="object-subtitle">
+                      {districtInfo.real ? (
+                        data?.blocks.find((b) => b.id === selectedBuilding.blockId)?.name
+                      ) : (
+                        <>
+                          Квартал{' '}
+                          {selectedBuilding.blockId
+                            .slice(1)
+                            .split('')
+                            .map((x) => Number(x) + 1)
+                            .join('.')}
+                        </>
+                      )}{' '}
+                      · {buildingSources[selectedBuilding.id]?.floorsAssumed ? '≈' : ''}
+                      {selectedBuilding.floors} этажей ·{' '}
+                      {buildingSources[selectedBuilding.id]?.heightAssumed ? '≈' : ''}
+                      {selectedBuilding.heightM.toLocaleString('ru-RU')} м
+                    </p>
+                    {districtInfo.real && (
+                      <p className="waiting-note">
+                        <a
+                          href={`https://www.openstreetmap.org/way/${selectedBuilding.id.replace('osm_building_', '')}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Контур и теги здания в OSM ↗
+                        </a>
+                        . Население оценочное. Знак ≈ — параметр смоделирован. Вход:{' '}
+                        {buildingSources[selectedBuilding.id]
+                          ? buildingSources[selectedBuilding.id]!.entranceAssumed
+                            ? 'приближённый'
+                            : 'отмечен в OSM'
+                          : 'уточняется по источнику'}
+                        ; соединение с сетью моделируется.
+                      </p>
+                    )}
+                    <div className="object-population">
+                      <Building2 size={18} />
+                      <span>
+                        {selectedBuilding.population ? (
+                          <>
+                            <strong>{number(selectedBuilding.population.total)}</strong> жителей ·{' '}
+                            {selectedBuilding.population.households} семей
+                          </>
+                        ) : (
+                          'Общественное здание'
+                        )}
+                      </span>
+                    </div>
+                    {selectedBuilding.population && (
                       <>
-                        <Check size={15} />
-                        Убрать из проекта
-                      </>
-                    ) : (
-                      <>
-                        <Plus size={15} />
-                        Добавить улучшение
+                        <div className="object-route-heading">
+                          <currentMetric.icon size={15} />
+                          <span>{currentMetric.name}</span>
+                        </div>
+                        <div className="object-route-number">
+                          <strong>{minutes(selectedAccess?.travelSeconds)}</strong>
+                          {selectedRoute?.distanceM !== null && selectedRoute?.distanceM !== undefined && (
+                            <span>{Math.round(selectedRoute.distanceM)} м по сети</span>
+                          )}
+                        </div>
+                        <div
+                          className={`route-status ${selectedAccess?.withinThreshold ? 'route-status--good' : ''}`}
+                        >
+                          {selectedAccess?.withinThreshold ? <Check size={13} /> : <Info size={13} />}{' '}
+                          {!analysis
+                            ? 'Обновляем маршрут…'
+                            : selectedAccess?.reachable
+                              ? selectedAccess.withinThreshold
+                                ? 'В пределах выбранного порога'
+                                : 'Дальше выбранного порога'
+                              : 'Нет доступного маршрута'}
+                        </div>
+                        {selectedRoute?.waitingSeconds ? (
+                          <p className="waiting-note">
+                            Ожидание на переходах: {Math.round(selectedRoute.waitingSeconds)} с
+                          </p>
+                        ) : null}
+                        <button
+                          className="secondary-button full-width"
+                          onClick={() => map.current?.focus(selectedBuilding.id)}
+                        >
+                          <Crosshair size={14} />
+                          Приблизить к дому
+                        </button>
                       </>
                     )}
-                  </button>
-                </>
-              )}
-              {selectedDestination && !selectedBuilding && (
-                <>
-                  <p className="object-description">
-                    {selectedDestination.kind === 'park'
-                      ? 'Доступность рассчитывается до входов по пешеходной сети.'
-                      : 'Допустимое место остановки. Моделируется только пеший доступ.'}
-                  </p>
-                  <button
-                    className="secondary-button full-width"
-                    onClick={() => map.current?.focus(selectedDestination.id)}
-                  >
-                    <Crosshair size={14} />
-                    Приблизить
-                  </button>
-                </>
-              )}
-            </section>
-          )}
+                  </>
+                )}
+                {selectedEdge && (
+                  <>
+                    <p className="object-subtitle">
+                      {selectedEdge.id} · {Math.round(selectedEdge.lengthM)} м · ширина {selectedEdge.widthM}{' '}
+                      м
+                    </p>
+                    <div className="object-route-number">
+                      <strong>{number(selectedLoad?.load ?? 0)}</strong>
+                      <span>проходов за цикл</span>
+                    </div>
+                    <p className="object-description">
+                      {selectedLoad?.eligible
+                        ? `${currentMetric.name}. В направлении ребра: ${number(selectedLoad.forward)}; обратно: ${number(selectedLoad.backward)}.`
+                        : 'Участок закрыт или недоступен выбранному профилю.'}
+                    </p>
+                    <p className="waiting-note">
+                      Каждый житель совершает один условный поход к выбранной цели. Это модельный спрос, а не
+                      измеренная плотность толпы или почасовой прогноз.
+                    </p>
+                  </>
+                )}
+                {selectedProject && (
+                  <>
+                    <p className="object-description">{selectedProject.description}</p>
+                    <div className="object-project-price">
+                      <span>Стоимость проекта</span>
+                      <strong>{money(selectedProject.cost.capexRub)}</strong>
+                    </div>
+                    <button
+                      className="primary-button full-width"
+                      onClick={() => toggleProject(selectedProject.id)}
+                    >
+                      {history.current.projectIds.includes(selectedProject.id) ? (
+                        <>
+                          <Check size={15} />
+                          Убрать из проекта
+                        </>
+                      ) : (
+                        <>
+                          <Plus size={15} />
+                          Добавить улучшение
+                        </>
+                      )}
+                    </button>
+                  </>
+                )}
+                {selectedDestination && !selectedBuilding && (
+                  <>
+                    <p className="object-description">
+                      {selectedDestination.kind === 'park'
+                        ? 'Доступность рассчитывается до входов по пешеходной сети.'
+                        : selectedDestination.kind === 'bus_stop'
+                          ? 'Остановка. Моделируется пеший доступ; интервал уровня доступен в редакторе.'
+                          : 'Точечный объект. Доступность рассчитывается по пешеходной сети до его входа.'}
+                    </p>
+                    <button
+                      className="secondary-button full-width"
+                      onClick={() => map.current?.focus(selectedDestination.id)}
+                    >
+                      <Crosshair size={14} />
+                      Приблизить
+                    </button>
+                  </>
+                )}
+              </section>
+            )}
           {sceneError && (
             <div className="scene-error" role="alert">
               <Info size={16} />
               {sceneError}
             </div>
           )}
-          <div className="map-legend">
-            {settings.layers.loads && (
-              <section className="flow-legend" aria-label="Шкала нагрузки рёбер">
-                <strong>Нагрузка сети · {currentMetric.name}</strong>
-                <div className="flow-gradient" />
-                <div className="flow-ticks">
-                  <span>0</span>
-                  <span>250</span>
-                  <span>500</span>
-                  <span>750</span>
-                  <span>1000+</span>
-                </div>
-                <p>Условных проходов за цикл · максимум {number(analysis?.loads.maxLoad ?? 0)}</p>
-              </section>
-            )}
-            <span className="legend-title">
-              {settings.colorMode === 'natural'
-                ? 'Материалы района'
-                : settings.colorMode === 'accessibility'
-                  ? `${currentMetric.name} · ${(PROFILE_NAMES[profileId] ?? profileId).toLowerCase()}`
-                  : 'Изменение времени пути'}
-            </span>
-            <div>
-              {settings.colorMode === 'natural' ? (
-                <>
-                  <span>
-                    <i style={{ background: '#d9cbb8' }} />
-                    Здания
-                  </span>
-                  <span>
-                    <i style={{ background: '#98b18a' }} />
-                    Зелёные зоны
-                  </span>
-                  <button
-                    onClick={() => {
-                      patchSettings({ colorMode: 'accessibility' });
-                    }}
-                  >
-                    Показать доступность <ArrowUpRight size={12} />
-                  </button>
-                </>
-              ) : settings.colorMode === 'change' ? (
-                <>
-                  <span>
-                    <i style={{ background: '#479f91' }} />
-                    Лучше
-                  </span>
-                  <span>
-                    <i style={{ background: '#ce876f' }} />
-                    Хуже
-                  </span>
-                  <span>
-                    <i style={{ background: '#c8d0cb' }} />
-                    Без изменений
-                  </span>
-                </>
-              ) : (
-                ACCESS_COLORS.map((color, i) => (
-                  <span key={color}>
-                    <i style={{ background: color }} />
-                    {i === 0
-                      ? `до ${percent((totals?.thresholdSeconds ?? 600) / 120)}`
-                      : i === 1
-                        ? `до ${percent((totals?.thresholdSeconds ?? 600) / 60)}`
-                        : i === 2
-                          ? `до ${percent((totals?.thresholdSeconds ?? 600) / 40)}`
-                          : i === 3
-                            ? 'дальше'
-                            : 'нет маршрута'}
-                    {i < 3 ? ' мин' : ''}
-                  </span>
-                ))
-              )}
-            </div>
-          </div>
           <div className="simulation-bar">
             <div className="simulation-title">
               <span className="simulation-icon">
@@ -1625,7 +1773,7 @@ export function App() {
       {infoOpen && (
         <Dialog
           title="Как устроена модель"
-          subtitle="Обнинск 2040 · учебный район «Сосновый»"
+          subtitle={data?.metadata.name ?? districtInfo.name}
           onClose={() => setInfoOpen(false)}
           wide
         >
@@ -1637,9 +1785,25 @@ export function App() {
               <div>
                 <h3>Согласованные данные района</h3>
                 <p>
-                  35 жилых домов, 8 636 условных жителей и 277 участков пешеходной сети. Геометрия, население
-                  и стоимости полностью синтетические.
+                  {data?.buildings.filter((b) => b.population).length ?? 0} жилых домов,{' '}
+                  {number(data?.buildings.reduce((sum, b) => sum + (b.population?.total ?? 0), 0) ?? 0)}{' '}
+                  условных жителей и {data?.edges.filter((e) => e.active).length ?? 0} активных участков
+                  пешеходной сети.{' '}
+                  {districtInfo.real
+                    ? 'Контуры основных зданий и оси улиц — OpenStreetMap. Входы и часть дорожек смоделированы. Население, вместимость и стоимости условные.'
+                    : 'Геометрия, население и стоимости полностью синтетические.'}
                 </p>
+                {districtInfo.real && (
+                  <p>
+                    <a href={districtInfo.mapUrl!} target="_blank" rel="noreferrer">
+                      Этот участок на OpenStreetMap ↗
+                    </a>{' '}
+                    ·{' '}
+                    <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
+                      © OpenStreetMap contributors, ODbL 1.0
+                    </a>
+                  </p>
+                )}
               </div>
             </div>
             <div className="model-info-row">
@@ -1680,9 +1844,9 @@ export function App() {
               <div>
                 <h3>Освещение — оформление сцены</h3>
                 <p>
-                  Ползунок времени меняет свет, а не часы работы объектов. Вместимость школ, движение
-                  автобусов и очереди здесь не моделируются. Высота зданий на макете масштабируется отдельно
-                  от расчётов.
+                  Ползунок времени меняет свет, а не часы работы объектов. Вместимость и перегрузка доступны в
+                  редакторе; движение автобусов и очереди не моделируются. Высота зданий на макете
+                  масштабируется отдельно от расчётов.
                 </p>
               </div>
             </div>
@@ -1690,6 +1854,11 @@ export function App() {
               Результаты предназначены для сравнения учебных сценариев. Модель не является официальным
               прогнозом развития города.
             </p>
+            {data?.metadata.limitations.map((text, index) => (
+              <p className="model-info-note" key={index}>
+                {text}
+              </p>
+            ))}
           </div>
         </Dialog>
       )}
@@ -1793,6 +1962,7 @@ export function App() {
                           projectIds: a.projectIds,
                           budgetRub: history.current.budgetRub,
                           operationalOverrides: history.current.operationalOverrides ?? [],
+                          ...(history.current.design ? { design: history.current.design } : {}),
                         });
                         closeOptimizer();
                         setToast('Рассчитанный вариант применён');

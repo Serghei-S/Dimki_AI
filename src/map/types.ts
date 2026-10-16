@@ -5,6 +5,8 @@ import type {
   RouteResult,
   EdgeLoadReport,
 } from '../core/types.js';
+import type {DesignState} from '../core/types.js';
+import type {EditorView,EditorEvents} from './editor-types.js';
 export type Quality = 'auto' | 'high' | 'eco';
 export type ColorMode = 'natural' | 'accessibility' | 'change';
 export interface MapLayers {
@@ -28,6 +30,8 @@ export interface ViewSettings {
   heightScale: number;
 }
 export interface MapState {
+  editor?:EditorView;
+  design?:DeepReadonly<DesignState>;
   data: DeepReadonly<DistrictData>;
   report: DeepReadonly<ProfileMetrics>;
   baseline: DeepReadonly<ProfileMetrics>;
@@ -50,6 +54,7 @@ export interface SceneStats {
   scalePixels: number;
 }
 export interface SceneCallbacks {
+  editor?:EditorEvents;
   onSelect: (id: string | null) => void;
   onStats: (stats: SceneStats) => void;
   onError: (message: string | null) => void;

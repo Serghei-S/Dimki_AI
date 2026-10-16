@@ -54,8 +54,9 @@ def build_schema():
                         'slope': num(-1, 1), 'stairs': flag, 'crossing': nullable(ref('crossing'))})
     defs['road'] = obj({'id': identifier, 'name': text, 'axis': enum('vertical', 'horizontal'), 'centerM': num(),
                         'widthM': num(1), 'polygon': ring, 'speedLimitKmh': num(5, 130, True), 'lanes': num(1, 12, True)})
+    defs['road']['properties']['centerline'] = arr(point, 2)
     defs['block'] = obj({'id': identifier, 'name': text, 'polygon': ring, 'landUse': enum('residential', 'mixed', 'park')})
-    defs['parcel'] = obj({'id': identifier, 'blockId': identifier, 'kind': enum('public_park', 'vacant', 'school', 'residential', 'public_service'),
+    defs['parcel'] = obj({'id': identifier, 'blockId': identifier, 'kind': enum('public_park', 'vacant', 'school', 'residential', 'public_service', 'landscaping'),
                           'name': text, 'polygon': ring, 'areaM2': num(.1), 'active': flag,
                           'fence': nullable(obj({'gateNodeIds': arr(identifier, 1, True), 'publicThroughAccess': flag}))})
     defs['building'] = obj({'id': identifier, 'name': text, 'kind': enum('residential', 'school', 'clinic', 'grocery', 'community'),
@@ -93,7 +94,7 @@ def build_schema():
     metadata = obj({'id': identifier, 'name': text, 'description': text, 'schemaVersion': {'const': '1.0.0'},
                     'datasetVersion': {'type': 'string', 'pattern': '^\\d+\\.\\d+\\.\\d+$'}, 'seed': num(0, integer=True),
                     'generatedForDate': {'type': 'string', 'pattern': '^\\d{4}-\\d{2}-\\d{2}$'}, 'synthetic': {'const': True},
-                    'source': text, 'license': {'const': 'UNLICENSED'},
+                    'source': text, 'license': enum('UNLICENSED', 'ODbL-1.0'),
                     'coordinateSystem': obj({'id': {'const': 'LOCAL_METERS'}, 'axes': {'const': ['east', 'north']}, 'units': {'const': 'm'},
                                              'displayOriginWgs84': point, 'earthRadiusM': num(6000000, 7000000),
                                              'displayTransform': text, 'accuracy': text}),

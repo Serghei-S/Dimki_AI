@@ -9,3 +9,6 @@ export { edgeBlockReason, edgeTravelSeconds, compileTopology, buildRoutingGraph,
 export type { Topology, RoutingGraph, RouteTree } from './graph.js';
 export type { ErrorCode } from './errors.js';
 export { compareOptimizationScores, OPTIMIZER_RANKING } from './optimizer.js';
+export {DEFAULT_DESIGN_RULES,DESIGN_COSTS,LEVEL_NAMES,OBJECT_KINDS,objectFromDestination,newObject} from './design-rules.js';
+export {nearestNetworkPoint,polygonArea,validatePolygon,autoParkEntrances,pointAlong} from './design-geometry.js';
+export { compareDistances } from './design-analysis.js';

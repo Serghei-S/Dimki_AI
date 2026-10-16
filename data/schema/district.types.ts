@@ -14,7 +14,7 @@ export type DistrictData = {
     "generatedForDate": string;
     "synthetic": true;
     "source": string;
-    "license": "UNLICENSED";
+    "license": "UNLICENSED" | "ODbL-1.0";
     "coordinateSystem": {
       "id": "LOCAL_METERS";
       "axes": ["east", "north"];
@@ -120,6 +120,7 @@ export type Road = {
   "polygon": ([number, number])[];
   "speedLimitKmh": number;
   "lanes": number;
+  "centerline"?: ([number, number])[];
 };
 
 export type Block = {
@@ -132,7 +133,7 @@ export type Block = {
 export type Parcel = {
   "id": string;
   "blockId": string;
-  "kind": "public_park" | "vacant" | "school" | "residential" | "public_service";
+  "kind": "public_park" | "vacant" | "school" | "residential" | "public_service" | "landscaping";
   "name": string;
   "polygon": ([number, number])[];
   "areaM2": number;

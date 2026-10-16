@@ -5,6 +5,7 @@ import {dirname, join} from 'node:path';
 import Ajv2020 from 'ajv/dist/2020.js';
 import standaloneCode from 'ajv/dist/standalone/index.js';
 import { build } from 'esbuild';
+import {designSchema} from './design-schema.mjs';
 
 const require = createRequire(import.meta.url);
 const schema = JSON.parse(await readFile(new URL('../data/schema/district.schema.json', import.meta.url), 'utf8'));
@@ -16,6 +17,7 @@ const money = {type: 'integer', minimum: 0, maximum: Number.MAX_SAFE_INTEGER};
 const ref = name => ({$ref: `${schema.$id}#/$defs/${name}`});
 const object = (properties, required = Object.keys(properties)) => ({type: 'object', properties, required, additionalProperties: false});
 const scenarioInput = object({projectIds: ids, budgetRub: money, operationalOverrides: {type: 'array', items: ref('operation'), maxItems: 1024}}, ['projectIds', 'budgetRub']);
+scenarioInput.properties.design=designSchema(schema.$defs.destination.properties.kind);
 const scenario = {$id: 'urn:obninsk:engine:scenario', anyOf: [scenarioInput, ref('scenario')]};
 const metric = object({id, destinationKinds: {type: 'array', items: schema.$defs.destination.properties.kind, minItems: 1, uniqueItems: true},
   thresholdSeconds: {type: 'number', minimum: 0, maximum: 86400}, populationGroup: {enum: ['all', 'under18', 'age18to64', 'age65plus', 'mobilityNeeds']}});
@@ -26,7 +28,10 @@ const optimization = {$id: 'urn:obninsk:engine:optimization', ...object({profile
   candidateProjectIds: ids, requiredProjectIds: ids, operationalOverrides: scenarioInput.properties.operationalOverrides,
   maxCandidates: {type: 'integer', minimum: 1, maximum: 20}, topK: {type: 'integer', minimum: 1, maximum: 20}}, ['profileId', 'metricId', 'budgetRub'])};
 optimization.properties.maxFrontierSize = {type: 'integer', minimum: 1, maximum: 65536};
+optimization.properties.design=scenarioInput.properties.design;
 ajv.addSchema(scenario); ajv.addSchema(options); ajv.addSchema(optimization);
+const designAnalysis={$id:'urn:obninsk:engine:design-analysis',...object({scenario:{$ref:scenario.$id},profileId:id,kind:schema.$defs.destination.properties.kind,mode:{enum:['importance','needs','vulnerability','relocation','compare']},objectId:id,point:{type:'array',items:{type:'number',minimum:-100000,maximum:100000},minItems:2,maxItems:2},scenarios:{type:'array',minItems:2,maxItems:8,items:object({name:{type:'string',minLength:1,maxLength:120},scenario:{$ref:scenario.$id}})}},['scenario','profileId','kind','mode'])};
+ajv.addSchema(designAnalysis);
 const request = {$id: 'urn:obninsk:engine:request', oneOf: [
   object({type: {const: 'init'}, requestId: id, dataset: {$ref: schema.$id}, options: {$ref: options.$id}}, ['type', 'requestId', 'dataset']),
   object({type: {const: 'evaluate'}, requestId: id, scenario: {$ref: scenario.$id}, profileIds: {...ids, minItems: 1}}, ['type', 'requestId', 'scenario']),
@@ -34,6 +39,7 @@ const request = {$id: 'urn:obninsk:engine:request', oneOf: [
   object({type: {const: 'routes'}, requestId: id, scenario: {$ref: scenario.$id}, profileId: id, buildingIds: {...ids, minItems: 1, maxItems: 1024}, metricId: id}),
   object({type: {const: 'network_access'}, requestId: id, scenario: {$ref: scenario.$id}, profileId: id, metricId: id}),
   object({type: {const: 'map_snapshot'}, requestId: id, scenario: {$ref: scenario.$id}, profileId: id, metricId: id, buildingIds: {...ids, maxItems:1024}}),
+  object({type:{const:'design_analysis'},requestId:id,input:{$ref:designAnalysis.$id}}),
   object({type: {const: 'export_scenario'}, requestId: id, scenario: {$ref: scenario.$id}}),
   object({type: {const: 'import_scenario'}, requestId: id, envelope: {anyOf: [{type: 'string'}, {$ref: 'urn:obninsk:engine:envelope'}]}}),
   object({type: {const: 'optimize'}, requestId: id, input: {$ref: optimization.$id}}),
@@ -43,7 +49,7 @@ const envelope = {$id: 'urn:obninsk:engine:envelope', ...object({formatVersion: 
 ajv.addSchema(request); ajv.addSchema(envelope);
 await mkdir('.tools/generated', {recursive: true});
 await writeFile('.tools/generated/validators.cjs', standaloneCode(ajv, {dataset: schema.$id, scenario: scenario.$id,
-  options: options.$id, optimization: optimization.$id, request: request.$id, envelope: envelope.$id}), 'utf8');
+  options: options.$id, optimization: optimization.$id, request: request.$id, envelope: envelope.$id,designAnalysis:designAnalysis.$id}), 'utf8');
 await build({entryPoints: ['.tools/generated/validators.cjs'], outfile: '.tools/generated/validators.mjs',
   bundle: true, platform: 'browser', format: 'esm', minify: true, legalComments: 'eof'});
 await mkdir('dist', {recursive: true});

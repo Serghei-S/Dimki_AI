@@ -3,6 +3,8 @@ import type { ProfileAnalysis } from './metrics.js';
 import { analyzeProfile, defaultMetrics, compareMetrics, routeForBuilding } from './metrics.js';
 import {edgeLoadsForAnalysis} from './metrics.js';
 import type {EdgeLoadReport, MapSnapshot} from './types.js';
+import {analyzeDesign as analyzeFreeDesign} from './design-analysis.js';
+import type {DesignAnalysisInput,DesignAnalysisResult} from './design-types.js';
 import { compileTopology } from './graph.js';
 import type { Topology } from './graph.js';
 import { parseDataset, parseOptions, parseScenario, parseEnvelope } from './validation.js';
@@ -50,7 +52,7 @@ export class PlanningEngine {
   getMetrics(): MetricDefinition[] { return structuredClone([...this.#metrics.values()]); }
   getProfiles(): Profile[] { return structuredClone([...this.#profiles.values()]); }
   resolveProjects(ids: readonly string[]): string[] { return resolveProjectOrder(this.#data, ids); }
-  materialize(input: ScenarioRequest): {data: DeepReadonly<DistrictData>; costs: import('./types.js').Costs; scenario: ScenarioInput} {
+  materialize(input: ScenarioRequest): {data: DeepReadonly<DistrictData>; costs: import('./types.js').Costs; scenario: ScenarioInput;costItems?:import('./design-types.js').CostItem[]} {
     return materializeValidated(this.#data, parseScenario(input));
   }
   clearCache(): void { this.#cache.clear(); }
@@ -60,11 +62,11 @@ export class PlanningEngine {
     const profile = this.#profiles.get(profileId);
     requireCondition(profile, 'UNKNOWN_ID', `Unknown profile: ${profileId}`);
     // Budget does not change routes; operation ordering remains part of the key.
-    const key = stableKey({profileId, projectIds: scenario.projectIds, overrides: scenario.operationalOverrides ?? []});
+    const key = stableKey({profileId, projectIds: scenario.projectIds, overrides: scenario.operationalOverrides ?? [],design:scenario.design??null});
     const cached = this.#cache.get(key);
     if (cached) return cached;
     const data = snapshot ?? materializeValidated(this.#data, scenario).data;
-    const analysis = analyzeProfile(data, this.#topology, profile, [...this.#metrics.values()]);
+    const analysis = analyzeProfile(data, scenario.design?compileTopology(data):this.#topology, profile, [...this.#metrics.values()]);
     deepFreeze(analysis.report);
     this.#cache.set(key, analysis, analysis.estimatedBytes);
     return analysis;
@@ -82,7 +84,8 @@ export class PlanningEngine {
     const districtChanges = {nodes: snapshot.data.nodes.filter((record, i) => record !== this.#data.nodes[i]),
       edges: snapshot.data.edges.filter((record, i) => record !== this.#data.edges[i]),
       destinations: snapshot.data.destinations.filter((record, i) => record !== this.#data.destinations[i]),
-      parcels: snapshot.data.parcels.filter((record, i) => record !== this.#data.parcels[i])};
+      parcels: snapshot.data.parcels.filter((record, i) => record !== this.#data.parcels[i]),
+      stopBays:snapshot.data.stopBays.filter((record,i)=>record!==this.#data.stopBays[i])};
     return deepFreeze({datasetId: this.datasetId, datasetVersion: this.datasetVersion, datasetSha256: this.datasetSha256,
       scenario, costs: snapshot.costs, profiles, changesFromBaseline: changes, districtChanges});
   }
@@ -112,7 +115,7 @@ export class PlanningEngine {
     requireCondition(Array.isArray(buildingIds) && buildingIds.length <= 1024 && new Set(buildingIds).size === buildingIds.length,
       'INVALID_INPUT', 'Select at most 1024 unique animation homes');
     const result = this.evaluate(input, [profileId]);
-    const analysis = this.#analysis(result.scenario, profileId);
+    const analysis = this.#analysis(parseScenario(result.scenario), profileId);
     const baseline = this.evaluate(EMPTY, [profileId]);
     return {result, baseline, loads:edgeLoadsForAnalysis(analysis, metricId),
       routes:buildingIds.map(id => routeForBuilding(analysis, id, metricId))};
@@ -123,13 +126,14 @@ export class PlanningEngine {
     const scenario = parseScenario(input), snapshot = materializeValidated(this.#data, scenario), analysis = this.#analysis(scenario, profileId, snapshot.data);
     const runtime = analysis.metrics.get(metricId);
     requireCondition(runtime, 'UNKNOWN_ID', `Unknown metric ${metricId}`);
-    return this.#topology.nodeIds.map((id, i) => {const time = runtime.tree.distances[i]!; return {nodeId: id,
+    return analysis.graph.topology.nodeIds.map((id, i) => {const time = runtime.tree.distances[i]!; return {nodeId: id,
       travelSeconds: Number.isFinite(time) ? round(time) : null, withinThreshold: time <= runtime.definition.thresholdSeconds + 1e-9};});
   }
 
   async optimize(input: OptimizationInput, control: OptimizationControl = {}): Promise<OptimizationResult> {
     return optimizeProjects(this.#data, this.#topology, this.#profiles, this.#metrics, input, control);
   }
+  analyzeDesign(input:DesignAnalysisInput,control:{signal?:AbortSignal;onProgress?:(done:number,total:number)=>void}={}):Promise<DesignAnalysisResult>{return analyzeFreeDesign(this,input,control);}
   exportScenario(input: ScenarioRequest): ScenarioEnvelope {
     const scenario = parseScenario(input);
     materializeValidated(this.#data, scenario);

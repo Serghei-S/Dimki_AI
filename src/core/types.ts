@@ -1,4 +1,6 @@
 import type { DistrictData, Profile, Scenario, Destination } from '../../data/schema/district.types.js';
+import type {DesignState} from './design-types.js';
+export type * from './design-types.js';
 export type * from '../../data/schema/district.types.js';
 export type DeepReadonly<T> = T extends object ? {readonly [K in keyof T]: DeepReadonly<T[K]>} : T;
 
@@ -16,6 +18,7 @@ export interface EngineOptions {
   cacheMaxBytes?: number;
 }
 export interface ScenarioInput {
+  design?: DesignState;
   projectIds: readonly string[];
   budgetRub: number;
   /** Operational events may close/reopen originally existing links, never build or upgrade for free. */
@@ -67,7 +70,7 @@ export interface ScenarioEvaluation {
   profiles: Record<string, ProfileMetrics>;
   changesFromBaseline: Record<string, Record<string, MetricChange>>;
   /** Absolute changed records relative to the original district, not relative to previous UI state. */
-  districtChanges: Pick<DistrictData, 'nodes' | 'edges' | 'destinations' | 'parcels'>;
+  districtChanges: Pick<DistrictData, 'nodes' | 'edges' | 'destinations' | 'parcels' | 'stopBays'>;
 }
 export interface EdgeLoadReport {
   profileId: string;
@@ -105,6 +108,7 @@ export interface RouteResult {
     geometry: { type: 'LineString'; coordinates: [number, number][] } | null };
 }
 export interface OptimizationInput {
+  design?: DesignState;
   profileId: string;
   metricId: string;
   budgetRub: number;
@@ -149,4 +153,4 @@ export interface ScenarioEnvelope {
   datasetSha256: string;
   scenario: ScenarioInput;
 }
-export type Materialized = { data: DistrictData; costs: Costs; scenario: ScenarioInput };
+export type Materialized = { data: DistrictData; costs: Costs; scenario: ScenarioInput; costItems?: import('./design-types.js').CostItem[] };

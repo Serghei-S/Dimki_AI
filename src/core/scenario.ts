@@ -2,6 +2,7 @@ import type { DistrictData, Operation, Project, ScenarioInput, Materialized } fr
 import { EngineError, requireCondition } from './errors.js';
 import { parseScenario, validateState } from './validation.js';
 import { deepFreeze, compareId } from './util.js';
+import {applyDesign} from './design-materialize.js';
 
 /** Explicit dependency expansion for a UI selection or optimizer, including their cost. */
 export function resolveProjectOrder(data: DistrictData, selected: readonly string[]): string[] {
@@ -47,7 +48,7 @@ export function materializeValidated(base: DistrictData, scenario: ScenarioInput
     projects.push(project); done.add(id);
   }
   requireCondition(capexRub <= scenario.budgetRub, 'BUDGET_EXCEEDED', 'Capital budget exceeded', {capexRub, budgetRub: scenario.budgetRub});
-  if (!projects.length && !(scenario.operationalOverrides?.length))
+  if (!projects.length && !(scenario.operationalOverrides?.length) && !scenario.design)
     return {data: base, costs: {capexRub: 0, annualOpexRub: 0, remainingRub: scenario.budgetRub}, scenario};
 
   // Copy arrays once, clone only changed records; unchanged geometry is shared with the frozen base.
@@ -101,5 +102,10 @@ export function materializeValidated(base: DistrictData, scenario: ScenarioInput
     apply(op);
   }
   validateState(data);
-  return {data: deepFreeze(data), costs: {capexRub, annualOpexRub, remainingRub: scenario.budgetRub - capexRub}, scenario};
+  const designed=scenario.design?applyDesign(data,scenario.design):{data,capexRub:0,costItems:[]};
+  capexRub+=designed.capexRub;
+  requireCondition(capexRub<=scenario.budgetRub,'BUDGET_EXCEEDED','Бюджет меньше стоимости проектов и свободно размещённых объектов',{capexRub,budgetRub:scenario.budgetRub});
+  validateState(designed.data);
+  return {data: deepFreeze(designed.data), costs: {capexRub, annualOpexRub, remainingRub: scenario.budgetRub - capexRub}, scenario,
+    costItems:[...projects.map(p=>({id:p.id,name:p.name,amountRub:p.cost.capexRub,formula:'Каталоговый проект'})),...designed.costItems]};
 }

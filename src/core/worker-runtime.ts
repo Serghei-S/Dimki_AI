@@ -3,6 +3,7 @@ import type { PlanningEngine } from './engine.js';
 import type { DistrictData, EngineOptions, ScenarioInput, OptimizationInput, OptimizationProgress } from './types.js';
 import { assertSchema } from './validation.js';
 import { EngineError, requireCondition, serializeError } from './errors.js';
+import type {DesignAnalysisInput} from './design-types.js';
 
 export type WorkerRequest =
   | {type: 'init'; requestId: string; dataset: DistrictData; options?: EngineOptions}
@@ -11,6 +12,7 @@ export type WorkerRequest =
   | {type: 'routes'; requestId: string; scenario: ScenarioInput; profileId: string; buildingIds: string[]; metricId: string}
   | {type: 'network_access'; requestId: string; scenario: ScenarioInput; profileId: string; metricId: string}
   | {type: 'map_snapshot'; requestId: string; scenario: ScenarioInput; profileId: string; metricId: string; buildingIds: string[]}
+  | {type:'design_analysis';requestId:string;input:DesignAnalysisInput}
   | {type: 'export_scenario'; requestId: string; scenario: ScenarioInput}
   | {type: 'import_scenario'; requestId: string; envelope: unknown}
   | {type: 'optimize'; requestId: string; input: OptimizationInput}
@@ -59,6 +61,7 @@ export function createWorkerRuntime(send: (message: WorkerResponse) => void) {
         else if (request.type === 'map_snapshot') result = current.mapSnapshot(request.scenario, request.profileId, request.metricId, request.buildingIds);
         else if (request.type === 'export_scenario') result = current.exportScenario(request.scenario);
         else if (request.type === 'import_scenario') result = current.importScenario(request.envelope);
+        else if(request.type==='design_analysis')result=await current.analyzeDesign(request.input,{signal:controller.signal,onProgress:(done,total)=>{if(!controller.signal.aborted&&version===generation)send({type:'progress',requestId,progress:{processedSubsets:done,totalSubsets:total,feasibleSubsets:done}});}});
         else result = await current.optimize(request.input, {signal: controller.signal,
           onProgress: progress => { if (!controller.signal.aborted && version === generation) send({type: 'progress', requestId, progress}); }});
         if (controller.signal.aborted || version !== generation) throw new EngineError('CANCELLED', 'Request cancelled or dataset replaced');

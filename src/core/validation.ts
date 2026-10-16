@@ -144,7 +144,8 @@ export function validateState(data: DistrictData): void {
 export function parseScenario(input: unknown): ScenarioInput {
   assertSchema('scenario', input);
   const value = input as Scenario | ScenarioInput;
-  return {projectIds: [...value.projectIds], budgetRub: value.budgetRub, operationalOverrides: structuredClone(value.operationalOverrides ?? [])};
+  const design=(value as ScenarioInput).design;
+  return {projectIds: [...value.projectIds], budgetRub: value.budgetRub, operationalOverrides: structuredClone(value.operationalOverrides ?? []),...(design?{design:structuredClone(design)}:{})};
 }
 export function parseOptions(input: unknown): EngineOptions { assertSchema('options', input); return structuredClone(input) as EngineOptions; }
 export function parseOptimization(input: unknown): OptimizationInput { assertSchema('optimization', input); return structuredClone(input) as OptimizationInput; }

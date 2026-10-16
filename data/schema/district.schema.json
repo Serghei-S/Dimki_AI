@@ -46,7 +46,10 @@
           "minLength": 1
         },
         "license": {
-          "const": "UNLICENSED"
+          "enum": [
+            "UNLICENSED",
+            "ODbL-1.0"
+          ]
         },
         "coordinateSystem": {
           "type": "object",
@@ -630,6 +633,18 @@
           "type": "integer",
           "minimum": 1,
           "maximum": 12
+        },
+        "centerline": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 2
         }
       },
       "required": [
@@ -700,7 +715,8 @@
             "vacant",
             "school",
             "residential",
-            "public_service"
+            "public_service",
+            "landscaping"
           ]
         },
         "name": {
