@@ -4,7 +4,13 @@ import { formatFact, type PlanningReport, type AiResult } from '../reports/repor
 
 const defaultQuestion =
   'Дай краткую оценку текущего решения: что стало лучше или хуже для жителей, стоит ли сохранять изменения и что проверить дальше. Если изменений нет, назови главную проблему доступности и следующий шаг.';
-export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
+export function ReportAssistant({
+  snapshot,
+  onFocus,
+}: {
+  snapshot: PlanningReport;
+  onFocus?: (point: [number, number], label: string) => void;
+}) {
   const [report, setReport] = useState(snapshot),
     [ai, setAi] = useState<AiResult | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'missing' | 'offline'>('loading');
@@ -115,6 +121,10 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
     }
   }
   const focused = report.facts.find((f) => f.id === factId);
+  const locations = ai ? report.locationAnalysis : undefined;
+  const best = locations?.alternatives.find((a) => a.id === locations.bestId);
+  const number = (value: number | null) =>
+    value === null ? '—' : value.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
   return (
     <div className="report-workspace">
       <section className="report-assistant" aria-label="AI-помощник отчёта">
@@ -124,7 +134,7 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
           </span>
           <div>
             <h3>Что это значит для жителей?</h3>
-            <p>Краткий вывод и следующий шаг</p>
+            <p>Ответ по вашему сценарию и сравнение решений</p>
           </div>
         </div>
         {(status === 'missing' || status === 'offline') && (
@@ -143,7 +153,7 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
         </label>
         <textarea
           id="report-question"
-          placeholder="Например: стоит ли оставить остановку здесь?"
+          placeholder="Например: где лучше разместить магазин и почему?"
           maxLength={1200}
           value={question}
           disabled={pending}
@@ -167,7 +177,7 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
         </div>
         {pending && (
           <p className="studio-note" role="status">
-            Оцениваем пользу для жителей и возможные недостатки.
+            Проверяем данные сценария и сравниваем варианты, если вопрос о выборе места.
           </p>
         )}
         {error && (
@@ -177,6 +187,90 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
         )}
         {ai ? (
           <div className="report-ai-result" aria-live="polite">
+            {locations && (
+              <section className="report-locations" aria-label="Сравнение мест размещения">
+                <h4>{best ? `Выбор по расчёту: ${best.label}` : 'Нужно уточнение'}</h4>
+                <p>{locations.scope}</p>
+                {best?.location && (
+                  <p>
+                    <strong>{best.location}</strong>
+                  </p>
+                )}
+                {best?.point && onFocus && (
+                  <button className="primary-button" onClick={() => onFocus(best.point!, best.label)}>
+                    Показать выбранное место на карте
+                  </button>
+                )}
+                {locations.status === 'ready' && (
+                  <>
+                    <p>
+                      Проверено точек: {number(locations.checked ?? 0)}. Ниже — полный пересчёт финальных
+                      вариантов. Порог: {number(locations.thresholdM ?? null)} м.
+                    </p>
+                    <div className="report-location-table">
+                      <table>
+                        <caption>Изменения относительно варианта без нового объекта</caption>
+                        <thead>
+                          <tr>
+                            <th>Вариант</th>
+                            <th>Охват, жителей</th>
+                            <th>Путь короче, жителей / домов</th>
+                            <th>Средний путь, м / мин</th>
+                            <th>Доп. стоимость, ₽</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {locations.alternatives.map((a) => (
+                            <tr
+                              key={a.id}
+                              className={a.id === locations.bestId ? 'report-location-best' : ''}
+                            >
+                              <th scope="row">
+                                {a.label}
+                                {a.id === locations.bestId && <span>Лучший по критерию</span>}
+                                <small>{a.location}</small>
+                                {a.point && onFocus && (
+                                  <button
+                                    className="secondary-button"
+                                    onClick={() => onFocus(a.point!, a.label)}
+                                  >
+                                    На карте
+                                  </button>
+                                )}
+                              </th>
+                              <td>
+                                {number(a.withinResidents)}
+                                <small>+{number(a.gainedResidents)} к охвату</small>
+                              </td>
+                              <td>
+                                {number(a.improvedResidents)} / {number(a.improvedHomes)}
+                                <small>Ухудшение: {number(a.worsenedResidents)}</small>
+                              </td>
+                              <td>
+                                {number(a.meanDistanceM)} / {number(a.meanMinutes)}
+                                <small>
+                                  Экономия: {number(a.meanReductionM)} м / {number(a.savedMinutes)} мин
+                                </small>
+                              </td>
+                              <td>{number(a.addedCostRub)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <details>
+                      <summary>Как выбрано место и что учтено</summary>
+                      <p>{locations.method}</p>
+                      <p>{locations.limitation}</p>
+                      <p>
+                        Охват считается по расстоянию, средние — с весом по населению. Экономия рассчитана для
+                        жителей, которым объект доступен в обоих вариантах. Порог — настройка сценария.
+                      </p>
+                    </details>
+                  </>
+                )}
+              </section>
+            )}
             {(
               [
                 ['Главное', ai.narrative.findings],
@@ -214,8 +308,9 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
         <details className="report-privacy">
           <summary>Как подготовлен ответ</summary>
           <p>
-            AI объясняет расчёт текущего сценария. По нажатию сервис получает сводные показатели, названия
-            изменений и ваш вопрос. Координаты и данные отдельных домов не отправляются.
+            AI отвечает по расчёту текущего сценария. При поиске места приложение сначала сравнивает
+            подходящие точки. Сервис получает сводные показатели, сравнение вариантов, названия изменений и
+            ваш вопрос. Координаты и данные отдельных домов не отправляются.
           </p>
           <p>
             Числа под выводами взяты из расчёта; нажмите на показатель, чтобы увидеть пояснение. Ответ AI

@@ -13,6 +13,7 @@ export { compareOptimizationScores, OPTIMIZER_RANKING } from './optimizer.js';
 export {DEFAULT_DESIGN_RULES,DESIGN_COSTS,LEVEL_NAMES,OBJECT_KINDS,objectFromDestination,newObject} from './design-rules.js';
 export {nearestNetworkPoint,polygonArea,validatePolygon,autoParkEntrances,pointAlong} from './design-geometry.js';
 export { compareDistances } from './design-analysis.js';
+export { suggestPlacement, relocateWithContext } from './placement.js';
 export {ACTIVITY_RULES,PURPOSE_NAMES,scheduledFraction} from './daily-activity.js';
 export {compareActivitySnapshots,NORMATIVE_REFERENCES} from './activity-comparison.js';
 export {placementDecision,STOP_ACCESS_REFERENCE} from './placement-decision.js';

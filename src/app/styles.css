@@ -3949,6 +3949,52 @@ input[type='checkbox'] {
   font-size: 11px;
   line-height: 1.8;
 }
+.report-location-table {
+  overflow-x: auto;
+  margin: 12px 0;
+}
+.report-location-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.report-location-table caption {
+  text-align: left;
+  color: var(--muted);
+  padding-bottom: 10px;
+}
+.report-location-table th,
+.report-location-table td {
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 8px;
+}
+.report-location-table thead th {
+  font-weight: 700;
+}
+.report-location-table tbody th {
+  min-width: 145px;
+}
+.report-location-table small,
+.report-location-table th span {
+  display: block;
+  margin: 6px 0;
+  font-weight: 400;
+  color: var(--muted);
+}
+.report-location-table th span {
+  font-weight: 700;
+  color: var(--accent);
+}
+.report-location-best {
+  background: var(--accent-soft);
+}
+.report-locations details {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
 .report-evidence {
   display: flex;
   flex-direction: column;

@@ -786,8 +786,8 @@ function DistrictApp({
         <div className="topbar-actions">
           <button
             className="report-open-button"
-            aria-label="Открыть отчёт и AI-помощника"
-            title="Отчёт и AI-помощник"
+            aria-label="Открыть Димко IA"
+            title="Димко IA"
             disabled={!analysis || !data || busy || Boolean(previewScenario)}
             onClick={() => {
               if (!analysis || !data) return;
@@ -799,7 +799,7 @@ function DistrictApp({
             }}
           >
             <FileText size={17} />
-            <span>Отчёт</span>
+            <span>Димко IA</span>
           </button>
           <button
             className="top-icon"
@@ -1795,7 +1795,14 @@ function DistrictApp({
           onClose={() => setReportSnapshot(null)}
         >
           <Suspense fallback={<p className="studio-note">Готовим отчёт…</p>}>
-            <ReportAssistant snapshot={reportSnapshot} />
+            <ReportAssistant
+              snapshot={reportSnapshot}
+              onFocus={(point, label) => {
+                setReportSnapshot(null);
+                map.current?.focusLocations([point]);
+                setToast(`${label}: выбранная точка выделена кольцом на карте. Объект ещё не перемещён.`);
+              }}
+            />
           </Suspense>
         </Dialog>
       )}

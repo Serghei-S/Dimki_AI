@@ -50,6 +50,35 @@ export interface AiResult {
   mode: string;
   narrative: AiNarrative;
 }
+export interface LocationAlternative {
+  id: string;
+  label: string;
+  location: string;
+  point?: [number, number];
+  withinResidents: number;
+  gainedResidents: number;
+  improvedResidents: number;
+  improvedHomes: number;
+  worsenedResidents: number;
+  reachableResidents: number;
+  meanDistanceM: number | null;
+  meanReductionM: number | null;
+  meanMinutes: number | null;
+  savedMinutes: number | null;
+  addedCostRub: number;
+}
+export interface LocationAnalysis {
+  status: 'ready' | 'clarification';
+  scope: string;
+  kind?: string;
+  checked?: number;
+  thresholdM?: number;
+  method?: string;
+  limitation?: string;
+  alternatives: LocationAlternative[];
+  comparison?: { id: string; label: string; conclusion: string }[];
+  bestId: string | null;
+}
 export interface PlanningReport {
   formatVersion: 1;
   snapshotKey: string;
@@ -66,6 +95,7 @@ export interface PlanningReport {
   changes: string[];
   limitations: string[];
   assumptions: object;
+  locationAnalysis?: LocationAnalysis;
   buildings: {
     id: string;
     metric: string;
@@ -357,5 +387,15 @@ export function aiContext(report: PlanningReport) {
     changes: report.changes,
     limitations: report.limitations,
     assumptions: report.assumptions,
+    ...(report.locationAnalysis
+      ? {
+          locationAnalysis: {
+            ...report.locationAnalysis,
+            alternatives: report.locationAnalysis.alternatives.map(
+              ({ point: _point, location: _location, ...summary }) => summary,
+            ),
+          },
+        }
+      : {}),
   };
 }

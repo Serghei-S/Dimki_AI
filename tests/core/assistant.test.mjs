@@ -141,7 +141,8 @@ test('server recomputes metrics, ignores injected client facts/model and calls o
   assert.equal(response.status, 200);
   const result = await response.json();
   assert.equal(result.report.snapshotKey, report.snapshotKey);
-  assert.deepEqual(result.report.facts, report.facts);
+  assert.deepEqual(result.report.facts.slice(0, report.facts.length), report.facts);
+  assert.equal(result.report.facts.find((f) => f.id === 'housing.homes').value, data.buildings.filter((b) => b.population?.total > 0).length);
   const body = JSON.parse(sent.body);
   assert.equal(sent.url, 'https://openrouter.ai/api/v1/chat/completions');
   assert.deepEqual(body.models, [FREE_MODEL, ...FREE_FALLBACK_MODELS]);
@@ -163,7 +164,7 @@ test('server recomputes metrics, ignores injected client facts/model and calls o
   numeric.findings[0].text = 'x'.repeat(1601);
   assert.equal(validate(numeric), false);
   const outbound = JSON.parse(body.messages[1].content);
-  assert.deepEqual(outbound.DATA.facts, report.facts);
+  assert.deepEqual(outbound.DATA.facts, result.report.facts);
   assert(!('buildings' in outbound.DATA));
   assert(!('scenario' in outbound.DATA));
   assert(!JSON.stringify(result).includes('unit-test-not-a-real-key'));

@@ -1,4 +1,5 @@
 import { readFile, stat } from 'node:fs/promises';
+import { analyzeQuestion } from './assistant-analysis.mjs';
 
 import { OPENROUTER_PROVIDER, providerRequest } from './assistant-provider.mjs';
 export { FREE_MODEL, FREE_MODEL_NAME, FREE_FALLBACK_MODELS } from './assistant-provider.mjs';
@@ -10,7 +11,7 @@ export class ApiError extends Error {
   }
 }
 const engines = new Map();
-export async function calculateReport(input) {
+export async function calculateReport(input, { signal } = {}) {
   const files = {
     'obninsk-center-01': 'obninsk-center.json',
     'obninsk-fictional-district-01': 'district.json',
@@ -33,15 +34,18 @@ export async function calculateReport(input) {
   if (input.datasetSha256 !== engine.datasetSha256)
     throw new ApiError(409, 'Данные на сервере обновились. Перезагрузите страницу и повторите расчёт.');
   const { makeReport } = await import('../dist/report.js');
+  let report;
   try {
     const result = engine.evaluate(input.scenario, [input.profileId]);
     const baseline = engine.evaluate({ projectIds: [], budgetRub: input.scenario.budgetRub }, [
       input.profileId,
     ]);
-    return makeReport(data, result, baseline, input.profileId);
+    report = makeReport(data, result, baseline, input.profileId);
   } catch {
     throw new ApiError(400, 'Сценарий или профиль не прошёл проверку расчётного ядра.');
   }
+  await analyzeQuestion(engine, input, report, signal);
+  return report;
 }
 function bodyJson(req) {
   return new Promise((resolve, reject) => {
@@ -75,7 +79,7 @@ function bodyJson(req) {
     req.on('aborted', () => finish(new ApiError(400, 'Запрос прерван')));
   });
 }
-export function parseNarrative(text, facts) {
+export function parseNarrative(text, facts, locationAnalysis) {
   if (typeof text !== 'string' || text.length > 40000)
     throw new ApiError(502, 'AI вернул слишком большой или пустой ответ.');
   let parsed;
@@ -90,6 +94,14 @@ export function parseNarrative(text, facts) {
     throw new ApiError(502, 'AI не вернул структурированный отчёт. Повторите запрос.');
   }
   const ids = new Set(facts.map((f) => f.id));
+  if (
+    locationAnalysis?.status === 'ready' &&
+    (parsed?.selectedAlternativeId !== locationAnalysis.bestId ||
+      !parsed?.findings?.[0]?.evidenceIds?.some(
+        (id) => typeof id === 'string' && id.startsWith(`location.${locationAnalysis.bestId}.`),
+      ))
+  )
+    throw new ApiError(502, 'AI не обосновал выбранный расчётом вариант. Повторите запрос.');
   const prose = (s, max) => typeof s === 'string' && s.trim().length > 0 && s.length <= max && !/\d/.test(s);
   const items = (x) =>
     Array.isArray(x) &&
@@ -127,7 +139,7 @@ export function parseNarrative(text, facts) {
     limitations: parsed.limitations,
   };
 }
-function responseSchema(facts) {
+function responseSchema(facts, locationAnalysis) {
   // Match parseNarrative so constrained decoding cannot produce an otherwise-valid
   // response that our own bounds or numeric-prose checks would then reject.
   const prose = (maxLength) => ({ type: 'string', minLength: 1, maxLength, pattern: '^[^0-9]+$' });
@@ -155,11 +167,34 @@ function responseSchema(facts) {
         type: 'object',
         additionalProperties: false,
         properties: {
-          findings: { type: 'array', minItems: 1, maxItems: 8, items: item },
-          recommendations: { type: 'array', minItems: 1, maxItems: 8, items: item },
-          limitations: { type: 'array', minItems: 1, maxItems: 6, items: prose(600) },
+          ...(locationAnalysis?.status === 'ready'
+            ? { selectedAlternativeId: { type: 'string', enum: [locationAnalysis.bestId] } }
+            : {}),
+          findings: {
+            type: 'array',
+            minItems: 1,
+            maxItems: locationAnalysis?.status === 'ready' ? 2 : 8,
+            items: item,
+          },
+          recommendations: {
+            type: 'array',
+            minItems: 1,
+            maxItems: locationAnalysis?.status === 'ready' ? 1 : 8,
+            items: item,
+          },
+          limitations: {
+            type: 'array',
+            minItems: 1,
+            maxItems: locationAnalysis?.status === 'ready' ? 2 : 6,
+            items: prose(600),
+          },
         },
-        required: ['findings', 'recommendations', 'limitations'],
+        required: [
+          'findings',
+          'recommendations',
+          'limitations',
+          ...(locationAnalysis?.status === 'ready' ? ['selectedAlternativeId'] : []),
+        ],
       },
     },
   };
@@ -191,6 +226,11 @@ async function limitedJson(response) {
 }
 const SYSTEM = `Ты аналитик городской пешеходной доступности приложения Димки AI. Пиши по-русски, ясно и кратко.
 Читатель выбирает место для объекта и хочет понять, удобно ли это жителям. Начни с прямого ответа на пользовательский вопрос, если он относится к сценарию. На приветствие или неясный вопрос коротко ответь и свяжи ответ с текущим сценарием; не придумывай намерения пользователя.
+Вопрос определяет содержание ответа. Не заменяй поиск места пересказом уже внесённых изменений. При наличии locationAnalysis используй именно его: scope задаёт, добавляем ли объект или меняем место нового объекта. При status=ready назови выбранный расчётом bestId через его label, кратко сравни каждый вариант из alternatives и объясни выигрыш по охвату и сокращению пути. Включи вариант без строительства; нулевой эффект не оправдывает расходы. Ссылайся на location.* facts. Все варианты можно кратко сопоставить в одном пункте, подробные числа уже показаны в таблице. Не предлагай пользователю заново выполнить уже сделанный поиск. Рекомендация должна быть конкретной: оставить текущее место, выбрать указанный вариант либо отказаться от добавления. Если status=clarification, задай указанное уточнение и не объявляй лучшее место. Если locationAnalysis отсутствует, альтернативы не рассчитывались: не выдумывай их и ответь только на заданный вопрос по имеющимся фактам.
+Если схема требует selectedAlternativeId, верни bestId. В первом findings обязательно укажи evidenceIds выбранного варианта location.<bestId>.*; его label пиши в тексте без идентификатора. Ориентиры и числа приложение покажет отдельно.
+Используй готовые сравнительные выводы locationAnalysis.comparison. Равный охват прямо назови равным, а победителя при этом объясни сокращением пути. Вариант без добавления не требует дополнительных затрат: нельзя писать, что он «не оправдывает затраты». Выбранное место лучше по критериям доступности, но не обязательно нужнее экономии бюджета. Рекомендуй его для дальнейшей проверки участка, а не безусловно для строительства. Достаточно короткого прямого ответа, короткого сопоставления остальных вариантов и одного следующего действия. Не добавляй отдельную рекомендацию «отказаться от статус-кво».
+При рассчитанном поиске верни максимум два findings, ровно одну recommendation и максимум два limitations. В findings о сравнении упомяни также преимущество варианта без добавления — экономию бюджета. Не дублируй рекомендацию проверки участка отдельным полевым обследованием.
+Оценивай потребность через housing.*, supply.* и location.uncovered: сколько домов и жителей обслуживается существующими объектами, какой дефицит доступности устраняется. Вместимость без фактической загрузки и спроса не доказывает необходимость нового строительства. Школьную потребность нельзя считать по всем жителям или всем несовершеннолетним. Не называй порог поиска нормативом СанПиН. Не утверждай изменение потока выбранного часа: этот отчёт оценивает статические маршруты.
 Обычно достаточно от одного до трёх коротких выводов и от одной до двух конкретных рекомендаций. Каждый пункт — одно или два простых предложения. Сначала скажи, полезно ли решение и кому стало удобнее или хуже, затем предложи следующий шаг. Если изменений нет, прямо скажи об этом и назови основную проблему, подтверждённую facts.
 Избегай канцелярита: вместо «характеризуется определённым индексом близости» объясни, легко ли жителям дойти до нужного объекта. Не перечисляй все категории без необходимости и не повторяй таблицу. Нулевой эффект назови нулевым, не придумывай пользу. Не называй место оптимальным без сравнения альтернатив. Не подтверждай соблюдение СанПиН при отсутствии необходимых проверок.
 В limitations оставь только ограничения, которые влияют на это решение; объясни, каких данных не хватает. Общие оговорки о том, что ответ подготовлен AI, уже есть в интерфейсе.
@@ -198,7 +238,7 @@ const SYSTEM = `Ты аналитик городской пешеходной д
 Верни JSON по схеме: findings (от одного до восьми выводов), recommendations (от одной до восьми рекомендаций), limitations (от одного до шести ограничений). В каждом выводе и рекомендации обязательны title, text, evidenceIds (от одной до шести существующих ссылок).
 В title, text и limitations НЕ пиши числовых значений ни цифрами, ни словами. Числа приложение само покажет в карточках оснований. Не выдумывай факты, объекты, прогнозы, стоимость или эффект ещё не рассчитанного изменения.
 Отмечай ухудшения и потерю достижимости даже при улучшении среднего. Средние до/после могут относиться к разному составу достижимых жителей; для сравнения используй .change и .common. Не суммируй жителей между категориями и профилями.
-Рекомендации — гипотезы для следующего сценарного расчёта, не подтверждённый эффект и не решение о строительстве. Если изменённых объектов нет, явно скажи, что сравнивается исходное состояние.
+Рассчитанные варианты locationAnalysis — проверенные сценарные оценки; остальные рекомендации — гипотезы, не подтверждённый эффект и не решение о строительстве. Если изменённых объектов нет и поиск не выполнялся, явно скажи, что сравнивается исходное состояние.
 Трава на карте декоративная. Население и часть исходных параметров моделируются. Охват не означает достаточную вместимость, остановка не создаёт маршруты. Результат условный и не является официальным прогнозом.
 Не используй HTML, Markdown-ссылки, внешние источники или инструменты. Отвечай только JSON.`;
 
@@ -290,7 +330,7 @@ export function createAssistantMiddleware({
         !['summary', 'risks', 'next'].includes(input.mode)
       )
         throw new ApiError(400, 'Некорректные параметры отчёта');
-      const report = await getReport(input);
+      const report = await getReport(input, { signal: controller.signal });
       if (controller.signal.aborted) throw new ApiError(504, 'Запрос отменён или истекло время ожидания.');
       const context = contextForReport
         ? contextForReport(report)
@@ -309,7 +349,7 @@ export function createAssistantMiddleware({
                 content: JSON.stringify({ task: input.mode, question: input.question, DATA: context }),
               },
             ],
-            responseSchema(report.facts),
+            responseSchema(report.facts, report.locationAnalysis),
           ),
         ),
       });
@@ -331,7 +371,11 @@ export function createAssistantMiddleware({
       const response = await limitedJson(upstream);
       if (response.choices?.[0]?.finish_reason !== 'stop')
         throw new ApiError(502, 'AI не закончил отчёт. Попробуйте более короткий вопрос.');
-      const narrative = parseNarrative(response.choices?.[0]?.message?.content, report.facts);
+      const narrative = parseNarrative(
+        response.choices?.[0]?.message?.content,
+        report.facts,
+        report.locationAnalysis,
+      );
       if (controller.signal.aborted) throw new ApiError(504, 'Время ожидания AI истекло.');
       send(200, {
         report,
