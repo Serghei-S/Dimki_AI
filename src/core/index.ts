@@ -1,5 +1,6 @@
 export type * from './types.js';
 export { PlanningEngine, createPlanningEngine } from './engine.js';
+export { sha256Hex, randomUuid } from './crypto.js';
 export { EngineError } from './errors.js';
 export { EngineWorkerClient } from './worker-client.js';
 export { createWorkerRuntime } from './worker-runtime.js';

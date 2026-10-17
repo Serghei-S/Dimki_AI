@@ -1,6 +1,7 @@
 import type { Destination, DeepReadonly, DistrictData } from './types.js';
 import type { DesignRules, EditableObject, XY } from './design-types.js';
 import { deepFreeze } from './util.js';
+import { randomUuid } from './crypto.js';
 export const DEFAULT_DESIGN_RULES: DesignRules = {
   distanceThresholdM: 400,
   parkM2PerVisitor: 10,
@@ -90,7 +91,7 @@ export function objectFromDestination(data: DeepReadonly<DistrictData>, id: stri
 export function newObject(
   kind: Destination['kind'],
   point: XY,
-  id = `user_${crypto.randomUUID()}`,
+  id = `user_${randomUuid()}`,
 ): EditableObject {
   const [x, y] = point;
   return {

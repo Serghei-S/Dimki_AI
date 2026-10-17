@@ -13,6 +13,7 @@
     "./worker": "./dist/engine.worker.js"
   },
   "scripts": {
+    "start": "node --env-file-if-exists=.env.local scripts/serve.mjs",
     "build": "node scripts/build-all.mjs",
     "build:core": "node scripts/build.mjs",
     "dev": "node scripts/dev.mjs",
@@ -39,9 +40,11 @@
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",
+    "@noble/hashes": "^2.4.0",
     "lucide-react": "^1.57.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "sirv": "^3.0.2",
     "three": "^0.186.1"
   }
 }

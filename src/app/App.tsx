@@ -57,6 +57,7 @@ import { useActivity } from './useActivity.js';
 import type { DayType } from '../core/types.js';
 import { projectLocations } from '../map/focus.js';
 import { OBJECT_KINDS } from '../core/design-rules.js';
+import { randomUuid } from '../core/crypto.js';
 import { ACCESS_DIAGNOSTICS_RULES } from '../core/access-diagnostics.js';
 import { compareActivitySnapshots } from '../core/activity-comparison.js';
 import type { ActivityComparison } from '../core/types.js';
@@ -651,7 +652,7 @@ function DistrictApp({
     setSaving(true);
     try {
       const envelope = await client.exportScenario(history.current),
-        next = [{ id: crypto.randomUUID(), name: saveName.trim().slice(0, 60), envelope }, ...saved].slice(
+        next = [{ id: randomUuid(), name: saveName.trim().slice(0, 60), envelope }, ...saved].slice(
           0,
           20,
         );

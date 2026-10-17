@@ -12,6 +12,7 @@ import { materializeValidated, resolveProjectOrder } from './scenario.js';
 import { optimizeProjects } from './optimizer.js';
 import { requireCondition } from './errors.js';
 import { BoundedCache, deepFreeze, stableKey, round } from './util.js';
+import { sha256Hex } from './crypto.js';
 import {planDailyActivity,activityAtHour} from './daily-activity.js';
 import type {DailyPlan} from './daily-activity.js';
 import type {ActivityInput,ActivitySnapshot} from './activity-types.js';
@@ -45,8 +46,7 @@ export class PlanningEngine {
     const data = parseDataset(input), options = parseOptions(inputOptions);
     // Content fingerprint is independent of JSON whitespace or object property order.
     const bytes = new TextEncoder().encode(stableKey(data));
-    const hash = await crypto.subtle.digest('SHA-256', bytes);
-    const digest = Array.from(new Uint8Array(hash), value => value.toString(16).padStart(2, '0')).join('');
+    const digest = sha256Hex(bytes);
     return new PlanningEngine(data, options, digest);
   }
   get datasetId(): string { return this.#data.metadata.id; }

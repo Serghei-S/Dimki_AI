@@ -126,7 +126,13 @@ JSON Schema, передаваемая провайдеру, содержит т�
 
 ## Запуск и границы
 
-API реализован middleware Node/Vite для `pnpm dev` и `pnpm preview` (после `pnpm build`).
+Для простого сервера по IP доступен `pnpm start` после `pnpm build`: отдельный Node HTTP-сервер
+отдаёт `web-dist/` и обслуживает AI API. Точный внешний адрес задаётся в `PUBLIC_ORIGIN`, например
+`http://203.0.113.10:4173`; ключ читается из `.env.local`. Инструкция: [QUICK_SERVER.md](QUICK_SERVER.md).
+Для этого режима не нужны Vite preview, домен, Nginx или сертификат. Проверка Host/Origin сохранена;
+публичный origin разрешается только явно. Аутентификация пользователей в этом простом запуске не добавляется.
+
+Для локальной разработки API также реализован middleware Node/Vite для `pnpm dev` и `pnpm preview` (после `pnpm build`).
 Оба сервера привязаны к loopback. Проверяются Host и Origin; CORS для внешних сайтов не
 открыт. Сервер использует `dist/engine.js` и `dist/report.js`, которые собирает штатный
 build. Копирования одного `web-dist/` на статический хостинг недостаточно для AI.

@@ -202,7 +202,7 @@ const SYSTEM = `Ты аналитик городской пешеходной д
 Трава на карте декоративная. Население и часть исходных параметров моделируются. Охват не означает достаточную вместимость, остановка не создаёт маршруты. Результат условный и не является официальным прогнозом.
 Не используй HTML, Markdown-ссылки, внешние источники или инструменты. Отвечай только JSON.`;
 
-/** Same-origin, loopback-only API. Neither arbitrary proxy URLs nor API keys are accepted from clients. */
+/** Same-origin API, local by default; public hosting requires an explicit origin. */
 export function createAssistantMiddleware({
   getKey,
   getProvider = () => OPENROUTER_PROVIDER,
@@ -211,7 +211,11 @@ export function createAssistantMiddleware({
   contextForReport,
   now = Date.now,
   timeoutMs = 90000,
+  publicOrigin,
 } = {}) {
+  const publicUrl = publicOrigin ? new URL(publicOrigin) : null;
+  if (publicUrl && (!['http:', 'https:'].includes(publicUrl.protocol) || publicUrl.origin !== publicOrigin || publicUrl.username || publicUrl.password))
+    throw new Error('PUBLIC_ORIGIN must be an HTTP(S) origin without a path or trailing slash');
   let active = 0;
   let requests = [];
   return async (req, res, next) => {
@@ -227,11 +231,11 @@ export function createAssistantMiddleware({
     };
     const host = req.headers.host ?? '';
     if (
-      !/^(?:127\.0\.0\.1|localhost|\[::1\]):\d+$/.test(host) ||
-      (req.headers.origin && req.headers.origin !== `http://${host}`) ||
+      (publicUrl ? host !== publicUrl.host : !/^(?:127\.0\.0\.1|localhost|\[::1\]):\d+$/.test(host)) ||
+      (req.headers.origin && req.headers.origin !== (publicUrl?.origin ?? `http://${host}`)) ||
       req.headers['sec-fetch-site'] === 'cross-site'
     )
-      return send(403, { error: 'Доступ разрешён только из локального приложения.' });
+      return send(403, { error: 'Доступ разрешён только с адреса этого приложения.' });
     let provider;
     try {
       provider = getProvider();
