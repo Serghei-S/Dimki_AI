@@ -1453,10 +1453,6 @@ select {
   width: 4px;
   height: 4px;
 }
-.footer-dot {
-  margin: 0 3px;
-  color: var(--muted);
-}
 .history-controls {
   display: flex;
   gap: 2px;
@@ -2428,9 +2424,6 @@ select {
   }
   .compass {
     right: 22px;
-  }
-  .footer-dot {
-    margin: 0 1px;
   }
   .topnav button:nth-child(2) {
     display: none;

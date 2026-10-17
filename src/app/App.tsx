@@ -1842,11 +1842,6 @@ function DistrictApp({
             </button>
           </div>
           <div className="map-footer">
-            <span>
-              <i />
-              Синтетический район <span className="footer-dot">·</span> высоты ×
-              {settings.heightScale.toLocaleString('ru-RU')}
-            </span>
             <div className="history-controls">
               <button
                 aria-label="Отменить изменение"
