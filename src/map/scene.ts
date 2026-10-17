@@ -997,6 +997,8 @@ export class DistrictScene {
   setState(state: MapState): void {
     const old = this.#state;
     this.#state = state;
+    this.#renderer.domElement.style.cursor =
+      state.editor?.active && state.editor.tool !== 'select' ? 'crosshair' : 'grab';
     const geometryChanged = old.geometryKey !== state.geometryKey;
     if (geometryChanged || old.profileId !== state.profileId) {
       this.#buildInfrastructure();
@@ -1262,7 +1264,13 @@ export class DistrictScene {
       if (point) this.#callbacks.editor?.drag({ ...this.#dragging, point, phase: 'move' });
       return;
     }
-    if (event.buttons === 0) this.#renderer.domElement.style.cursor = this.#pick(event) ? 'pointer' : 'grab';
+    if (event.buttons === 0)
+      this.#renderer.domElement.style.cursor =
+        this.#state.editor?.active && this.#state.editor.tool !== 'select'
+          ? 'crosshair'
+          : this.#pick(event)
+            ? 'pointer'
+            : 'grab';
   };
   #groundPoint(event: PointerEvent): XY | null {
     const rect = this.#renderer.domElement.getBoundingClientRect();

@@ -112,6 +112,7 @@ export function DesignWorkbench(props: Props) {
   const [auditRows, setAuditRows] = useState<DistanceRow[] | null>(null),
     [auditFilter, setAuditFilter] = useState('all');
   const job = useRef<AbortController | null>(null),
+    placementHeading = useRef<HTMLHeadingElement>(null),
     actionBusy = useRef(false),
     drag = useRef<{
       original: EditableObject;
@@ -140,6 +141,7 @@ export function DesignWorkbench(props: Props) {
   const latestSelection = useRef(props.selectedId);
   const lastOpenedObject = useRef<string | null>(null);
   const editorSession = useRef<number | null>(null);
+  const consumedLaunch = useRef(0);
   latestSelection.current = props.selectedId;
   useEffect(() => {
     if (!props.active || editorSession.current !== props.launch) return;
@@ -161,13 +163,26 @@ export function DesignWorkbench(props: Props) {
       editorSession.current = null;
       return;
     }
+    const requestedPlacement = props.launch > consumedLaunch.current;
+    if (!requestedPlacement && editorSession.current === props.launch) return;
+    consumedLaunch.current = props.launch;
     editorSession.current = props.launch;
     cancel();
     setPanel('place');
     setDraft(null);
     props.onSelect(null);
     props.onKindChange(kind);
-    setTool('select');
+    setError(null);
+    setOverlay(false);
+    setResult(null);
+    job.current?.abort();
+    setBusy(false);
+    // A deliberate launch must arm the map even when the editor is already open.
+    setTool(requestedPlacement ? (kind === 'park' ? 'polygon' : 'place') : 'select');
+    if (requestedPlacement) {
+      placementHeading.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      placementHeading.current?.focus({ preventScroll: true });
+    }
   }, [props.active, props.launch]);
   useEffect(() => {
     setQueued([]);
@@ -666,7 +681,7 @@ export function DesignWorkbench(props: Props) {
         ))}
       </nav>
       <div className="section-heading">
-        <h2>
+        <h2 ref={placementHeading} tabIndex={-1}>
           {panel === 'place'
             ? 'Новый объект'
             : panel === 'objects'

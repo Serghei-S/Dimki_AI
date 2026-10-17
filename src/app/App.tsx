@@ -33,6 +33,7 @@ import {
   Compass,
   Menu,
   Crosshair,
+  MapPin,
   Upload,
   ChevronDown,
   FileText,
@@ -51,6 +52,7 @@ import type { MapState, SceneCallbacks, SceneStats, ViewSettings } from '../map/
 import { MapViewport } from './MapViewport.js';
 import { EnvironmentSummary } from './EnvironmentSummary.js';
 import { projectLocations } from '../map/focus.js';
+import { OBJECT_KINDS } from '../core/design-rules.js';
 import type { Analysis } from './useAnalysis.js';
 import type { MapHandle } from './MapViewport.js';
 import { connectEngine } from './engine-client.js';
@@ -1463,6 +1465,9 @@ function DistrictApp({
           )}
           <button
             className="editor-entry-button"
+            aria-pressed={
+              !before && editorView.active && (editorView.tool === 'place' || editorView.tool === 'polygon')
+            }
             onClick={() => {
               setEditorLaunch((value) => value + 1);
               setSelectedId(null);
@@ -1474,6 +1479,26 @@ function DistrictApp({
             <Plus size={14} />
             {tab === 'studio' ? 'Новый объект' : 'Объект в любой точке'}
           </button>
+          {!before && editorView.active && (editorView.tool === 'place' || editorView.tool === 'polygon') && (
+            <div className="map-placement-hint" role="status">
+              <MapPin size={17} />
+              <span>
+                <strong>{OBJECT_KINDS[editorView.kind]} · размещение включено</strong>
+                <small>
+                  {editorView.tool === 'polygon'
+                    ? 'Отмечайте углы границы на карте. Завершите границу в редакторе.'
+                    : 'Нажмите на тротуар или дорожку. Затем подтвердите объект в редакторе.'}
+                </small>
+              </span>
+              <button
+                className="icon-button"
+                aria-label="Отменить размещение"
+                onClick={() => editorEvents.current?.cancel()}
+              >
+                <X size={15} />
+              </button>
+            </div>
+          )}
           {previewScenario && (
             <div className="editor-preview-badge" role="status">
               Предварительный пересчёт

@@ -45,6 +45,9 @@ importers:
       prettier:
         specifier: ^3.9.10
         version: 3.9.10
+      react-test-renderer:
+        specifier: 19.3.1
+        version: 19.3.1(react@19.3.1)
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
@@ -627,6 +630,14 @@ packages:
     peerDependencies:
       react: ^19.3.1
 
+  react-is@19.3.1:
+    resolution: {integrity: sha512-RRieF6IyxQBkcK6pP8xOHprLTPW6QjRkbGdImtqNme+/hYVwCZkLQLdlZGOhUqXwkS9IEynaGvPJtv6XB/cz0Q==}
+
+  react-test-renderer@19.3.1:
+    resolution: {integrity: sha512-YcNewwmnZMd0wTb2nkb4hQ58NmX/u1hW2OJsNpen8CnV+jNkmEjYd1R6wJrOMSgb8bIF5HAJv4iL+S3PwNptOA==}
+    peerDependencies:
+      react: ^19.3.1
+
   react@19.3.1:
     resolution: {integrity: sha512-QNhWdt7nrgVWWQG58QuGsAR3jv3Hbe4mb4vz7w2csnHavciZJgda1CPNaldF6eVxv90ud3jUXpKlHL69gO38yw==}
     engines: {node: '>=0.10.0'}
@@ -1052,6 +1063,14 @@ snapshots:
   react-dom@19.3.1(react@19.3.1):
     dependencies:
       react: 19.3.1
+      scheduler: 0.28.0
+
+  react-is@19.3.1: {}
+
+  react-test-renderer@19.3.1(react@19.3.1):
+    dependencies:
+      react: 19.3.1
+      react-is: 19.3.1
       scheduler: 0.28.0
 
   react@19.3.1: {}
