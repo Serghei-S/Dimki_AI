@@ -35,6 +35,8 @@ export function designSchema(destinationKind) {
       capacity: { anyOf: [{ type: 'integer', minimum: 0, maximum: 1000000 }, { type: 'null' }] },
       entrances: { type: 'array', items: xy, maxItems: 64 },
       polygon: { anyOf: [{ type: 'null' }, { type: 'array', items: xy, minItems: 4, maxItems: 65 }] },
+      site: { type: 'array', items: xy, minItems: 4, maxItems: 65 },
+      placementChecked: {type:'boolean'},
       autoEntrances: { type: 'boolean' },
       throughAccess: { type: 'boolean' },
     },

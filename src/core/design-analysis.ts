@@ -21,6 +21,7 @@ import { bestEntrance } from './metrics.js';
 import { pointAlong, nearestNetworkPoint } from './design-geometry.js';
 import { EngineError, requireCondition } from './errors.js';
 import { assertSchema } from './validation.js';
+import { suggestPlacement, relocateWithContext, siteAccessPoint, PLACEMENT_RULES } from './placement.js';
 
 function context(
   data: DistrictData,
@@ -267,9 +268,9 @@ export async function analyzeDesign(
       .filter(({ e, i }) => e.kind !== 'crossing' && Number.isFinite(ctx.graph.edgeCosts[i]));
     const spacing = Math.max(rules.candidateSpacingM, eligible.reduce((s, { e }) => s + e.lengthM, 0) / 1200);
     result.spacingM = spacing;
-    const points: { id: string; edgeId: string; point: XY; alongM: number }[] = [],
+    const points: { id: string; edgeId: string; point: XY; alongM: number; accessDistanceM?: number }[] = [],
       seen = new Set<string>();
-    for (const { e } of eligible) {
+    for (const [edgeIndex, { e }] of eligible.entries()) {
       const distances = [0, e.lengthM];
       for (let d = spacing / 2; d < e.lengthM; d += spacing) distances.push(d);
       if (distances.length === 2) distances.push(e.lengthM / 2);
@@ -280,8 +281,39 @@ export async function analyzeDesign(
         const id = `${snap.edgeId}@${snap.alongM.toFixed(6)}`;
         if (seen.has(id)) continue;
         seen.add(id);
-        points.push({ id, edgeId: snap.edgeId, point: snap.point, alongM: snap.alongM });
+        let accessDistanceM = 0;
+        if (input.placementAware && input.kind !== 'park') {
+          try {
+            const placement = suggestPlacement(
+              data,
+              input.kind,
+              snap.point,
+              input.scenario.design?.objects,
+              rules.snapDistanceM,
+            );
+            if (placement.site) {
+              const door = siteAccessPoint(placement.site, input.kind, snap.point);
+              accessDistanceM = Math.hypot(door[0] - snap.point[0], door[1] - snap.point[1]);
+              if (
+                accessDistanceM > 0.01 &&
+                (profile.minWidthM > PLACEMENT_RULES.approachWidthM ||
+                  !(profile.surfaceSpeedFactors.paving > 0))
+              )
+                continue;
+            }
+          } catch {
+            continue;
+          }
+        }
+        points.push({
+          id,
+          edgeId: snap.edgeId,
+          point: snap.point,
+          alongM: snap.alongM,
+          ...(accessDistanceM ? { accessDistanceM } : {}),
+        });
       }
+      await cooperate(edgeIndex + 1, eligible.length);
     }
     requireCondition(
       points.length <= 5000,
@@ -293,11 +325,12 @@ export async function analyzeDesign(
         seeds = new Map<number, number>(),
         from = ctx.topology.nodeIndex.get(edge.from)!,
         to = ctx.topology.nodeIndex.get(edge.to)!;
-      if (p.alongM < 0.001) seeds.set(from, 0);
-      else if (edge.lengthM - p.alongM < 0.001) seeds.set(to, 0);
+      const access = p.accessDistanceM ?? 0;
+      if (p.alongM < 0.001) seeds.set(from, access);
+      else if (edge.lengthM - p.alongM < 0.001) seeds.set(to, access);
       else {
-        seeds.set(from, p.alongM);
-        if (edge.bidirectional) seeds.set(to, edge.lengthM - p.alongM);
+        seeds.set(from, p.alongM + access);
+        if (edge.bidirectional) seeds.set(to, edge.lengthM - p.alongM + access);
       }
       return shortestToTargets(ctx.graph, seeds.keys(), { initialCosts: seeds });
     };
@@ -399,7 +432,19 @@ export async function analyzeDesign(
     const variants = [
       { name: 'Как сейчас', object },
       { name: 'Старый убран', object: { ...object, active: false } },
-      { name: 'На новом месте', object: { ...object, entrances: [input.point] } },
+      {
+        name: 'На новом месте',
+        object:
+          input.placementAware || object.placementChecked
+            ? relocateWithContext(
+                data,
+                object,
+                input.point,
+                input.scenario.design?.objects,
+                rules.snapDistanceM,
+              )
+            : { ...object, entrances: [input.point] },
+      },
     ];
     for (const variant of variants) {
       const scenario: ScenarioInput = {

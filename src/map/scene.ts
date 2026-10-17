@@ -24,6 +24,8 @@ import {
 import type { Point } from './geometry.js';
 import { SpatialIndex } from './spatial.js';
 import { createLawnSizer } from './lawns.js';
+import { projectLocations } from './focus.js';
+import { PLACEMENT_RULES } from '../core/placement.js';
 import type { MotionPath } from './motion.js';
 import type { MapState, SceneCallbacks, ViewSettings } from './types.js';
 
@@ -76,6 +78,7 @@ export class DistrictScene {
   readonly #network = new THREE.Group();
   readonly #projects = new THREE.Group();
   readonly #selection = new THREE.Group();
+  readonly #focusHighlight = new THREE.Group();
   readonly #route = new THREE.Group();
   #residents: ResidentLayer | null = null;
   readonly #flow = new FlowLayer();
@@ -158,6 +161,7 @@ export class DistrictScene {
       this.#network,
       this.#projects,
       this.#selection,
+      this.#focusHighlight,
       this.#route,
       this.#flow.group,
       this.#editor.group,
@@ -646,6 +650,14 @@ export class DistrictScene {
       const b = bounds(building.polygon);
       buildingsIndex.add({ minX: b.minX - 7, minY: b.minY - 7, maxX: b.maxX + 7, maxY: b.maxY + 7 }, true);
     }
+    for (const object of this.#state.design?.objects ?? []) {
+      if (!object.active || !object.site) continue;
+      const b = bounds(object.site);
+      buildingsIndex.add(
+        { minX: b.minX - 11, minY: b.minY - 11, maxX: b.maxX + 11, maxY: b.maxY + 11 },
+        true,
+      );
+    }
     for (const parcel of [...parks, ...vacant]) parcelsIndex.add(bounds(parcel.polygon), parcel);
     for (const edge of edges)
       for (let i = 1; i < edge.geometry.length; i++) {
@@ -804,23 +816,35 @@ export class DistrictScene {
       this.#labels.push({ element, point: world(point, 4), public: true, id: road.id });
     }
     for (const destination of data.destinations.filter((d) => d.active)) {
+      const editedObject = this.#state.design?.objects.find((o) => o.id === destination.id);
       const parcel = destination.parcelId ? data.parcels.find((p) => p.id === destination.parcelId) : null;
       const building = destination.buildingId
         ? data.buildings.find((b) => b.id === destination.buildingId)
         : null;
       const node = data.nodes.find((n) => n.id === destination.accessNodeIds[0])!;
-      const point = building
-        ? bounds(building.polygon).center
-        : parcel
-          ? bounds(parcel.polygon).center
-          : node.xy;
+      const point = editedObject?.site
+        ? bounds(editedObject.site).center
+        : building
+          ? bounds(building.polygon).center
+          : parcel
+            ? bounds(parcel.polygon).center
+            : node.xy;
       const element = document.createElement('div');
       element.className = `place-label place-label--${destination.kind}`;
+      if (editedObject) element.dataset.proposed = 'true';
       const icon = document.createElement('span');
       icon.className = 'place-label-icon';
-      icon.textContent = { park: '♧', school: 'Ш', clinic: '+', grocery: 'М', bus_stop: 'А', community: 'Ц' }[
-        destination.kind
-      ];
+      icon.textContent = {
+        park: '♧',
+        school: 'Ш',
+        clinic: '+',
+        grocery: 'М',
+        bus_stop: 'А',
+        community: 'Ц',
+        parking: 'P',
+        playground: 'Д',
+        waste_bin: 'У',
+      }[destination.kind];
       const title = document.createElement('span');
       title.textContent =
         destination.kind === 'park'
@@ -834,17 +858,21 @@ export class DistrictScene {
                 : destination.kind === 'community'
                   ? 'Районный центр'
                   : destination.name;
+      if (editedObject)
+        title.textContent = `${destination.name} · ${destination.id.startsWith('user_') ? 'проект' : 'изменено'}`;
       element.append(icon, title);
       this.#labelHost.append(element);
       this.#labels.push({
         element,
         point: world(
           point,
-          building
-            ? building.heightM * this.#settings.heightScale + 11
-            : destination.kind === 'park'
-              ? 13
-              : 12,
+          editedObject?.site
+            ? (PLACEMENT_RULES.buildingHeightsM[destination.kind] ?? 3) + 11
+            : building
+              ? building.heightM * this.#settings.heightScale + 11
+              : destination.kind === 'park'
+                ? 13
+                : 12,
         ),
         public: true,
         id: destination.id,
@@ -975,6 +1003,7 @@ export class DistrictScene {
       this.#buildProjects();
     }
     if (geometryChanged) {
+      this.#clear(this.#focusHighlight);
       this.#buildTrees();
       this.#buildLabels();
       this.#renderer.shadowMap.needsUpdate = true;
@@ -1059,6 +1088,7 @@ export class DistrictScene {
     );
   }
   home(): void {
+    this.#clear(this.#focusHighlight);
     this.#fly(this.#homePosition(), new THREE.Vector3());
   }
   zoom(factor: number): void {
@@ -1088,6 +1118,11 @@ export class DistrictScene {
     else this.home();
   }
   focus(id: string): void {
+    const projects = projectLocations(this.#state.data, [id]);
+    if (projects.length) {
+      this.focusLocations(projects);
+      return;
+    }
     const data = this.#state.data,
       building = data.buildings.find((b) => b.id === id),
       destination = data.destinations.find((d) => d.id === id);
@@ -1103,8 +1138,37 @@ export class DistrictScene {
           ? bounds(edge.geometry).center
           : null;
     if (!point) return;
-    const target = world(point).add(this.#district.position),
-      offset = this.#camera.position.clone().sub(this.#controls.target).setLength(430);
+    this.focusLocations([[...point] as XY]);
+  }
+  focusProjects(ids: readonly string[]): void {
+    this.focusLocations(projectLocations(this.#state.data, ids));
+  }
+  focusLocations(points: readonly XY[]): void {
+    if (!points.length) return;
+    this.#clear(this.#focusHighlight);
+    const b = bounds(points),
+      target = world(b.center).add(this.#district.position);
+    const distance = Math.max(260, Math.hypot(b.width, b.depth) * 1.45);
+    const offset = this.#camera.position
+      .clone()
+      .sub(this.#controls.target)
+      .setLength(Math.min(this.#controls.maxDistance, distance));
+    for (const point of points) {
+      const halo = new THREE.Mesh(
+        new THREE.RingGeometry(9, 13, 40),
+        new THREE.MeshBasicMaterial({
+          color: GIS_THEME.selection,
+          transparent: true,
+          opacity: 0.85,
+          depthTest: false,
+          side: THREE.DoubleSide,
+        }),
+      );
+      halo.rotation.x = -Math.PI / 2;
+      halo.position.copy(world(point, 2));
+      halo.renderOrder = 5;
+      this.#focusHighlight.add(halo);
+    }
     this.#fly(target.clone().add(offset), target);
   }
   async screenshot(): Promise<Blob> {

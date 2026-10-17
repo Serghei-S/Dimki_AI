@@ -1,5 +1,6 @@
 import type { DeepReadonly, DistrictData, ScenarioEvaluation } from '../core/types.js';
 import { DEFAULT_DESIGN_RULES, OBJECT_KINDS, CAPACITY_FACTORS, STOP_HEADWAYS } from '../core/design-rules.js';
+import { PLACEMENT_RULES } from '../core/placement.js';
 import { stableKey } from '../core/util.js';
 
 export interface ReportFact {
@@ -38,6 +39,7 @@ export interface AiNarrative {
 }
 export interface AiResult {
   model: string;
+  provider?: string;
   createdAt: string;
   question: string;
   mode: string;
@@ -275,10 +277,12 @@ export function makeReport(
       'Отчёт не проверяет право строительства, все пересечения новых полигонов с препятствиями или полноту данных за границей района.',
     ],
     assumptions: {
+      placementSketch: PLACEMENT_RULES,
       profile: data.profiles.find((p) => p.id === profileId),
       metricDefinitions: data.metricDefinitions,
       designRules: { ...DEFAULT_DESIGN_RULES, ...result.scenario.design?.rules },
       capacityFactors: CAPACITY_FACTORS,
+      amenityCapacityFactors: [1, 1, 1],
       hypotheticalStopHeadwaysSeconds: STOP_HEADWAYS,
       source: data.metadata.source,
     },

@@ -25,6 +25,7 @@ export function dragObject(
   if (part === 'object') {
     next.entrances = original.entrances.map((p) => [p[0] + dx, p[1] + dy]);
     if (original.polygon) next.polygon = original.polygon.map((p) => [p[0] + dx, p[1] + dy]);
+    if (original.site) next.site = original.site.map((p) => [p[0] + dx, p[1] + dy]);
   }
   if (part === 'vertex' && next.polygon) {
     next.polygon[index] = point;

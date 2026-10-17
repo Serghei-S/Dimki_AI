@@ -11,6 +11,14 @@ import {
   X,
   Check,
   Undo2,
+  Bus,
+  School,
+  HeartPulse,
+  Trees,
+  CarFront,
+  Baby,
+  ShoppingBag,
+  Building2,
 } from 'lucide-react';
 import type {
   DeepReadonly,
@@ -34,6 +42,7 @@ import {
   DESIGN_COSTS,
   STOP_HEADWAYS,
   CAPACITY_FACTORS,
+  capacityFactor,
   MOVE_COST_RUB,
   REMOVE_COST_RUB,
   newObject,
@@ -43,6 +52,13 @@ import { nearestNetworkPoint, polygonArea } from '../core/design-geometry.js';
 import { upsertObject, dragObject } from './design-state.js';
 import type { Analysis } from './useAnalysis.js';
 import { PlacementImpact } from './PlacementImpact.js';
+import {
+  suggestPlacement,
+  PLACEMENT_HINTS,
+  PLACEMENT_RULES,
+  polygonsOverlap,
+  relocateWithContext,
+} from '../core/placement.js';
 
 interface Props {
   active: boolean;
@@ -56,6 +72,8 @@ interface Props {
   baselineView: boolean;
   onKindChange: (kind: Destination['kind']) => void;
   onProfileChange: (id: string) => void;
+  onFocus: (points: readonly XY[]) => void;
+  onCompare: () => void;
   scenario: ScenarioInput;
   profileId: string;
   selectedId: string | null;
@@ -71,6 +89,9 @@ const n = (value: number | null | undefined) =>
   value === null || value === undefined ? '—' : value.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
 const errorText = (error: unknown) => (error instanceof Error ? error.message : String(error));
 export function DesignWorkbench(props: Props) {
+  const [batchMode, setBatchMode] = useState(false),
+    [queued, setQueued] = useState<EditableObject[]>([]),
+    [placementMessage, setPlacementMessage] = useState<string | null>(null);
   const [panel, setPanel] = useState<'place' | 'objects' | 'analysis'>('place');
   const [kind, setKind] = useState<Destination['kind']>('bus_stop'),
     [tool, setTool] = useState<EditorTool>('select'),
@@ -146,8 +167,12 @@ export function DesignWorkbench(props: Props) {
     setDraft(null);
     props.onSelect(null);
     props.onKindChange(kind);
-    setTool('place');
+    setTool('select');
   }, [props.active, props.launch]);
+  useEffect(() => {
+    setQueued([]);
+    props.onPreview(null);
+  }, [scenarioKey]);
   useEffect(() => {
     setResult(null);
     setOverlay(false);
@@ -220,6 +245,25 @@ export function DesignWorkbench(props: Props) {
         const snap = nearestNetworkPoint(district, point);
         return snap && snap.distanceM <= rules.snapDistanceM ? snap.point : point;
       });
+    if (district && normalized.active && normalized.kind === 'bus_stop') {
+      const current = district.destinations.find((d) => d.id === normalized.id);
+      const oldPoint = district.nodes.find((n) => n.id === current?.accessNodeIds[0])?.xy;
+      if (!oldPoint || JSON.stringify(oldPoint) !== JSON.stringify(normalized.entrances[0])) {
+        try {
+          suggestPlacement(
+            district,
+            'bus_stop',
+            normalized.entrances[0]!,
+            props.scenario.design?.objects,
+            rules.snapDistanceM,
+          );
+        } catch (error) {
+          setError(errorText(error));
+          props.onPreview(null);
+          return false;
+        }
+      }
+    }
     const success = await commit(upsertObject(props.scenario, normalized), object.id);
     if (success && !normalized.active) {
       props.onSelect(null);
@@ -251,6 +295,8 @@ export function DesignWorkbench(props: Props) {
     void save({ ...draft, active: false });
   }
   function cancel() {
+    setQueued([]);
+    setPlacementMessage(null);
     if (drag.current) setDraft(structuredClone(drag.current.rollback));
     setTool('select');
     setPolygon([]);
@@ -335,6 +381,8 @@ export function DesignWorkbench(props: Props) {
   }
   async function run(mode: DesignAnalysisInput['mode'], point?: XY) {
     if (!props.client) return;
+    setTool('select');
+    setPolygon([]);
     setPanel('analysis');
     job.current?.abort();
     const controller = new AbortController();
@@ -344,6 +392,7 @@ export function DesignWorkbench(props: Props) {
     setError(null);
     const input: DesignAnalysisInput = {
       scenario: props.scenario,
+      placementAware: true,
       profileId: props.profileId,
       kind,
       mode,
@@ -370,6 +419,7 @@ export function DesignWorkbench(props: Props) {
       if (!controller.signal.aborted) {
         setResult(next);
         setOverlay(['importance', 'needs', 'vulnerability'].includes(mode));
+        if (mode === 'needs' && next.top[0]) props.onFocus([next.top[0].point]);
       }
     } catch (error) {
       if (!controller.signal.aborted) setError(errorText(error));
@@ -406,9 +456,71 @@ export function DesignWorkbench(props: Props) {
       return;
     }
     if (tool === 'place') {
-      const object = makeObject(kind, snap.point);
-      void save(object);
+      stageObject(point);
+    }
+  }
+  function stagedScenario(objects: EditableObject[]) {
+    return objects.reduce((scenario, object) => upsertObject(scenario, object), props.scenario);
+  }
+  function queueObject(object: EditableObject, message: string) {
+    const next = batchMode ? [...queued, object] : [object];
+    if ((props.scenario.design?.objects.length ?? 0) + next.length > 128) {
+      setError('В сценарии допускается не больше 128 объектов.');
+      return;
+    }
+    setQueued(next);
+    setPlacementMessage(message);
+    props.onSelect(null);
+    setDraft(null);
+    setPanel('place');
+    props.onPreview(stagedScenario(next));
+    setError(null);
+  }
+  function stageObject(point: XY, value = kind) {
+    if (!district) return;
+    if (value === 'park') {
+      setKind('park');
+      setPanel('place');
+      setTool('polygon');
+      setPolygon([point]);
+      props.onFocus([point]);
+      return;
+    }
+    try {
+      const placementDistrict =
+        batchMode &&
+        queued.length &&
+        props.analysis &&
+        JSON.stringify(props.analysis.scenario) === JSON.stringify(stagedScenario(queued))
+          ? props.analysis.district
+          : district;
+      const placement = suggestPlacement(
+        placementDistrict,
+        value,
+        point,
+        [...(props.scenario.design?.objects ?? []), ...(batchMode ? queued : [])],
+        rules.snapDistanceM,
+      );
+      const object = {
+        ...makeObject(value, placement.point),
+        placementChecked: true,
+        ...(placement.site ? { site: placement.site } : {}),
+      };
+      queueObject(object, placement.message);
+      setTool('place');
+    } catch (error) {
+      setError(errorText(error));
+    }
+  }
+  async function applyQueued() {
+    if (!queued.length) return;
+    const objects = queued;
+    if (await commit(stagedScenario(objects), objects.at(-1)!.id)) {
+      setQueued([]);
+      setPlacementMessage(null);
       setTool('select');
+      props.onFocus(objects.flatMap((o) => o.entrances));
+      props.onNotify(`Применено объектов: ${objects.length}. Сравните результат во вкладке «Среда».`);
     }
   }
   props.events.current = { point: place, drag: onDrag, cancel };
@@ -418,22 +530,70 @@ export function DesignWorkbench(props: Props) {
         polygon.reduce((s, p) => s + p[0], 0) / polygon.length,
         polygon.reduce((s, p) => s + p[1], 0) / polygon.length,
       ],
-      object = { ...makeObject('park', center), polygon: [...polygon, [...polygon[0]!] as XY] };
-    if (!(await save(object))) return;
+      object = {
+        ...makeObject('park', center),
+        polygon: [...polygon, [...polygon[0]!] as XY],
+        placementChecked: true,
+      };
+    if (!district) return;
+    if (
+      [...district.roads, ...district.buildings].some((o) => polygonsOverlap(object.polygon!, o.polygon)) ||
+      [...(props.scenario.design?.objects ?? []), ...queued].some(
+        (o) =>
+          o.active &&
+          ((o.site && polygonsOverlap(object.polygon!, o.site)) ||
+            (o.polygon && polygonsOverlap(object.polygon!, o.polygon))),
+      )
+    ) {
+      setError('Граница парка пересекает дорогу, здание или другой объект сценария. Измените вершины.');
+      return;
+    }
+    queueObject(
+      object,
+      'Граница парка готова. Вместимость рассчитывается по площади, доступность — до входов.',
+    );
     setPolygon([]);
     setTool('select');
   }
   function changeKind(value: Destination['kind']) {
+    if (draft && panel === 'objects' && district) {
+      try {
+        const next = makeObject(value, draft.entrances[0] ?? coordinates, draft.id);
+        const placement =
+          value === 'park'
+            ? null
+            : suggestPlacement(
+                district,
+                value,
+                next.entrances[0]!,
+                props.scenario.design?.objects.filter((o) => o.id !== draft.id),
+                rules.snapDistanceM,
+              );
+        setDraft({
+          ...next,
+          name: draft.name,
+          ...(placement
+            ? {
+                entrances: [placement.point],
+                ...(placement.site ? { site: placement.site } : {}),
+                placementChecked: true,
+              }
+            : {}),
+        });
+      } catch (error) {
+        setError(errorText(error));
+        return;
+      }
+    }
     setKind(value);
     props.onKindChange(value);
     job.current?.abort();
     setBusy(false);
     setResult(null);
     setOverlay(false);
-    if (draft && panel === 'objects') {
-      const point = draft.entrances[0] ?? coordinates,
-        next = makeObject(value, point, draft.id);
-      setDraft({ ...next, name: draft.name });
+    if (panel === 'place') {
+      setTool(value === 'park' ? 'polygon' : 'place');
+      setPolygon([]);
     }
   }
   function setRule(key: keyof DesignRules, value: number) {
@@ -450,7 +610,13 @@ export function DesignWorkbench(props: Props) {
         ? draft
         : stage === 1
           ? { ...draft, active: false }
-          : { ...draft, entrances: [relocationPoint] };
+          : relocateWithContext(
+              district!,
+              draft,
+              relocationPoint,
+              props.scenario.design?.objects,
+              rules.snapDistanceM,
+            );
     props.onPreview({ ...upsertObject(props.scenario, object), budgetRub: Number.MAX_SAFE_INTEGER });
   }
   const explainSummary =
@@ -517,73 +683,137 @@ export function DesignWorkbench(props: Props) {
       </div>
       {panel === 'place' && (
         <p className="studio-note">
-          Выберите тип и нажмите на тротуар или дорожку. Объект встанет в выбранную точку сети.
+          1. Выберите объект → 2. Укажите место на карте → 3. Проверьте и примените.
         </p>
       )}
-      <label className="studio-profile">
-        Пешеходный профиль
-        <select
-          aria-label="Профиль движения в редакторе"
-          value={props.profileId}
-          onChange={(e) => props.onProfileChange(e.target.value)}
-        >
-          {props.baseData?.profiles.map((profile) => (
-            <option key={profile.id} value={profile.id}>
-              {profile.name}
-            </option>
-          ))}
-        </select>
-      </label>
       <label className="field-label" htmlFor="object-kind">
         Категория объекта
       </label>
-      <select
-        id="object-kind"
-        value={kind}
-        onChange={(e) => changeKind(e.target.value as Destination['kind'])}
-      >
-        {Object.entries(OBJECT_KINDS).map(([id, label]) => (
-          <option key={id} value={id}>
-            {label}
-          </option>
-        ))}
-      </select>
+      {panel === 'place' ? (
+        <div className="object-type-grid" role="group" aria-label="Тип нового объекта">
+          {Object.entries(OBJECT_KINDS).map(([id, label]) => {
+            const Icon = {
+              bus_stop: Bus,
+              school: School,
+              clinic: HeartPulse,
+              park: Trees,
+              parking: CarFront,
+              playground: Baby,
+              waste_bin: Trash2,
+              grocery: ShoppingBag,
+              community: Building2,
+            }[id as Destination['kind']];
+            return (
+              <button
+                key={id}
+                aria-pressed={kind === id}
+                onClick={() => changeKind(id as Destination['kind'])}
+              >
+                <Icon size={18} />
+                <span>{label}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <select
+          id="object-kind"
+          value={kind}
+          onChange={(e) => changeKind(e.target.value as Destination['kind'])}
+        >
+          {Object.entries(OBJECT_KINDS).map(([id, label]) => (
+            <option key={id} value={id}>
+              {label}
+            </option>
+          ))}
+        </select>
+      )}
       {panel === 'place' && (
         <>
+          <p className="placement-guidance">{PLACEMENT_HINTS[kind]}</p>
+          <label className="batch-mode">
+            <input
+              type="checkbox"
+              checked={batchMode}
+              onChange={(e) => {
+                cancel();
+                setBatchMode(e.target.checked);
+                setTool('select');
+              }}
+            />
+            Добавить несколько объектов за один раз
+          </label>
           <div className="studio-tools">
             <button
-              className={tool === 'place' ? 'active' : ''}
+              className={tool === (kind === 'park' ? 'polygon' : 'place') ? 'active' : ''}
               disabled={saving}
               onClick={() => {
                 props.onSelect(null);
                 setDraft(null);
-                setTool('place');
+                setTool(kind === 'park' ? 'polygon' : 'place');
               }}
             >
               <Plus size={14} />
-              Поставить на карте
+              {kind === 'park' ? 'Нарисовать границу' : 'Выбрать место на карте'}
             </button>
-            {kind === 'park' && (
+            {kind !== 'park' && (
               <button
-                className={tool === 'polygon' ? 'active' : ''}
-                onClick={() => {
-                  props.onSelect(null);
-                  setDraft(null);
-                  setKind('park');
-                  setPolygon([]);
-                  setTool('polygon');
-                }}
+                disabled={busy || saving || !!queued.length || !props.client}
+                onClick={() => void run('needs')}
               >
-                Нарисовать парк
+                <MapPin size={14} />
+                Найти подходящие места
               </button>
             )}
           </div>
+          {!!queued.length && (
+            <section className="placement-queue" aria-label="Предпросмотр добавления">
+              <h3>{batchMode ? `Объекты к применению · ${queued.length}` : 'Предпросмотр объекта'}</h3>
+              <p className="studio-note">{placementMessage}</p>
+              <p className="studio-note">
+                На карте и в показателях показан предпросмотр.{' '}
+                {batchMode
+                  ? 'Выберите другой тип и добавьте ещё объекты.'
+                  : 'Другой щелчок меняет выбранное место.'}
+              </p>
+              <ol>
+                {queued.map((o, i) => (
+                  <li key={o.id}>
+                    <button onClick={() => props.onFocus(o.entrances)}>
+                      {i + 1}. {o.name}
+                    </button>
+                    <button
+                      aria-label={`Убрать из набора ${o.name}`}
+                      onClick={() => {
+                        const next = queued.filter((x) => x.id !== o.id);
+                        setQueued(next);
+                        props.onPreview(next.length ? stagedScenario(next) : null);
+                      }}
+                    >
+                      <X size={13} />
+                    </button>
+                  </li>
+                ))}
+              </ol>
+              <button
+                className="primary-button full-width"
+                disabled={saving || props.calculationBusy || !!props.calculationError}
+                onClick={() => void applyQueued()}
+              >
+                <Check size={15} />
+                {saving ? 'Применяем…' : `Применить ${batchMode ? 'все объекты' : 'объект'}`}
+              </button>
+              <button className="text-button" onClick={cancel}>
+                Отменить предпросмотр
+              </button>
+            </section>
+          )}
         </>
       )}
       {tool !== 'select' && (
         <div className="studio-hint" role="status">
           {tool === 'place'
-            ? 'Нажмите в любой точке сети.'
+            ? 'Выберите пешеходный вход. Затем подтвердите добавление в панели.'
             : tool === 'polygon'
               ? `Добавляйте вершины границы: ${polygon.length}.`
               : tool === 'entrance'
@@ -626,9 +856,7 @@ export function DesignWorkbench(props: Props) {
               if (tool === 'polygon') place(coordinates);
               else if (tool === 'entrance' || tool === 'relocate') place(coordinates);
               else {
-                const snap = district && nearestNetworkPoint(district, coordinates);
-                if (snap && snap.distanceM <= rules.snapDistanceM) void save(makeObject(kind, snap.point));
-                else setError('Рядом с указанными координатами нет пешеходной сети');
+                stageObject(coordinates);
               }
             }}
           >
@@ -690,6 +918,12 @@ export function DesignWorkbench(props: Props) {
       {draft && panel === 'objects' && (
         <section className="studio-object-card">
           <h3>{draft.name}</h3>
+          {draft.site && (
+            <p className="studio-note">
+              Эскизный участок {n(polygonArea(draft.site))} м². Граница и условный объём показаны на карте;
+              назначение земли требует проверки.
+            </p>
+          )}
           <p className="studio-note">
             Выберите маркер и перетащите его. Синие квадраты — вершины, жёлтые точки — входы. Стрелки на
             клавиатуре двигают выбранный объект на 5 м.
@@ -723,7 +957,13 @@ export function DesignWorkbench(props: Props) {
           {draft.kind !== 'park' ? (
             <>
               <label className="field-label" htmlFor="object-capacity">
-                Базовая вместимость
+                {draft.kind === 'parking'
+                  ? 'Машино-места'
+                  : draft.kind === 'waste_bin'
+                    ? 'Количество ёмкостей'
+                    : draft.kind === 'playground'
+                      ? 'Посетителей одновременно'
+                      : 'Базовая вместимость'}
               </label>
               <input
                 id="object-capacity"
@@ -736,7 +976,7 @@ export function DesignWorkbench(props: Props) {
                 }
               />
               <p className="studio-note">
-                Коэффициент уровня ×{CAPACITY_FACTORS[draft.level]}.{' '}
+                Коэффициент вместимости ×{capacityFactor(draft.kind, draft.level)}.{' '}
                 {draft.kind === 'bus_stop'
                   ? `Условный интервал ${STOP_HEADWAYS[draft.level] / 60} мин, ожидание ${STOP_HEADWAYS[draft.level] / 120} мин.`
                   : ''}
@@ -755,7 +995,7 @@ export function DesignWorkbench(props: Props) {
                         onChange={(e) => {
                           const point: XY = [...(draft.entrances[0] ?? coordinates)];
                           point[axis] = Number(e.target.value);
-                          setDraft({ ...draft, entrances: [point] });
+                          setDraft(dragObject(draft, draft.entrances[0] ?? coordinates, point, 'object', 0));
                         }}
                       />
                     </label>
@@ -941,6 +1181,9 @@ export function DesignWorkbench(props: Props) {
         compact={panel === 'place'}
         baselineView={props.baselineView}
       />
+      <button className="secondary-button full-width" disabled={!!queued.length} onClick={props.onCompare}>
+        Сравнить характеристики до и после
+      </button>
       {panel === 'analysis' && (
         <>
           <section className="studio-analysis">
@@ -1010,12 +1253,17 @@ export function DesignWorkbench(props: Props) {
                     <p className="studio-note">
                       Проверено {result.evaluatedCandidates} точек, шаг до {n(result.spacingM)} м плюс узлы
                       сети. Точный эффект одного нового входа в проверенных точках; цвет между ними
-                      интерполирован. Зелёный — больше эффект, серый — нет эффекта. Для парка «Поставить сюда»
-                      создаёт один ручной вход. Топ-3 разнесены минимум на 80 м.
+                      интерполирован. Зелёный — больше эффект, серый — нет эффекта. Для остановок проверяется
+                      близость к улице, для зданий и площадок — свободное место. Для парка оценивается
+                      возможный вход; границу нужно нарисовать отдельно. Топ-3 разнесены минимум на 80 м.
                     </p>
                     {result.top.map((candidate, index) => (
                       <article className="studio-result" key={candidate.id}>
                         <h4>Место {index + 1}</h4>
+                        <button onClick={() => props.onFocus([candidate.point])}>
+                          <MapPin size={13} />
+                          Показать на карте
+                        </button>
                         <button onClick={() => explainRows(candidate.rows ?? result.rows)}>
                           −{n(candidate.meanReductionM)} м среднего пути · +{n(candidate.gainResidents)}{' '}
                           жителей в радиусе {rules.distanceThresholdM} м
@@ -1024,17 +1272,30 @@ export function DesignWorkbench(props: Props) {
                           Новая достижимость: {n(candidate.gainReachableResidents)} · X{' '}
                           {n(candidate.point[0])}, Y {n(candidate.point[1])}
                         </p>
+                        {!!candidate.accessDistanceM && (
+                          <p>
+                            Подход от дорожки до входа: {n(candidate.accessDistanceM)} м · учтён в расчёте.
+                          </p>
+                        )}
                         <button
                           className="secondary-button full-width"
                           disabled={saving}
-                          onClick={() =>
-                            void save({ ...makeObject(result.kind, candidate.point), autoEntrances: false })
-                          }
+                          onClick={() => {
+                            props.onFocus([candidate.point]);
+                            setKind(result.kind);
+                            stageObject(candidate.point, result.kind);
+                          }}
                         >
-                          Поставить сюда
+                          Проверить и разместить
                         </button>
                       </article>
                     ))}
+                    {!result.top.length && (
+                      <p className="studio-note">
+                        Подходящих точек в исследованной сети не найдено. Попробуйте другой тип объекта или
+                        участок территории.
+                      </p>
+                    )}
                   </>
                 )}
                 {result.mode === 'vulnerability' &&
@@ -1154,7 +1415,21 @@ export function DesignWorkbench(props: Props) {
                     </p>
                     <button
                       className="primary-button full-width"
-                      onClick={() => void save({ ...draft, entrances: [relocationPoint] })}
+                      onClick={() => {
+                        try {
+                          void save(
+                            relocateWithContext(
+                              district!,
+                              draft,
+                              relocationPoint,
+                              props.scenario.design?.objects,
+                              rules.snapDistanceM,
+                            ),
+                          );
+                        } catch (error) {
+                          setError(errorText(error));
+                        }
+                      }}
                     >
                       Применить перенос
                     </button>
@@ -1204,6 +1479,28 @@ export function DesignWorkbench(props: Props) {
       {rulesOpen && (
         <section className="studio-rules" aria-label="Допущения модели">
           <h3>Допущения модели</h3>
+          <p>
+            Эскизные участки:{' '}
+            {Object.entries(PLACEMENT_RULES.siteSizesM)
+              .map(([id, size]) => `${OBJECT_KINDS[id as Destination['kind']]} ${size[0]} × ${size[1]} м`)
+              .join('; ')}
+            . Остановка и парковка: до улицы не дальше {PLACEMENT_RULES.roadAccessM} м. Это инженерные
+            предположения для выбора места, а не утверждённые строительные нормативы.
+          </p>
+          <p>
+            Назначение земли, санитарные разрывы, сети, подъезд спецтехники и право строительства пока не
+            проверяются. Условные объёмы на карте показывают предложение. Парковки, площадки и урны не
+            получают дополнительную вместимость от смены уровня.
+          </p>
+          <p>
+            Подход от дорожки до условного входа включён в граф: покрытие — плитка, ширина{' '}
+            {PLACEMENT_RULES.approachWidthM} м, уклон и ступени условно отсутствуют. Объём здания занимает{' '}
+            {PLACEMENT_RULES.buildingFootprintFactor * 100}% ширины и глубины участка; высоты:{' '}
+            {Object.entries(PLACEMENT_RULES.buildingHeightsM)
+              .map(([id, height]) => `${OBJECT_KINDS[id as Destination['kind']]} ${height} м`)
+              .join('; ')}
+            . Машины и оборудование на карте условные, занятость не наблюдается.
+          </p>
           {(
             [
               ['distanceThresholdM', 'Порог расстояния, м'],

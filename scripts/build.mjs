@@ -30,7 +30,7 @@ const optimization = {$id: 'urn:obninsk:engine:optimization', ...object({profile
 optimization.properties.maxFrontierSize = {type: 'integer', minimum: 1, maximum: 65536};
 optimization.properties.design=scenarioInput.properties.design;
 ajv.addSchema(scenario); ajv.addSchema(options); ajv.addSchema(optimization);
-const designAnalysis={$id:'urn:obninsk:engine:design-analysis',...object({scenario:{$ref:scenario.$id},profileId:id,kind:schema.$defs.destination.properties.kind,mode:{enum:['importance','needs','vulnerability','relocation','compare']},objectId:id,point:{type:'array',items:{type:'number',minimum:-100000,maximum:100000},minItems:2,maxItems:2},scenarios:{type:'array',minItems:2,maxItems:8,items:object({name:{type:'string',minLength:1,maxLength:120},scenario:{$ref:scenario.$id}})}},['scenario','profileId','kind','mode'])};
+const designAnalysis={$id:'urn:obninsk:engine:design-analysis',...object({placementAware:{type:'boolean'},scenario:{$ref:scenario.$id},profileId:id,kind:schema.$defs.destination.properties.kind,mode:{enum:['importance','needs','vulnerability','relocation','compare']},objectId:id,point:{type:'array',items:{type:'number',minimum:-100000,maximum:100000},minItems:2,maxItems:2},scenarios:{type:'array',minItems:2,maxItems:8,items:object({name:{type:'string',minLength:1,maxLength:120},scenario:{$ref:scenario.$id}})}},['scenario','profileId','kind','mode'])};
 ajv.addSchema(designAnalysis);
 const request = {$id: 'urn:obninsk:engine:request', oneOf: [
   object({type: {const: 'init'}, requestId: id, dataset: {$ref: schema.$id}, options: {$ref: options.$id}}, ['type', 'requestId', 'dataset']),

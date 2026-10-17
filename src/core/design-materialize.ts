@@ -1,6 +1,13 @@
 import type { DistrictData, DesignState, EditableObject, XY, CostItem } from './types.js';
 import { requireCondition } from './errors.js';
 import {
+  siteProblem,
+  suggestPlacement,
+  PLACEMENT_RULES,
+  polygonsOverlap,
+  siteAccessPoint,
+} from './placement.js';
+import {
   autoParkEntrances,
   nearestNetworkPoint,
   polygonArea,
@@ -20,6 +27,7 @@ import {
   REMOVE_COST_RUB,
   DEFAULT_CAPACITY,
   CAPACITY_FACTORS,
+  capacityFactor,
 } from './design-rules.js';
 
 export function applyDesign(
@@ -97,6 +105,60 @@ export function applyDesign(
     if (object.kind === 'park') {
       requireCondition(object.polygon, 'INVALID_SCENARIO', 'Нужна граница парка');
       validatePolygon(object.polygon, data.metadata.boundsM);
+      if (object.placementChecked)
+        requireCondition(
+          ![...source.roads, ...source.buildings].some((o) => polygonsOverlap(object.polygon!, o.polygon)),
+          'INVALID_SCENARIO',
+          'Новый парк пересекает дорогу или здание.',
+        );
+    }
+    if (object.placementChecked && object.kind === 'bus_stop') {
+      try {
+        suggestPlacement(
+          source,
+          'bus_stop',
+          object.entrances[0]!,
+          design.objects,
+          design.rules.snapDistanceM,
+        );
+      } catch (error) {
+        requireCondition(
+          false,
+          'INVALID_SCENARIO',
+          error instanceof Error ? error.message : 'Недопустимое место остановки',
+        );
+      }
+    }
+    if (object.placementChecked && PLACEMENT_RULES.siteSizesM[object.kind])
+      requireCondition(
+        object.site,
+        'INVALID_SCENARIO',
+        'Для нового объекта нужен свободный эскизный участок.',
+      );
+    if (object.site) {
+      validatePolygon(object.site, data.metadata.boundsM);
+      const problem = siteProblem(source, object.site, design.objects, object.id);
+      requireCondition(!problem, 'INVALID_SCENARIO', `«${object.name}»: ${problem}`);
+      const size = PLACEMENT_RULES.siteSizesM[object.kind];
+      if (object.placementChecked && size)
+        requireCondition(
+          polygonArea(object.site) + 0.001 >= size[0] * size[1],
+          'INVALID_SCENARIO',
+          'Эскизный участок меньше принятого размера для выбранного типа.',
+        );
+      requireCondition(
+        object.entrances.length === 1 && distanceToPolygon(object.entrances[0]!, object.site) <= 15,
+        'INVALID_SCENARIO',
+        'Вход должен находиться рядом с эскизным участком (не дальше 15 м).',
+      );
+      const boundary = nearestParcelPoint(object.entrances[0]!, object.site);
+      requireCondition(
+        ![...source.roads, ...source.buildings].some((o) =>
+          segmentEntersPolygon(object.entrances[0]!, boundary, o.polygon),
+        ),
+        'INVALID_SCENARIO',
+        'Вход к участку пересекает здание или дорогу.',
+      );
     }
     plans.push({ object, nodes: [], snaps: [] });
   }
@@ -105,7 +167,8 @@ export function applyDesign(
   const batches = [
     plans.filter((p) => p.object.kind === 'park' && p.object.throughAccess),
     plans.filter((p) => p.object.kind === 'park' && !p.object.throughAccess),
-    plans.filter((p) => p.object.kind !== 'park'),
+    plans.filter((p) => p.object.kind !== 'park' && p.object.site),
+    plans.filter((p) => p.object.kind !== 'park' && !p.object.site),
   ];
   for (const batch of batches) {
     for (const plan of batch) {
@@ -121,6 +184,22 @@ export function applyDesign(
           'INVALID_SCENARIO',
           `Объект «${object.name}»: рядом со входом нет тротуара или дорожки (предел ${design.rules.snapDistanceM} м)`,
         );
+        if (object.site)
+          requireCondition(
+            distanceToPolygon(snap.point, object.site) <= 15 &&
+              ![...source.roads, ...source.buildings].some((o) =>
+                segmentEntersPolygon(snap.point, nearestParcelPoint(snap.point, object.site!), o.polygon),
+              ),
+            'INVALID_SCENARIO',
+            'Реальный вход с дорожки должен быть рядом с участком и не пересекать дорогу или здание.',
+          );
+        if (object.placementChecked && object.kind === 'parking')
+          requireCondition(
+            Math.min(...source.roads.map((r) => distanceToPolygon(snap.point, r.polygon))) <=
+              PLACEMENT_RULES.roadAccessM,
+            'INVALID_SCENARIO',
+            'Парковке нужен доступ к улице.',
+          );
         if (object.kind === 'park') {
           const original = source.destinations.find((d) => d.id === object.id);
           const originalPolygon = source.parcels.find((p) => p.id === original?.parcelId)?.polygon;
@@ -206,6 +285,39 @@ export function applyDesign(
       }
     }
     for (const { object, nodes, snaps } of batch) {
+      if (object.site && nodes[0]) {
+        const anchor = data.nodes.find((n) => n.id === nodes[0])!.xy;
+        const door = siteAccessPoint(object.site, object.kind, [...anchor]);
+        requireCondition(
+          pointInPolygon(door, object.site) &&
+            ![...source.roads, ...source.buildings].some((o) =>
+              segmentEntersPolygon([...anchor], door, o.polygon),
+            ),
+          'INVALID_SCENARIO',
+          'Не удаётся построить безопасный подход от сети к объекту.',
+        );
+        const lengthM = Math.hypot(door[0] - anchor[0], door[1] - anchor[1]);
+        if (lengthM > 0.01) {
+          const entry = uid('entrance');
+          data.nodes.push({ id: entry, xy: door, active: true, kind: 'building_entrance', blockId: null });
+          data.edges.push({
+            id: uid('approach'),
+            from: nodes[0],
+            to: entry,
+            geometry: [[...anchor], door],
+            lengthM,
+            kind: 'access',
+            active: true,
+            bidirectional: true,
+            surface: 'paving',
+            widthM: PLACEMENT_RULES.approachWidthM,
+            slope: 0,
+            stairs: false,
+            crossing: null,
+          });
+          nodes[0] = entry;
+        }
+      }
       const old = source.destinations.find((d) => d.id === object.id);
       const oldPoints = old?.accessNodeIds.map((id) => source.nodes.find((n) => n.id === id)!.xy) ?? [];
       const moved =
@@ -307,7 +419,7 @@ export function applyDesign(
             )
           : object.capacity === null
             ? null
-            : Math.floor(object.capacity * CAPACITY_FACTORS[object.level]);
+            : Math.floor(object.capacity * capacityFactor(object.kind, object.level));
       const destination = {
         id: object.id,
         name: object.name,

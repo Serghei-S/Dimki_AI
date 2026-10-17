@@ -1,11 +1,19 @@
 import { loadEnv } from 'vite';
 import { createAssistantMiddleware } from './assistant-api.mjs';
+import { resolveAssistantProvider } from './assistant-provider.mjs';
 export function assistantPlugin() {
   let root = process.cwd(),
     mode = 'development';
+  const environment = () => ({
+    ...loadEnv(mode, root, ['AI_', 'RISKRADAR_', 'OPENROUTER_']),
+    ...process.env,
+  });
   const middleware = createAssistantMiddleware({
-    getKey: () =>
-      process.env.OPENROUTER_API_KEY || loadEnv(mode, root, 'OPENROUTER_').OPENROUTER_API_KEY || '',
+    getProvider: () => resolveAssistantProvider(environment()),
+    getKey: () => {
+      const env = environment();
+      return env[resolveAssistantProvider(env).keyVariable] || '';
+    },
   });
   return {
     name: 'dimki-assistant-api',

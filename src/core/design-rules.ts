@@ -15,6 +15,9 @@ export const OBJECT_KINDS: Record<Destination['kind'], string> = {
   grocery: 'Магазин',
   park: 'Парк / сквер',
   community: 'Районный центр',
+  parking: 'Парковка',
+  playground: 'Детская площадка',
+  waste_bin: 'Урна',
 };
 export const LEVEL_NAMES: Record<Destination['kind'], readonly string[]> = {
   bus_stop: ['Обычная', 'С навесом', 'Хаб'],
@@ -23,6 +26,9 @@ export const LEVEL_NAMES: Record<Destination['kind'], readonly string[]> = {
   clinic: ['Базовая', 'Расширенная', 'Медцентр'],
   grocery: ['Магазин', 'Супермаркет', 'Торговый центр'],
   community: ['Базовый', 'Расширенный', 'Многофункциональный'],
+  parking: ['Открытая', 'С освещением', 'С благоустройством'],
+  playground: ['Базовая', 'Расширенная', 'Инклюзивная'],
+  waste_bin: ['Обычная', 'Раздельный сбор', 'С навесом'],
 };
 export const DESIGN_COSTS: Record<Destination['kind'], readonly number[]> = {
   bus_stop: [400000, 700000, 1500000],
@@ -31,6 +37,9 @@ export const DESIGN_COSTS: Record<Destination['kind'], readonly number[]> = {
   clinic: [2000000, 3000000, 5000000],
   grocery: [300000, 500000, 900000],
   community: [700000, 1000000, 1500000],
+  parking: [600000, 800000, 1000000],
+  playground: [450000, 700000, 1100000],
+  waste_bin: [15000, 30000, 60000],
 };
 export const DEFAULT_CAPACITY: Record<Destination['kind'], number> = {
   bus_stop: 100,
@@ -39,8 +48,14 @@ export const DEFAULT_CAPACITY: Record<Destination['kind'], number> = {
   clinic: 200,
   grocery: 100,
   community: 200,
+  parking: 12,
+  playground: 25,
+  waste_bin: 1,
 };
 export const CAPACITY_FACTORS = [1, 1.25, 1.5] as const;
+export function capacityFactor(kind: Destination['kind'], level: 0 | 1 | 2): number {
+  return ['parking', 'playground', 'waste_bin'].includes(kind) ? 1 : CAPACITY_FACTORS[level];
+}
 export const STOP_HEADWAYS = [900, 600, 300] as const;
 export const MOVE_COST_RUB = 100000,
   REMOVE_COST_RUB = 50000;

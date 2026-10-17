@@ -1,10 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import Ajv from 'ajv';
 import { createServer, request as httpRequest } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { createPlanningEngine } from '../../dist/engine.js';
 import { makeReport, aiContext } from '../../dist/report.js';
-import { createAssistantMiddleware, parseNarrative, FREE_MODEL } from '../../scripts/assistant-api.mjs';
+import { resolveAssistantProvider } from '../../scripts/assistant-provider.mjs';
+import {
+  createAssistantMiddleware,
+  parseNarrative,
+  FREE_MODEL,
+  FREE_MODEL_NAME,
+  FREE_FALLBACK_MODELS,
+} from '../../scripts/assistant-api.mjs';
 const data = JSON.parse(await readFile(new URL('../../data/obninsk-center.json', import.meta.url), 'utf8'));
 const engine = await createPlanningEngine(data),
   scenario = { projectIds: [], budgetRub: 8000000 };
@@ -76,11 +84,50 @@ test('missing key is explicit; status never reveals credentials and report gener
   assert.deepEqual(await (await fetch(f.url + '/api/assistant/status')).json(), {
     configured: false,
     model: FREE_MODEL,
+    modelName: FREE_MODEL_NAME,
+    fallbackModels: [...FREE_FALLBACK_MODELS],
+    provider: 'OpenRouter',
+    billing: 'free',
+    keyVariable: 'OPENROUTER_API_KEY',
+    setupUrl: 'https://openrouter.ai/settings/keys',
   });
   const response = await f.post();
   assert.equal(response.status, 503);
   assert.equal((await response.json()).code, 'NOT_CONFIGURED');
   assert.equal(calls, 0);
+});
+test('RiskRadar uses its own endpoint, key and model without OpenRouter routing parameters', async (t) => {
+  const provider = resolveAssistantProvider({
+    AI_PROVIDER: 'riskradar',
+    OPENROUTER_API_KEY: 'must-not-be-used',
+  });
+  assert.equal(provider.keyVariable, 'RISKRADAR_API_KEY');
+  let sent;
+  const f = await fixture(t, {
+    getProvider: () => provider,
+    getKey: () => 'riskradar-test-key',
+    fetchImpl: async (url, options) => {
+      sent = { url, ...options };
+      return Response.json({
+        model: 'gemini-2.5-flash',
+        choices: [{ finish_reason: 'stop', message: { content: JSON.stringify(narrative) } }],
+      });
+    },
+  });
+  const status = await (await fetch(f.url + '/api/assistant/status')).json();
+  assert.equal(status.provider, 'RiskRadar');
+  assert.equal(status.billing, 'prepaid');
+  assert(!JSON.stringify(status).includes('riskradar-test-key'));
+  const response = await f.post({ ...input, model: 'another-model', url: 'https://evil.test' });
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).ai.provider, 'RiskRadar');
+  assert.equal(sent.url, 'https://riskradarai.ru/v1/chat/completions');
+  assert.equal(sent.headers.Authorization, 'Bearer riskradar-test-key');
+  const body = JSON.parse(sent.body);
+  assert.equal(body.model, 'gemini-2.5-flash');
+  for (const field of ['models', 'provider', 'reasoning']) assert(!(field in body));
+  assert(!sent.body.includes('must-not-be-used'));
+  assert.throws(() => resolveAssistantProvider({ AI_PROVIDER: 'arbitrary' }));
 });
 test('server recomputes metrics, ignores injected client facts/model and calls only the free endpoint', async (t) => {
   let sent;
@@ -97,7 +144,24 @@ test('server recomputes metrics, ignores injected client facts/model and calls o
   assert.deepEqual(result.report.facts, report.facts);
   const body = JSON.parse(sent.body);
   assert.equal(sent.url, 'https://openrouter.ai/api/v1/chat/completions');
-  assert.equal(body.model, 'openrouter/free');
+  assert.deepEqual(body.models, [FREE_MODEL, ...FREE_FALLBACK_MODELS]);
+  assert.equal(body.models[0], 'nvidia/nemotron-3.5-super-vl:free');
+  assert.equal(new Set(body.models).size, body.models.length);
+  assert(body.models.every((id) => id.endsWith(':free') || id === 'openrouter/free'));
+  assert.deepEqual(body.provider, {
+    require_parameters: true,
+    max_price: { prompt: 0, completion: 0, request: 0 },
+  });
+  assert(body.max_tokens > body.reasoning.max_tokens);
+  const validate = new Ajv({ strict: true }).compile(body.response_format.json_schema.schema);
+  assert(validate(narrative));
+  const tooMany = { ...narrative, findings: Array.from({ length: 9 }, () => narrative.findings[0]) };
+  assert.equal(validate(tooMany), false);
+  const numeric = structuredClone(narrative);
+  numeric.findings[0].text = 'Выиграли 900 жителей';
+  assert.equal(validate(numeric), false);
+  numeric.findings[0].text = 'x'.repeat(1601);
+  assert.equal(validate(numeric), false);
   const outbound = JSON.parse(body.messages[1].content);
   assert.deepEqual(outbound.DATA.facts, report.facts);
   assert(!('buildings' in outbound.DATA));
@@ -168,6 +232,25 @@ test('AI prose must cite known facts and cannot invent numeric metrics', () => {
   assert.throws(() => parseNarrative(JSON.stringify(numbers), report.facts));
   assert.throws(() => parseNarrative('not json', report.facts));
   assert.throws(() => parseNarrative('{}', report.facts));
+});
+
+test('network or account access denial is distinguished from an invalid key without exposing provider details', async (t) => {
+  const denied = await fixture(t, {
+    getReport: async () => report,
+    fetchImpl: async () =>
+      Response.json({ error: 'Access denied by security policy. SECRET' }, { status: 403 }),
+  });
+  const result = await denied.post();
+  assert.equal(result.status, 502);
+  const body = await result.json();
+  assert(body.error.includes('HTTP 403'));
+  assert(!body.error.includes('SECRET'));
+  assert(!body.error.includes('не принял ключ'));
+  const invalid = await fixture(t, {
+    getReport: async () => report,
+    fetchImpl: async () => Response.json({ error: 'SECRET' }, { status: 401 }),
+  });
+  assert((await (await invalid.post()).json()).error.includes('не принял ключ'));
 });
 test('timeout aborts upstream request and returns a recoverable error', async (t) => {
   let aborted = false;

@@ -891,7 +891,10 @@
             "school",
             "clinic",
             "grocery",
-            "community"
+            "community",
+            "parking",
+            "playground",
+            "waste_bin"
           ]
         },
         "active": {

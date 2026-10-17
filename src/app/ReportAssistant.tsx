@@ -25,6 +25,13 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
   const [report, setReport] = useState(snapshot),
     [ai, setAi] = useState<AiResult | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'missing' | 'offline'>('loading');
+  const [modelName, setModelName] = useState<string | null>(null);
+  const [provider, setProvider] = useState({
+    name: 'OpenRouter',
+    billing: 'free',
+    keyVariable: 'OPENROUTER_API_KEY',
+    setupUrl: 'https://openrouter.ai/settings/keys',
+  });
   const [mode, setMode] = useState<(typeof modes)[number]['id']>('summary'),
     [question, setQuestion] = useState('');
   const [pending, setPending] = useState(false),
@@ -54,8 +61,32 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
     try {
       const response = await fetch('/api/assistant/status', { signal: controller.signal });
       if (!response.ok) throw new Error();
-      const result = (await response.json()) as { configured?: boolean };
-      if (!controller.signal.aborted) setStatus(result.configured ? 'ready' : 'missing');
+      const result = (await response.json()) as {
+        configured?: boolean;
+        modelName?: string;
+        model?: string;
+        provider?: string;
+        billing?: string;
+        keyVariable?: string;
+      };
+      if (!controller.signal.aborted) {
+        setStatus(result.configured ? 'ready' : 'missing');
+        setModelName(result.modelName ?? result.model ?? null);
+        if (result.provider === 'RiskRadar')
+          setProvider({
+            name: 'RiskRadar',
+            billing: 'prepaid',
+            keyVariable: 'RISKRADAR_API_KEY',
+            setupUrl: 'https://riskradarai.ru/v1',
+          });
+        else
+          setProvider({
+            name: 'OpenRouter',
+            billing: 'free',
+            keyVariable: 'OPENROUTER_API_KEY',
+            setupUrl: 'https://openrouter.ai/settings/keys',
+          });
+      }
     } catch {
       if (!controller.signal.aborted) setStatus('offline');
     } finally {
@@ -256,7 +287,7 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
           <div className={`report-ai-status report-ai-status--${status}`}>
             <i />
             {status === 'ready'
-              ? 'Ключ настроен · бесплатный режим'
+              ? `Ключ настроен · ${provider.name}`
               : status === 'loading'
                 ? 'Проверяем настройки…'
                 : status === 'missing'
@@ -270,20 +301,29 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
               <RefreshCw size={14} />
             </button>
           </div>
+          {modelName && (
+            <p className="report-model-note">
+              {provider.name} · <b>{modelName}</b>.{' '}
+              {provider.billing === 'prepaid'
+                ? 'Запросы расходуют оплаченную квоту сервиса.'
+                : 'Бесплатный режим с бесплатным резервом.'}{' '}
+              Фактическая модель указана под ответом.
+            </p>
+          )}
           {status === 'missing' && (
             <details className="report-setup" open>
-              <summary>Подключить бесплатный AI</summary>
+              <summary>Подключить AI · {provider.name}</summary>
               <ol>
                 <li>
                   Создайте ключ в{' '}
-                  <a href="https://openrouter.ai/settings/keys" target="_blank" rel="noreferrer">
-                    OpenRouter ↗
+                  <a href={provider.setupUrl} target="_blank" rel="noreferrer">
+                    {provider.name} ↗
                   </a>
                   .
                 </li>
                 <li>
                   Скопируйте <code>.env.example</code> в <code>.env.local</code> в папке проекта и заполните{' '}
-                  <code>OPENROUTER_API_KEY</code>.
+                  <code>{provider.keyVariable}</code>.
                 </li>
                 <li>Нажмите проверку подключения выше. Ключ остаётся на локальном сервере.</li>
               </ol>
@@ -341,7 +381,7 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
           </div>
           {pending && (
             <p className="studio-note" role="status">
-              Пересчитываем сценарий и ждём бесплатную модель. Это может занять до полутора минут.
+              Пересчитываем сценарий и ждём ответ модели. Это может занять до полутора минут.
             </p>
           )}
           {error && (
@@ -351,7 +391,10 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
           )}
           {ai ? (
             <div className="report-ai-result" aria-live="polite">
-              <small>AI-черновик · {ai.model}</small>
+              <small>
+                AI-черновик · {ai.provider ? `${ai.provider} · ` : ''}
+                {ai.model}
+              </small>
               <p className="studio-note">
                 Проверьте интерпретацию перед использованием. Числа в основаниях взяты из расчётного ядра.
               </p>

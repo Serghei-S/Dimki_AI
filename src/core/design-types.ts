@@ -22,6 +22,9 @@ export interface EditableObject {
   capacity: number | null;
   entrances: XY[];
   polygon: XY[] | null;
+  /** Reserved concept site; not a cadastral plot or a verified building footprint. */
+  site?: XY[];
+  placementChecked?: boolean;
   autoEntrances: boolean;
   throughAccess: boolean;
 }
@@ -67,6 +70,7 @@ export interface ObjectImportance {
   effectiveCapacity: number | null;
 }
 export interface NeedCandidate {
+  accessDistanceM?: number;
   id: string;
   edgeId: string;
   point: XY;
@@ -87,6 +91,7 @@ export interface EdgeVulnerability {
   affectedResidents: number;
 }
 export interface DesignAnalysisInput {
+  placementAware?: boolean;
   scenario: ScenarioInput;
   profileId: string;
   kind: Destination['kind'];

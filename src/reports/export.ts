@@ -67,7 +67,7 @@ export function reportMarkdown(report: PlanningReport, ai: AiResult | null): str
     out.push(
       '',
       '## AI-помощник · черновик',
-      `Модель: ${markdown(ai.model)}. ${markdown(ai.createdAt)}`,
+      `Модель: ${markdown(ai.provider ? `${ai.provider} · ${ai.model}` : ai.model)}. ${markdown(ai.createdAt)}`,
       `Запрос: ${markdown(ai.question)}`,
     );
     for (const [name, items] of [
@@ -119,7 +119,7 @@ body{font:14px/1.65 system-ui,sans-serif;color:#1e2d45;margin:40px auto;padding:
 </style></head><body><h1>Димки AI</h1><p>${h(report.district)} · ${h(report.profileName)}</p><small>Отчёт от ${h(report.createdAt)}<br>Набор: ${h(report.datasetId)} · ${h(report.datasetVersion)}<br>SHA256: ${h(report.datasetSha256)}</small>
 <h2>Сравнение сценария</h2><table><thead><tr><th>Категория</th><th>Охват до, %</th><th>Охват после, %</th><th>Изменение пути, мин</th><th>Стало хуже, жителей</th><th>Потеряли путь</th></tr></thead><tbody>${report.metrics.map((m) => `<tr><td>${h(m.name)}</td><td>${h(m.beforeCoverage === null ? '—' : m.beforeCoverage.toFixed(1))}</td><td>${h(m.afterCoverage === null ? '—' : m.afterCoverage.toFixed(1))}</td><td>${h(m.commonMeanChangeMinutes === null ? '—' : m.commonMeanChangeMinutes.toFixed(2))}</td><td>${h(m.worsened)}</td><td>${h(m.lostAccess)}</td></tr>`).join('')}</tbody></table><p class="source">Изменение пути: после − до, только для жителей, достижимых в обоих состояниях. Минус — улучшение. Потерявшие путь входят в число тех, кому стало хуже. Жители разных категорий не суммируются.</p>
 <h2>Изменения</h2><ul>${(report.changes.length ? report.changes : ['Исходное состояние, без изменений.']).map((x) => `<li>${h(x)}</li>`).join('')}</ul>
-${ai ? `<h2>AI-помощник · черновик</h2><small>Модель: ${h(ai.model)} · ${h(ai.createdAt)}</small><p>Запрос: ${h(ai.question)}</p><h3>Выводы</h3>${findings(ai.narrative.findings)}<h3>Рекомендации</h3>${findings(ai.narrative.recommendations)}<ul>${ai.narrative.limitations.map((x) => `<li>${h(x)}</li>`).join('')}</ul>` : ''}
+${ai ? `<h2>AI-помощник · черновик</h2><small>Модель: ${h(ai.provider ? `${ai.provider} · ${ai.model}` : ai.model)} · ${h(ai.createdAt)}</small><p>Запрос: ${h(ai.question)}</p><h3>Выводы</h3>${findings(ai.narrative.findings)}<h3>Рекомендации</h3>${findings(ai.narrative.recommendations)}<ul>${ai.narrative.limitations.map((x) => `<li>${h(x)}</li>`).join('')}</ul>` : ''}
 <h2>Показатели расчётного ядра</h2><table><thead><tr><th>Показатель</th><th>Значение</th><th>Основание</th></tr></thead><tbody>${report.facts.map((f) => `<tr><td>${h(f.label)}</td><td>${h(formatFact(f))}</td><td><small>${h(f.id)}</small><br>${h(f.method)}</td></tr>`).join('')}</tbody></table>
 <h2>Допущения и ограничения</h2><ul>${report.limitations.map((x) => `<li>${h(x)}</li>`).join('')}</ul><h2>Параметры расчёта</h2><pre>${h(JSON.stringify(report.assumptions, null, 2))}</pre></body></html>`;
 }

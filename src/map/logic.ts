@@ -10,3 +10,5 @@ export {
   sampleHomes,
 } from '../app/state.js';
 export { upsertObject, dragObject } from '../app/design-state.js';
+export { projectLocations } from './focus.js';
+export { suggestPlacement, siteProblem, polygonsOverlap, PLACEMENT_RULES } from '../core/placement.js';

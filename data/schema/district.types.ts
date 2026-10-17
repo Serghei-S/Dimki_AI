@@ -161,7 +161,7 @@ export type Building = {
 export type Destination = {
   "id": string;
   "name": string;
-  "kind": "bus_stop" | "park" | "school" | "clinic" | "grocery" | "community";
+  "kind": "bus_stop" | "park" | "school" | "clinic" | "grocery" | "community" | "parking" | "playground" | "waste_bin";
   "active": boolean;
   "accessNodeIds": (string)[];
   "parcelId": string | null;

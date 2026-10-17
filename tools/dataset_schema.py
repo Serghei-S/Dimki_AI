@@ -63,7 +63,7 @@ def build_schema():
                             'blockId': identifier, 'parcelId': identifier, 'polygon': ring, 'footprintAreaM2': num(1),
                             'floors': num(1, 50, True), 'heightM': num(1, 200), 'entranceNodeIds': arr(identifier, 1, True),
                             'population': nullable(ref('population'))})
-    defs['destination'] = obj({'id': identifier, 'name': text, 'kind': enum('bus_stop', 'park', 'school', 'clinic', 'grocery', 'community'),
+    defs['destination'] = obj({'id': identifier, 'name': text, 'kind': enum('bus_stop', 'park', 'school', 'clinic', 'grocery', 'community', 'parking', 'playground', 'waste_bin'),
                                'active': flag, 'accessNodeIds': arr(identifier, 1, True), 'parcelId': nullable(identifier),
                                'buildingId': nullable(identifier), 'stopBayId': nullable(identifier), 'capacity': nullable(num(1, integer=True)),
                                'openingHours': text, 'routeIds': ids})

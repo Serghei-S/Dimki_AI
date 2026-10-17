@@ -2,11 +2,14 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import { GIS_THEME } from '../map/theme.js';
 import { DistrictScene } from '../map/scene.js';
 import type { MapState, SceneCallbacks, ViewSettings } from '../map/types.js';
+import type { XY } from '../core/types.js';
 
 export interface MapHandle {
   home: () => void;
   zoom: (factor: number) => void;
   focus: (id: string) => void;
+  focusLocations: (points: readonly XY[]) => void;
+  focusProjects: (ids: readonly string[]) => void;
   screenshot: () => Promise<Blob>;
 }
 interface Props {
@@ -29,6 +32,8 @@ export const MapViewport = forwardRef<MapHandle, Props>(function MapViewport(
       home: () => scene.current?.home(),
       zoom: (f) => scene.current?.zoom(f),
       focus: (id) => scene.current?.focus(id),
+      focusLocations: (points) => scene.current?.focusLocations(points),
+      focusProjects: (ids) => scene.current?.focusProjects(ids),
       screenshot: () =>
         scene.current ? scene.current.screenshot() : Promise.reject(new Error('3D-карта недоступна')),
     }),

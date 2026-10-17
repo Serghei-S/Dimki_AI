@@ -3,8 +3,9 @@ import { GIS_THEME } from './theme.js';
 import type { DeepReadonly, DistrictData, DesignState, XY } from '../core/types.js';
 import type { EditHandle, EditorView } from './editor-types.js';
 import { EMPTY_EDITOR } from './editor-types.js';
-import { disposeObject, world, bounds, lineSegments } from './geometry.js';
+import { disposeObject, world, bounds, lineSegments, flatPolygon } from './geometry.js';
 import { pointAlong } from '../core/design-geometry.js';
+import { PLACEMENT_RULES } from '../core/placement.js';
 export class EditorLayer {
   readonly group = new THREE.Group();
   pickables: THREE.Object3D[] = [];
@@ -26,6 +27,57 @@ export class EditorLayer {
         ),
       );
     const markers: { point: XY; height: number; size: number; color: string; handle: EditHandle }[] = [];
+    for (const object of design?.objects ?? []) {
+      if (!object.active || !object.site) continue;
+      const color =
+        object.kind === 'playground' ? '#e8b45a' : object.kind === 'parking' ? '#879aaf' : '#5895db';
+      this.group.add(
+        flatPolygon(
+          object.site,
+          new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.38, depthWrite: false }),
+          0.85,
+        ),
+      );
+      this.group.add(lineSegments(object.site, 1.05, color));
+      if (['school', 'clinic', 'grocery', 'community'].includes(object.kind)) {
+        const b = bounds(object.site),
+          height = PLACEMENT_RULES.buildingHeightsM[object.kind] ?? 7;
+        const body = new THREE.Mesh(
+          new THREE.BoxGeometry(
+            b.width * PLACEMENT_RULES.buildingFootprintFactor,
+            height,
+            b.depth * PLACEMENT_RULES.buildingFootprintFactor,
+          ),
+          new THREE.MeshStandardMaterial({ color, roughness: 0.8 }),
+        );
+        body.position.copy(world(b.center, height / 2 + 1));
+        body.castShadow = true;
+        body.receiveShadow = true;
+        body.userData.handles = [{ id: object.id, part: 'object', index: 0 }];
+        body.userData.selectionId = object.id;
+        this.group.add(body);
+        this.pickables.push(body);
+      } else if (object.kind === 'parking') {
+        for (let i = 0; i < 6; i++) {
+          const b = bounds(object.site),
+            p: XY = [b.center[0] - b.width * 0.4 + i * b.width * 0.16, b.center[1]];
+          const car = new THREE.Mesh(
+            new THREE.BoxGeometry(1.8, 1.3, 4),
+            new THREE.MeshStandardMaterial({ color: i % 2 ? '#e7edf4' : '#557daa' }),
+          );
+          car.position.copy(world(p, 1.5));
+          this.group.add(car);
+        }
+      } else if (object.kind === 'playground') {
+        const b = bounds(object.site);
+        const slide = new THREE.Mesh(
+          new THREE.ConeGeometry(4, 7, 4),
+          new THREE.MeshStandardMaterial({ color: '#ed9a59' }),
+        );
+        slide.position.copy(world(b.center, 4));
+        this.group.add(slide);
+      }
+    }
     for (const d of data.destinations.filter((d) => d.active)) {
       if (!view.active && !edited.has(d.id) && !d.id.startsWith('user_')) continue;
       const parcel = data.parcels.find((p) => p.id === d.parcelId),
@@ -199,7 +251,7 @@ export class EditorLayer {
     }
   }
   handle(hit: THREE.Intersection): EditHandle | null {
-    return (hit.object.userData.handles as EditHandle[] | undefined)?.[hit.instanceId ?? -1] ?? null;
+    return (hit.object.userData.handles as EditHandle[] | undefined)?.[hit.instanceId ?? 0] ?? null;
   }
   dispose(): void {
     disposeObject(this.group);

@@ -1,7 +1,7 @@
 import { readFile, stat } from 'node:fs/promises';
 
-export const FREE_MODEL = 'openrouter/free';
-const URL = 'https://openrouter.ai/api/v1/chat/completions';
+import { OPENROUTER_PROVIDER, providerRequest } from './assistant-provider.mjs';
+export { FREE_MODEL, FREE_MODEL_NAME, FREE_FALLBACK_MODELS } from './assistant-provider.mjs';
 const MAX_BODY = 128 * 1024;
 export class ApiError extends Error {
   constructor(status, message) {
@@ -128,13 +128,21 @@ export function parseNarrative(text, facts) {
   };
 }
 function responseSchema(facts) {
+  // Match parseNarrative so constrained decoding cannot produce an otherwise-valid
+  // response that our own bounds or numeric-prose checks would then reject.
+  const prose = (maxLength) => ({ type: 'string', minLength: 1, maxLength, pattern: '^[^0-9]+$' });
   const item = {
     type: 'object',
     additionalProperties: false,
     properties: {
-      title: { type: 'string' },
-      text: { type: 'string' },
-      evidenceIds: { type: 'array', items: { type: 'string', enum: facts.map((f) => f.id) } },
+      title: prose(120),
+      text: prose(1600),
+      evidenceIds: {
+        type: 'array',
+        minItems: 1,
+        maxItems: 6,
+        items: { type: 'string', enum: facts.map((f) => f.id) },
+      },
     },
     required: ['title', 'text', 'evidenceIds'],
   };
@@ -147,9 +155,9 @@ function responseSchema(facts) {
         type: 'object',
         additionalProperties: false,
         properties: {
-          findings: { type: 'array', items: item },
-          recommendations: { type: 'array', items: item },
-          limitations: { type: 'array', items: { type: 'string' } },
+          findings: { type: 'array', minItems: 1, maxItems: 8, items: item },
+          recommendations: { type: 'array', minItems: 1, maxItems: 8, items: item },
+          limitations: { type: 'array', minItems: 1, maxItems: 6, items: prose(600) },
         },
         required: ['findings', 'recommendations', 'limitations'],
       },
@@ -193,6 +201,7 @@ const SYSTEM = `Ты аналитик городской пешеходной д
 /** Same-origin, loopback-only API. Neither arbitrary proxy URLs nor API keys are accepted from clients. */
 export function createAssistantMiddleware({
   getKey,
+  getProvider = () => OPENROUTER_PROVIDER,
   fetchImpl = fetch,
   getReport = calculateReport,
   contextForReport,
@@ -219,8 +228,23 @@ export function createAssistantMiddleware({
       req.headers['sec-fetch-site'] === 'cross-site'
     )
       return send(403, { error: 'Доступ разрешён только из локального приложения.' });
+    let provider;
+    try {
+      provider = getProvider();
+    } catch {
+      return send(503, { error: 'Проверьте AI_PROVIDER и настройки модели в .env.local.' });
+    }
     if (path === '/api/assistant/status' && req.method === 'GET')
-      return send(200, { configured: Boolean(getKey?.()?.trim()), model: FREE_MODEL });
+      return send(200, {
+        configured: Boolean(getKey?.()?.trim()),
+        model: provider.model,
+        modelName: provider.modelName,
+        fallbackModels: provider.fallbackModels,
+        provider: provider.name,
+        billing: provider.billing,
+        keyVariable: provider.keyVariable,
+        setupUrl: provider.setupUrl,
+      });
     if (path !== '/api/assistant/analyze') return send(404, { error: 'Неизвестный метод' });
     if (req.method !== 'POST') return send(405, { error: 'Используйте POST' });
     if (!req.headers['content-type']?.startsWith('application/json'))
@@ -229,7 +253,7 @@ export function createAssistantMiddleware({
     const key = getKey?.()?.trim();
     if (!key)
       return send(503, {
-        error: 'Добавьте OPENROUTER_API_KEY в .env.local. Расчётный отчёт и экспорт работают без ключа.',
+        error: `Добавьте ${provider.keyVariable} в .env.local. Расчётный отчёт и экспорт работают без ключа.`,
         code: 'NOT_CONFIGURED',
       });
     requests = requests.filter((t) => now() - t < 60000);
@@ -263,33 +287,37 @@ export function createAssistantMiddleware({
       const context = contextForReport
         ? contextForReport(report)
         : (await import('../dist/report.js')).aiContext(report);
-      const upstream = await fetchImpl(URL, {
+      const upstream = await fetchImpl(provider.url, {
         method: 'POST',
         signal: controller.signal,
         headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: FREE_MODEL,
-          temperature: 0.2,
-          max_tokens: 4500,
-          response_format: responseSchema(report.facts),
-          messages: [
-            { role: 'system', content: SYSTEM },
-            {
-              role: 'user',
-              content: JSON.stringify({ task: input.mode, question: input.question, DATA: context }),
-            },
-          ],
-        }),
+        body: JSON.stringify(
+          providerRequest(
+            provider,
+            [
+              { role: 'system', content: SYSTEM },
+              {
+                role: 'user',
+                content: JSON.stringify({ task: input.mode, question: input.question, DATA: context }),
+              },
+            ],
+            responseSchema(report.facts),
+          ),
+        ),
       });
       if (!upstream.ok) {
         await upstream.body?.cancel();
         throw new ApiError(
           upstream.status === 429 ? 429 : 502,
-          upstream.status === 401 || upstream.status === 403
-            ? 'OpenRouter не принял ключ. Проверьте .env.local.'
-            : upstream.status === 429
-              ? 'Лимит бесплатной модели исчерпан. Повторите позже; обычный отчёт доступен.'
-              : 'Бесплатная модель сейчас недоступна. Повторите позже.',
+          upstream.status === 401
+            ? `${provider.name} не принял ключ. Проверьте .env.local.`
+            : upstream.status === 403
+              ? `Доступ к ${provider.name} запрещён (HTTP 403). Проверьте ограничения сети и доступ аккаунта; это не подтверждает ошибку ключа.`
+              : upstream.status === 429
+                ? 'Лимит запросов AI-сервиса исчерпан. Повторите позже; обычный отчёт доступен.'
+                : upstream.status === 402
+                  ? `${provider.name}: недостаточно оплаченного баланса или квоты токенов.`
+                  : `${provider.name}: модель сейчас недоступна. Повторите позже.`,
         );
       }
       const response = await limitedJson(upstream);
@@ -300,7 +328,8 @@ export function createAssistantMiddleware({
       send(200, {
         report,
         ai: {
-          model: typeof response.model === 'string' ? response.model.slice(0, 150) : FREE_MODEL,
+          model: typeof response.model === 'string' ? response.model.slice(0, 150) : provider.model,
+          provider: provider.name,
           createdAt: new Date(now()).toISOString(),
           mode: input.mode,
           question: input.question,
