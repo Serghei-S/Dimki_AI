@@ -2,13 +2,14 @@ import * as THREE from 'three';
 import { MapControls } from 'three/addons/controls/MapControls.js';
 import type { DeepReadonly, DistrictData } from '../core/types.js';
 import { edgeBlockReason } from '../core/graph.js';
+import { ACTIVITY_RULES } from '../core/daily-activity.js';
 import { ResidentLayer } from './residents.js';
 import { FlowLayer } from './flow-layer.js';
 import { EditorLayer } from './editor-layer.js';
 import type { EditHandle } from './editor-types.js';
 import type { XY } from '../core/types.js';
 import { pointAlong, lengthOf, projectSegment } from '../core/design-geometry.js';
-import { createMotionPaths, deterministicRandom } from './motion.js';
+import { createActivityMotionPaths, deterministicRandom } from './motion.js';
 import { accessibilityColor, differenceColor } from './palette.js';
 import { GIS_THEME } from './theme.js';
 import {
@@ -58,7 +59,7 @@ const INITIAL: ViewSettings = {
   paused: false,
   speed: 20,
   agentCount: 360,
-  hour: 15,
+  hour: 8,
   planView: false,
   heightScale: 1.5,
 };
@@ -198,11 +199,11 @@ export class DistrictScene {
     this.#buildProjects();
     this.#buildLabels();
     this.#updateColors();
-    this.#flow.setData(state.data, state.loads);
+    this.#flow.setData(state.data, state.activity?.loads ?? { edges: [] }, ACTIVITY_RULES.flowDisplayScale);
     this.#editor.setData(state.data, state.editor, state.design);
     this.#updateMotion();
     this.#updateSelection();
-    this.#setLight(15);
+    this.#setLight(INITIAL.hour);
     this.#renderer.domElement.addEventListener('pointerdown', this.#onPointerDown, true);
     this.#renderer.domElement.addEventListener('pointerup', this.#onPointerUp);
     this.#renderer.domElement.addEventListener('pointermove', this.#onPointerMove);
@@ -927,12 +928,15 @@ export class DistrictScene {
     const profile = this.#state.data.profiles.find((p) => p.id === this.#state.profileId)!;
     const cap = this.#settings.quality === 'eco' ? 250 : this.#settings.quality === 'auto' ? 800 : 1600;
     if (reset)
-      this.#motionPaths = createMotionPaths(
-        this.#state.data,
-        { ...profile, surfaceSpeedFactors: { ...profile.surfaceSpeedFactors } },
-        this.#state.routes,
-      );
-    this.#residents.setPaths(this.#motionPaths, Math.min(cap, this.#settings.agentCount), reset);
+      this.#motionPaths = this.#state.activity
+        ? createActivityMotionPaths(
+            this.#state.data,
+            { ...profile, surfaceSpeedFactors: { ...profile.surfaceSpeedFactors } },
+            this.#state.activity.routes,
+          )
+        : [];
+    const count = this.#state.activity ? Math.ceil(this.#state.activity.expectedOnNetwork) : 0;
+    this.#residents.setPaths(this.#motionPaths, Math.min(cap, this.#settings.agentCount, count), reset);
   }
   #updateSelection(): void {
     this.#clear(this.#selection);
@@ -1010,10 +1014,11 @@ export class DistrictScene {
       this.#buildLabels();
       this.#renderer.shadowMap.needsUpdate = true;
     }
-    if (old.loads !== state.loads) this.#flow.setData(state.data, state.loads);
+    if (old.activity !== state.activity || old.data !== state.data)
+      this.#flow.setData(state.data, state.activity?.loads ?? { edges: [] }, ACTIVITY_RULES.flowDisplayScale);
     if (old.editor !== state.editor || old.data !== state.data)
       this.#editor.setData(state.data, state.editor, state.design);
-    if (old.routes !== state.routes || old.profileId !== state.profileId) this.#updateMotion();
+    if (old.activity !== state.activity || old.profileId !== state.profileId) this.#updateMotion();
     if (old.report !== state.report || old.metricId !== state.metricId) this.#updateColors();
     this.#updateSelection();
     this.#invalidate();

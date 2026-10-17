@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { createPlanningEngine } from '../../dist/engine.js';
+import { createPlanningEngine, accessDiagnostics } from '../../dist/engine.js';
 import { makeReport, aiContext, reportHtml, reportCsv, reportMarkdown, csvCell } from '../../dist/report.js';
 const data = JSON.parse(await readFile(new URL('../../data/obninsk-center.json', import.meta.url), 'utf8'));
 const engine = await createPlanningEngine(data);
@@ -18,6 +18,11 @@ test('report reconciles all five criteria and every house with the engine; avera
   for (const metric of report.metrics) {
     const a = changed.profiles.walk.destinations[metric.id];
     assert.equal(metric.afterCoverage, a.coveragePercent);
+    const quality=accessDiagnostics(changed.profiles.walk).categories.find(c=>c.id===metric.id);
+    assert.equal(metric.afterProximity,quality.score);
+    assert.equal(metric.afterP90Minutes,quality.p90Seconds===null?null:quality.p90Seconds/60);
+    assert.equal(metric.longRouteResidents,quality.longResidents);
+    assert.equal(report.facts.find(f=>f.id===`${metric.id}.proximity.after`).value,quality.score);
     assert.equal(metric.worsened, changed.changesFromBaseline.walk[metric.id].worsenedResidents);
     const rows = report.buildings.filter(
       (r) => r.metric === metric.id && r.beforeSeconds !== null && r.afterSeconds !== null,

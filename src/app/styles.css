@@ -4381,6 +4381,102 @@ input[type='checkbox'] {
   background: #edf4ff;
   border-color: #6e9fe3;
 }
+
+.access-problems {
+  display: grid;
+  gap: 7px;
+  margin: 14px 0 20px;
+}
+.access-problems > button {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  border: 1px solid #ecd7b4;
+  border-radius: 9px;
+  background: #fffbf3;
+  padding: 11px;
+  color: #81571b;
+}
+.access-problems span {
+  font-size: 11px;
+  line-height: 1.5;
+}
+.placement-quality {
+  padding: 10px;
+  border-left: 3px solid #dbad59;
+  background: #fffbf3;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.activity-panel {
+  flex-shrink: 0;
+  border-top: 1px solid var(--line);
+  padding: 11px 20px;
+  font-size: 11px;
+  line-height: 1.6;
+  background: #f8fafd;
+}
+.activity-panel[open] {
+  max-height: min(310px, 42vh);
+  overflow-y: auto;
+}
+.activity-panel > summary {
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 650;
+}
+.activity-panel summary small {
+  display: block;
+  margin-left: 14px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.activity-panel p {
+  color: var(--muted);
+}
+.activity-panel label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.activity-panel select {
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: inherit;
+}
+.activity-panel details > summary {
+  cursor: pointer;
+  color: var(--accent);
+}
+.activity-panel pre {
+  white-space: pre-wrap;
+  font-size: 10px;
+}
+.activity-time-options {
+  display: flex;
+  gap: 5px;
+  margin: 12px 0;
+}
+.activity-time-options button {
+  flex: 1;
+  border: 1px solid var(--line);
+  padding: 6px 4px;
+  background: white;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.activity-time-options button[aria-pressed='true'] {
+  background: #eaf2ff;
+  color: var(--accent);
+  border-color: #aac8f3;
+}
+.report-metric-detail {
+  flex-wrap: wrap;
+}
 .map-placement-hint {
   position: absolute;
   top: 151px;

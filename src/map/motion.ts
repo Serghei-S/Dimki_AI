@@ -1,5 +1,6 @@
 import type { DeepReadonly, DistrictData, Profile, RouteResult } from '../core/types.js';
 import { edgeTravelSeconds } from '../core/graph.js';
+import type { ActivityRoute } from '../core/types.js';
 
 export interface MotionLeg {
   startSeconds: number;
@@ -75,6 +76,20 @@ export function createMotionPaths(
     });
   }
   return result;
+}
+/** Visual samples represent the active traffic mix, not every resident on a repeated trip. */
+export function createActivityMotionPaths(
+  data: DeepReadonly<DistrictData>,
+  profile: Profile,
+  routes: readonly ActivityRoute[],
+): MotionPath[] {
+  return routes.flatMap((trip) =>
+    createMotionPaths(data, profile, [trip.route]).map((path) => ({
+      ...path,
+      residents: trip.expectedOnNetwork,
+      cycleSeconds: path.travelSeconds,
+    })),
+  );
 }
 export function sampleMotion(
   path: MotionPath,

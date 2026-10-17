@@ -1,6 +1,7 @@
 import type { DistrictData, Profile, Scenario, Destination } from '../../data/schema/district.types.js';
 import type { DesignState } from './design-types.js';
 export type * from './design-types.js';
+export type * from './activity-types.js';
 export type * from '../../data/schema/district.types.js';
 export type DeepReadonly<T> = T extends object ? { readonly [K in keyof T]: DeepReadonly<T[K]> } : T;
 

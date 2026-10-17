@@ -38,6 +38,7 @@ const request = {$id: 'urn:obninsk:engine:request', oneOf: [
   object({type: {const: 'route'}, requestId: id, scenario: {$ref: scenario.$id}, profileId: id, buildingId: id, metricId: id}),
   object({type: {const: 'routes'}, requestId: id, scenario: {$ref: scenario.$id}, profileId: id, buildingIds: {...ids, minItems: 1, maxItems: 1024}, metricId: id}),
   object({type: {const: 'network_access'}, requestId: id, scenario: {$ref: scenario.$id}, profileId: id, metricId: id}),
+  object({type:{const:'activity_snapshot'},requestId:id,scenario:{$ref:scenario.$id},profileId:id,options:object({hour:{type:'integer',minimum:0,maximum:23},dayType:{enum:['weekday','weekend']},includeRoutes:{type:'boolean'}},['hour','dayType'])}),
   object({type: {const: 'map_snapshot'}, requestId: id, scenario: {$ref: scenario.$id}, profileId: id, metricId: id, buildingIds: {...ids, maxItems:1024}}),
   object({type:{const:'design_analysis'},requestId:id,input:{$ref:designAnalysis.$id}}),
   object({type: {const: 'export_scenario'}, requestId: id, scenario: {$ref: scenario.$id}}),

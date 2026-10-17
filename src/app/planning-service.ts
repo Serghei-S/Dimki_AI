@@ -4,4 +4,5 @@ import type { EngineWorkerClient } from '../core/worker-client.js';
 export type PlanningService = Pick<
   EngineWorkerClient,
   'evaluate' | 'route' | 'mapSnapshot' | 'analyzeDesign' | 'optimize' | 'exportScenario' | 'importScenario' | 'dispose'
+  | 'activitySnapshot'
 >;

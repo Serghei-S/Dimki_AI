@@ -3,6 +3,7 @@ import type { DistrictData, DeepReadonly, EngineOptions, ScenarioInput, Scenario
 import { EngineError } from './errors.js';
 import type {MapSnapshot} from './types.js';
 import type {DesignAnalysisInput,DesignAnalysisResult} from './design-types.js';
+import type {ActivityInput,ActivitySnapshot} from './activity-types.js';
 
 export class EngineWorkerClient {
   #sequence = 0;
@@ -75,6 +76,7 @@ export class EngineWorkerClient {
   mapSnapshot(scenario: ScenarioRequest, profileId: string, metricId: string, buildingIds: readonly string[] = [], signal?: AbortSignal): Promise<MapSnapshot> {
     return this.#request({type:'map_snapshot', scenario, profileId, metricId, buildingIds}, signal);
   }
+  activitySnapshot(scenario:ScenarioRequest,profileId:string,options:ActivityInput,signal?:AbortSignal):Promise<ActivitySnapshot>{return this.#request({type:'activity_snapshot',scenario,profileId,options},signal);}
   analyzeDesign(input:DesignAnalysisInput,options:{signal?:AbortSignal;onProgress?:(progress:OptimizationProgress)=>void}={}):Promise<DesignAnalysisResult>{return this.#request({type:'design_analysis',input},options.signal,options.onProgress);}
   networkAccess(scenario: ScenarioRequest, profileId: string, metricId: string, signal?: AbortSignal) {
     return this.#request<{nodeId: string; travelSeconds: number | null; withinThreshold: boolean}[]>({type: 'network_access', scenario, profileId, metricId}, signal);

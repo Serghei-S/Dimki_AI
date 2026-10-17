@@ -8,11 +8,11 @@ export class FlowLayer {
   readonly group = new THREE.Group();
   mesh: THREE.InstancedMesh | null = null;
   #edgeIds: string[] = [];
-  setData(data: DeepReadonly<DistrictData>, report: EdgeLoadReport): void {
+  setData(data: DeepReadonly<DistrictData>, report: Pick<EdgeLoadReport, 'edges'>, scale?: number): void {
     for (const child of [...this.group.children]) disposeObject(child);
     const byId = new Map(report.edges.map((edge) => [edge.edgeId, edge]));
     const segments = data.edges.flatMap((edge) =>
-      byId.get(edge.id)?.eligible
+      byId.get(edge.id)?.eligible && byId.get(edge.id)!.load > 1e-8
         ? edge.geometry
             .slice(1)
             .map((b, i) => ({ edge, a: edge.geometry[i]!, b, load: byId.get(edge.id)!.load }))
@@ -56,7 +56,7 @@ export class FlowLayer {
       color = new THREE.Color();
     this.#edgeIds = [];
     segments.forEach(({ edge, a, b, load }, i) => {
-      const style = flowStyle(load),
+      const style = flowStyle(load, scale),
         dx = b[0] - a[0],
         dy = b[1] - a[1];
       dummy.position.copy(world([(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], 1.05));

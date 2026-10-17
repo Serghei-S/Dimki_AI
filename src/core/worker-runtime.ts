@@ -4,8 +4,10 @@ import type { DistrictData, EngineOptions, ScenarioInput, OptimizationInput, Opt
 import { assertSchema } from './validation.js';
 import { EngineError, requireCondition, serializeError } from './errors.js';
 import type {DesignAnalysisInput} from './design-types.js';
+import type {ActivityInput} from './activity-types.js';
 
 export type WorkerRequest =
+  | {type:'activity_snapshot';requestId:string;scenario:ScenarioInput;profileId:string;options:ActivityInput}
   | {type: 'init'; requestId: string; dataset: DistrictData; options?: EngineOptions}
   | {type: 'evaluate'; requestId: string; scenario: ScenarioInput; profileIds?: string[]}
   | {type: 'route'; requestId: string; scenario: ScenarioInput; profileId: string; buildingId: string; metricId: string}
@@ -59,6 +61,7 @@ export function createWorkerRuntime(send: (message: WorkerResponse) => void) {
         else if (request.type === 'routes') result = current.routes(request.scenario, request.profileId, request.buildingIds, request.metricId);
         else if (request.type === 'network_access') result = current.networkAccess(request.scenario, request.profileId, request.metricId);
         else if (request.type === 'map_snapshot') result = current.mapSnapshot(request.scenario, request.profileId, request.metricId, request.buildingIds);
+        else if(request.type==='activity_snapshot')result=current.activitySnapshot(request.scenario,request.profileId,request.options);
         else if (request.type === 'export_scenario') result = current.exportScenario(request.scenario);
         else if (request.type === 'import_scenario') result = current.importScenario(request.envelope);
         else if(request.type==='design_analysis')result=await current.analyzeDesign(request.input,{signal:controller.signal,onProgress:(done,total)=>{if(!controller.signal.aborted&&version===generation)send({type:'progress',requestId,progress:{processedSubsets:done,totalSubsets:total,feasibleSubsets:done}});}});

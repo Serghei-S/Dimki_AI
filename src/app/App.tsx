@@ -51,8 +51,12 @@ import type { PlanningService } from './planning-service.js';
 import type { MapState, SceneCallbacks, SceneStats, ViewSettings } from '../map/types.js';
 import { MapViewport } from './MapViewport.js';
 import { EnvironmentSummary } from './EnvironmentSummary.js';
+import { ActivityPanel } from './ActivityPanel.js';
+import { useActivity } from './useActivity.js';
+import type { DayType } from '../core/types.js';
 import { projectLocations } from '../map/focus.js';
 import { OBJECT_KINDS } from '../core/design-rules.js';
+import { ACCESS_DIAGNOSTICS_RULES } from '../core/access-diagnostics.js';
 import type { Analysis } from './useAnalysis.js';
 import type { MapHandle } from './MapViewport.js';
 import { connectEngine } from './engine-client.js';
@@ -249,6 +253,7 @@ function DistrictApp({
   const [previewScenario, setPreviewScenario] = useState<ScenarioInput | null>(null),
     [editorView, setEditorView] = useState<EditorView>(EMPTY_EDITOR);
   const [editorLaunch, setEditorLaunch] = useState(0);
+  const [dayType, setDayType] = useState<DayType>('weekday');
   const [reportSnapshot, setReportSnapshot] = useState<PlanningReport | null>(null);
   const editorEvents = useRef<EditorEvents | null>(null),
     costCache = useRef(new Map<string, number>());
@@ -274,7 +279,7 @@ function DistrictApp({
     paused: matchMedia('(prefers-reduced-motion: reduce)').matches,
     speed: 20,
     agentCount: 360,
-    hour: 15,
+    hour: 8,
     planView: false,
     heightScale: 1.5,
   }));
@@ -333,7 +338,12 @@ function DistrictApp({
     analysis: completedAnalysis,
     busy,
     error,
-  } = useAnalysis(client, data, effectiveScenario, profileId, metricId, settings.layers.residents);
+  } = useAnalysis(client, data, effectiveScenario, profileId, metricId, false);
+  const {
+    snapshot: activity,
+    busy: activityBusy,
+    error: activityError,
+  } = useActivity(client, effectiveScenario, profileId, settings.hour, dayType, settings.layers.residents);
   const analysis =
     completedAnalysis?.profileId === profileId &&
     completedAnalysis.metricId === metricId &&
@@ -352,14 +362,14 @@ function DistrictApp({
     : analysis;
   const selectedRoute = useSelectedRoute(client, analysis, selectedId);
   const selectedEdge = analysis?.district.edges.find((edge) => edge.id === selectedId);
-  const selectedLoad = analysis?.loads.edges.find((edge) => edge.edgeId === selectedId);
+  const selectedLoad = activity?.loads.edges.find((edge) => edge.edgeId === selectedId);
   const busiestEdges = useMemo(
     () =>
-      [...(analysis?.loads.edges ?? [])]
+      [...(activity?.loads.edges ?? [])]
         .filter((edge) => edge.load > 0)
         .sort((a, b) => b.load - a.load || a.edgeId.localeCompare(b.edgeId))
         .slice(0, 3),
-    [analysis],
+    [activity],
   );
   useEffect(() => {
     const controller = new AbortController();
@@ -420,6 +430,7 @@ function DistrictApp({
             projectIds: analysis.result.scenario.projectIds,
             routes: analysis.routes,
             loads: analysis.loads,
+            activity,
             geometryKey: JSON.stringify({
               projects: analysis.result.scenario.projectIds,
               operations: analysis.result.scenario.operationalOverrides ?? [],
@@ -430,7 +441,7 @@ function DistrictApp({
             ...(analysis.result.scenario.design ? { design: analysis.result.scenario.design } : {}),
           }
         : null,
-    [analysis, profileId, metricId, selectedId, selectedRoute],
+    [analysis, profileId, metricId, selectedId, selectedRoute, activity],
   );
   // During a profile/metric transition keep the last complete, internally consistent snapshot.
   const renderedState = useRef<MapState | null>(null);
@@ -441,16 +452,41 @@ function DistrictApp({
       renderedMap
         ? {
             ...renderedMap,
+            activity: mapState?.activity ?? null,
             editor: before ? EMPTY_EDITOR : editorView,
             selectedId,
             selectedRoute: renderedMap.selectedId === selectedId ? renderedMap.selectedRoute : null,
           }
         : null,
-    [renderedMap, editorView, selectedId, before],
+    [renderedMap, editorView, selectedId, before, mapState],
   );
   const report = analysis?.result.profiles[profileId],
     currentMetric = METRICS.find((m) => m.id === metricId)!,
     totals = report?.destinations[metricId];
+  function showMetricProblem(id: string) {
+    setMetricId(id);
+    setSettings((old) => ({ ...old, colorMode: 'accessibility' }));
+    const value = comparisonAnalysis;
+    if (!value) return;
+    const result = value.result.profiles[profileId]!;
+    const worst = [...result.perBuilding]
+      .filter(
+        (h) =>
+          h.destinations[id]!.evaluatedResidents > 0 &&
+          (h.destinations[id]!.travelSeconds === null ||
+            h.destinations[id]!.travelSeconds! >
+              result.destinations[id]!.thresholdSeconds * ACCESS_DIAGNOSTICS_RULES.longRouteFraction),
+      )
+      .sort(
+        (a, b) =>
+          (b.destinations[id]!.travelSeconds ?? Infinity) - (a.destinations[id]!.travelSeconds ?? Infinity),
+      )[0];
+    if (worst) {
+      setSelectedId(worst.buildingId);
+      map.current?.focus(worst.buildingId);
+    }
+    setSidebarOpen(false);
+  }
   useEffect(() => {
     if (pendingProjectFocus.current && completedAnalysis?.scenario === history.current) {
       map.current?.focusProjects(pendingProjectFocus.current);
@@ -885,7 +921,7 @@ function DistrictApp({
                         baseData={data}
                         analysis={comparisonAnalysis}
                         busy={busy}
-                        onMetric={setMetricId}
+                        onMetric={showMetricProblem}
                         onCompare={showChanges}
                       />
                     )}
@@ -987,7 +1023,7 @@ function DistrictApp({
                         <section className="network-summary" aria-label="Нагрузка сети">
                           <div className="section-heading">
                             <h2>Самые нагруженные участки</h2>
-                            <span>проходов / цикл</span>
+                            <span>проходов / час</span>
                           </div>
                           {busiestEdges.map((edge, i) => (
                             <button
@@ -1002,11 +1038,11 @@ function DistrictApp({
                               <span>
                                 <i>{i + 1}</i>Пешеходный участок
                               </span>
-                              <strong>{number(edge.load)}</strong>
+                              <strong>{percent(edge.load)}</strong>
                               <ArrowUpRight size={13} />
                             </button>
                           ))}
-                          <p>Спрос всех жителей. Число фигур не влияет на результат.</p>
+                          <p>Все цели выбранного часа и типа дня. Число фигур не влияет на расчёт.</p>
                         </section>
                         <div className="district-numbers">
                           <div>
@@ -1197,6 +1233,15 @@ function DistrictApp({
             )}
           </div>
           <>
+            <ActivityPanel
+              value={activity}
+              busy={activityBusy}
+              error={activityError}
+              hour={settings.hour}
+              dayType={dayType}
+              onHour={(h) => patchSettings({ hour: h })}
+              onDay={setDayType}
+            />
             <div className="pedestrian-mode">
               <span>
                 <Footprints size={15} /> Пешеход
@@ -1383,7 +1428,7 @@ function DistrictApp({
                 {(
                   [
                     ['natural', 'Материалы'],
-                    ['accessibility', 'Доступность'],
+                    ['accessibility', 'Близость'],
                     ['change', 'Эффект'],
                   ] as const
                 ).map(([id, name]) => (
@@ -1434,7 +1479,7 @@ function DistrictApp({
                 <option value="eco">Экономное · до 250 фигур</option>
               </select>
               <label className="range-label" htmlFor="density">
-                Выборка жителей <b>{settings.agentCount}</b>
+                Лимит фигур <b>{settings.agentCount}</b>
               </label>
               <input
                 id="density"
@@ -1649,17 +1694,19 @@ function DistrictApp({
                       м
                     </p>
                     <div className="object-route-number">
-                      <strong>{number(selectedLoad?.load ?? 0)}</strong>
-                      <span>проходов за цикл</span>
+                      <strong>{percent(selectedLoad?.load)}</strong>
+                      <span>ожидаемых проходов за час</span>
                     </div>
                     <p className="object-description">
-                      {selectedLoad?.eligible
-                        ? `${currentMetric.name}. В направлении ребра: ${number(selectedLoad.forward)}; обратно: ${number(selectedLoad.backward)}.`
-                        : 'Участок закрыт или недоступен выбранному профилю.'}
+                      {!selectedLoad
+                        ? 'Поток ещё не рассчитан для этого состояния.'
+                        : selectedLoad.eligible
+                          ? `Все цели, ${settings.hour}:00. В направлении ребра: ${percent(selectedLoad.forward)}; обратно: ${percent(selectedLoad.backward)}.`
+                          : 'Участок закрыт или недоступен выбранному профилю.'}
                     </p>
                     <p className="waiting-note">
-                      Каждый житель совершает один условный поход к выбранной цели. Это модельный спрос, а не
-                      измеренная плотность толпы или почасовой прогноз.
+                      Поток рассчитан по целям, расписанию и группам населения. Это условная модель, а не
+                      измеренная плотность толпы.
                     </p>
                   </>
                 )}
@@ -1773,13 +1820,13 @@ function DistrictApp({
             <div className="daylight-control">
               <Sun size={17} />
               <label htmlFor="sunlight" className="sr-only">
-                Освещение сцены
+                Время суток и поток людей
               </label>
               <input
                 id="sunlight"
                 type="range"
-                min="8"
-                max="20"
+                min="0"
+                max="23"
                 step="1"
                 value={settings.hour}
                 onChange={(e) => patchSettings({ hour: Number(e.target.value) })}
@@ -1960,8 +2007,11 @@ function DistrictApp({
               <div>
                 <h3>Реальные расчёты по графу</h3>
                 <p>
-                  Маршруты учитывают длину, покрытие, ожидание на переходах и ограничения профиля. Доступность
-                  парка считается до входа, а недостижимые жители остаются в статистике.
+                  В слое «Близость» зелёный цвет означает путь до ¼ порога, светлый зелёный — до ½, оранжевый
+                  — до ¾, терракотовый — дольше ¾, серый — недостижимость. Это доля бюджета времени, а не
+                  юридический норматив. Маршруты учитывают длину, покрытие, ожидание на переходах и
+                  ограничения профиля. Доступность парка считается до входа, а недостижимые жители остаются в
+                  статистике.
                 </p>
               </div>
             </div>
@@ -1970,17 +2020,18 @@ function DistrictApp({
                 <Play size={20} />
               </span>
               <div>
-                <h3>Нагрузка — все жители; фигуры — отдельный слой</h3>
+                <h3>Потоки зависят от выбранного часа</h3>
                 <p>
-                  Подсветка рёбер суммирует один условный поход каждого жителя к ближайшей выбранной цели. Чем
-                  больше поток, тем краснее и толще линия. Шкала одинакова для всех сценариев; 1000+ — верхняя
-                  ступень цвета, а не предел пропускной способности. Фигуры включаются отдельно и не меняют
-                  нагрузку.
+                  На рёбрах суммируются ожидаемые перемещения на работу, учёбу, за покупками, в парк и к
+                  врачу. Утром преобладают отправления, вечером — возвращения домой и отдых. В выходной нет
+                  обычных школьных поездок. Шкала 300 проходов/час фиксирована между часами и сценариями, это
+                  не предел пропускной способности.
                 </p>
                 <p>
-                  Фигурки увеличены для наглядности и распределены между домами с учётом населения. Они идут
-                  по рассчитанным путям и ждут перед переходами. Скорость {settings.speed}× ускоряет только
-                  воспроизведение. После прибытия фигура скрывается и начинает новую поездку от дома.
+                  Фигуры — выборка текущих перемещений по тем же маршрутам и направлениям. Их количество
+                  зависит от ожидаемого числа людей на сети. Скорость анимации ускоряет только воспроизведение
+                  часового среза. Расписания, доли участия и неизвестные часы работы условные и видны в панели
+                  потоков.
                 </p>
               </div>
             </div>
@@ -1989,11 +2040,11 @@ function DistrictApp({
                 <Sun size={21} />
               </span>
               <div>
-                <h3>Освещение — оформление сцены</h3>
+                <h3>Часовой срез и освещение</h3>
                 <p>
-                  Ползунок времени меняет свет, а не часы работы объектов. Вместимость и перегрузка доступны в
-                  редакторе; движение автобусов и очереди не моделируются. Высота зданий на макете
-                  масштабируется отдельно от расчётов.
+                  Ползунок времени меняет поток и свет. Часы работы известны частично; используются видимые
+                  допущения. Вместимость и перегрузка доступны в редакторе; движение автобусов и очереди не
+                  моделируются. Высота зданий на макете масштабируется отдельно от расчётов.
                 </p>
               </div>
             </div>

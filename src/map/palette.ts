@@ -2,7 +2,7 @@ export const ACCESS_COLORS = ['#629e92', '#adbd85', '#d7aa73', '#c98775', '#8995
 export function accessibilityColor(seconds: number | null, threshold: number): string {
   if (seconds === null) return ACCESS_COLORS[4];
   return ACCESS_COLORS[
-    seconds <= threshold * 0.5 ? 0 : seconds <= threshold ? 1 : seconds <= threshold * 1.5 ? 2 : 3
+    seconds <= threshold * 0.25 ? 0 : seconds <= threshold * 0.5 ? 1 : seconds <= threshold * 0.75 ? 2 : 3
   ];
 }
 export function differenceColor(before: number | null, after: number | null): string {

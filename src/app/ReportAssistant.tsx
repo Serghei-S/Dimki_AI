@@ -207,6 +207,17 @@ export function ReportAssistant({ snapshot }: { snapshot: PlanningReport }) {
                   <b style={{ width: `${m.afterCoverage ?? 0}%` }} />
                 </div>
                 <div className="report-metric-detail">
+                  <button onClick={() => setFactId(`${m.id}.proximity.after`)}>
+                    Близость {n(m.beforeProximity)} → {n(m.afterProximity)} / 100
+                  </button>
+                  <button onClick={() => setFactId(`${m.id}.p90.after`)}>
+                    90% за {n(m.afterP90Minutes)} мин
+                  </button>
+                  <button onClick={() => setFactId(`${m.id}.long.after`)}>
+                    Долгий путь: {n(m.longRouteResidents)} жителей
+                  </button>
+                </div>
+                <div className="report-metric-detail">
                   <button onClick={() => setFactId(`${m.id}.threshold`)}>
                     Порог {n(m.thresholdMinutes)} мин
                   </button>

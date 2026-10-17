@@ -1,7 +1,7 @@
 /** Fixed between scenarios. These are resident trips per model cycle, not measured capacity. */
 export const FLOW_SCALE = 1000;
-export function flowStyle(load: number) {
-  const ratio = Math.min(1, Math.max(0, Number.isFinite(load) ? load : 0) / FLOW_SCALE);
+export function flowStyle(load: number, scale = FLOW_SCALE) {
+  const ratio = Math.min(1, Math.max(0, Number.isFinite(load) ? load : 0) / scale);
   return {
     ratio,
     widthM: load > 0 ? 2 + 9 * Math.sqrt(ratio) : 1.1,

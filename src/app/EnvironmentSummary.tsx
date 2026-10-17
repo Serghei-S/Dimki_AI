@@ -1,6 +1,7 @@
 import type { Analysis } from './useAnalysis.js';
 import { OBJECT_KINDS } from '../core/design-rules.js';
 import type { Destination, DeepReadonly, DistrictData } from '../core/types.js';
+import { accessDiagnostics, ACCESS_DIAGNOSTICS_RULES } from '../core/access-diagnostics.js';
 const f = (n: number | null | undefined) =>
   n == null ? '—' : n.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
 export function EnvironmentSummary({
@@ -27,6 +28,8 @@ export function EnvironmentSummary({
     .filter((b) => Object.values(b.destinations).every((m) => m.withinThreshold))
     .reduce((s, b) => s + b.residents, 0);
   const changes = analysis.result.changesFromBaseline[analysis.profileId];
+  const diagnostic = accessDiagnostics(after),
+    oldDiagnostic = accessDiagnostics(before);
   return (
     <section
       className={`environment-summary ${busy ? 'is-updating' : ''}`}
@@ -35,33 +38,65 @@ export function EnvironmentSummary({
     >
       <div className="environment-cards">
         <div>
-          <strong>{f(average)}%</strong>
-          <span>Средняя доступность</span>
+          <strong>
+            {f(diagnostic.score)}
+            <small> / 100</small>
+          </strong>
+          <span>Индекс близости · было {f(oldDiagnostic.score)}</span>
         </div>
         <div>
-          <strong>{f(population ? (100 * complete) / population : null)}%</strong>
-          <span>Все категории рядом</span>
+          <strong>{f(diagnostic.problemResidents)}</strong>
+          <span>жителей с долгим или недоступным маршрутом</span>
         </div>
       </div>
       <p className="studio-note">
-        Средняя доступность — среднее охвата пяти категорий. «Все рядом» — доля жителей, у которых каждая
-        категория в пределах своего порога пешком. Это показатели модели, не оценка соблюдения обязательных
-        норм.
+        Путь может укладываться в порог и оставаться долгим. Близость учитывает всё время пути, а не только
+        попадание в порог. Здесь сравнивается постоянная доступность по сети; расписания посещений учитываются
+        отдельно в потоке выбранного часа.
       </p>
+      <details className="sidebar-detail">
+        <summary>Как считаются показатели</summary>
+        <p>
+          Для каждого дома: max(0; 1 − время / порог) × 100, затем среднее с весом населения и равным весом
+          пяти категорий. Долгим считается путь дольше {ACCESS_DIAGNOSTICS_RULES.longRouteFraction * 100}%
+          бюджета времени; недостижимость тоже включена. Это явные правила индекса, не официальный норматив и
+          не оценка всего качества жизни.
+        </p>
+        <p>
+          В пределах порогов: в среднем {f(average)}%; все категории доступны{' '}
+          {f(population ? (100 * complete) / population : null)}% жителей. Эти проценты сохраняются отдельно и
+          не занижаются.
+        </p>
+      </details>
+      <div className="access-problems">
+        {diagnostic.categories
+          .filter((c) => c.longResidents > 0)
+          .sort((a, b) => b.longResidents - a.longResidents)
+          .slice(0, 3)
+          .map((c) => (
+            <button key={c.id} onClick={() => onMetric(c.id)}>
+              <strong>{OBJECT_KINDS[c.id as Destination['kind']]}</strong>
+              <span>
+                {f(c.longResidents)} жителей: путь дольше{' '}
+                {f((c.thresholdSeconds * ACCESS_DIAGNOSTICS_RULES.longRouteFraction) / 60)} мин или недостижим
+              </span>
+            </button>
+          ))}
+      </div>
       {busy && (
         <p role="status" className="studio-note">
           Обновляем расчёт… Показан последний завершённый результат.
         </p>
       )}
-      <h3>До и после · доступность</h3>
+      <h3>До и после · близость и время</h3>
       <div className="environment-table">
         <table>
           <thead>
             <tr>
               <th>Объект</th>
-              <th>До</th>
-              <th>После</th>
-              <th>Δ п.п.</th>
+              <th>До / 100</th>
+              <th>После / 100</th>
+              <th>90% за, мин</th>
             </tr>
           </thead>
           <tbody>
@@ -72,15 +107,28 @@ export function EnvironmentSummary({
                     {OBJECT_KINDS[id as Destination['kind']] ?? id}
                   </button>
                   <small>до {f(m.thresholdSeconds / 60)} мин</small>
+                  <small>
+                    В пороге: {f(before.destinations[id]?.coveragePercent)} → {f(m.coveragePercent)}%
+                  </small>
                 </th>
-                <td>{f(before.destinations[id]?.coveragePercent)}%</td>
-                <td>{f(m.coveragePercent)}%</td>
-                <td>{f(changes?.[id]?.coverageDeltaPercentagePoints)}</td>
+                <td>{f(oldDiagnostic.categories.find((c) => c.id === id)?.score)}</td>
+                <td>{f(diagnostic.categories.find((c) => c.id === id)?.score)}</td>
+                <td>
+                  {f(
+                    diagnostic.categories.find((c) => c.id === id)?.p90Seconds == null
+                      ? null
+                      : diagnostic.categories.find((c) => c.id === id)!.p90Seconds! / 60,
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <p className="studio-note">
+        «90% за» — время, за которое доберутся 90% жителей с учётом населения каждого дома. Прочерк означает,
+        что достичь 90% невозможно или группа пуста.
+      </p>
       <details className="sidebar-detail">
         <summary>Кому стало ближе и дальше</summary>
         <p className="studio-note">

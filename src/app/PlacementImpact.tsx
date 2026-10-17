@@ -12,6 +12,7 @@ import {
 import { useMemo } from 'react';
 import { segmentEntersPolygon } from '../core/design-geometry.js';
 import type { XY } from '../core/types.js';
+import { accessDiagnostics } from '../core/access-diagnostics.js';
 
 const format = (value: number | null | undefined) =>
   value == null ? '—' : value.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
@@ -59,6 +60,7 @@ export function PlacementImpact({
   const metric = report?.destinations[kind],
     initial = baseline?.destinations[kind];
   const changes = analysis?.result.changesFromBaseline[analysis.profileId];
+  const diagnostic = report ? accessDiagnostics(report).categories.find((c) => c.id === kind) : null;
   const conflicts = useMemo(() => {
     const polygon = analysis?.district.parcels.find((p) => p.id === selected?.parcelId)?.polygon;
     if (selected?.kind !== 'park' || !polygon || !analysis) return null;
@@ -152,31 +154,42 @@ export function PlacementImpact({
               </p>
             )}
             {metric && initial && (
-              <div className="placement-kpis">
-                <div>
-                  <strong>{format(metric.coveragePercent)}%</strong>
-                  <span>в пределах {format(metric.thresholdSeconds / 60)} мин</span>
-                  <small>было {format(initial.coveragePercent)}%</small>
+              <>
+                {diagnostic && (
+                  <p className="placement-quality">
+                    Близость: <b>{format(diagnostic.score)} / 100</b> · 90% жителей доходят за{' '}
+                    <b>{format(diagnostic.p90Seconds === null ? null : diagnostic.p90Seconds / 60)} мин</b>.
+                    Долгий или недоступный путь: {format(diagnostic.longResidents)} жителей.
+                  </p>
+                )}
+                <div className="placement-kpis">
+                  <div>
+                    <strong>{format(metric.coveragePercent)}%</strong>
+                    <span>в пределах {format(metric.thresholdSeconds / 60)} мин</span>
+                    <small>было {format(initial.coveragePercent)}%</small>
+                  </div>
+                  <div>
+                    <strong>
+                      {format(
+                        metric.meanSecondsReachableOnly === null
+                          ? null
+                          : metric.meanSecondsReachableOnly / 60,
+                      )}{' '}
+                      мин
+                    </strong>
+                    <span>средний пеший путь</span>
+                    <small>
+                      было{' '}
+                      {format(
+                        initial.meanSecondsReachableOnly === null
+                          ? null
+                          : initial.meanSecondsReachableOnly / 60,
+                      )}{' '}
+                      мин
+                    </small>
+                  </div>
                 </div>
-                <div>
-                  <strong>
-                    {format(
-                      metric.meanSecondsReachableOnly === null ? null : metric.meanSecondsReachableOnly / 60,
-                    )}{' '}
-                    мин
-                  </strong>
-                  <span>средний пеший путь</span>
-                  <small>
-                    было{' '}
-                    {format(
-                      initial.meanSecondsReachableOnly === null
-                        ? null
-                        : initial.meanSecondsReachableOnly / 60,
-                    )}{' '}
-                    мин
-                  </small>
-                </div>
-              </div>
+              </>
             )}
             {changes?.[kind] && (
               <p className="placement-change">

@@ -2,6 +2,7 @@ import type { DeepReadonly, DistrictData, ScenarioEvaluation } from '../core/typ
 import { DEFAULT_DESIGN_RULES, OBJECT_KINDS, CAPACITY_FACTORS, STOP_HEADWAYS } from '../core/design-rules.js';
 import { PLACEMENT_RULES } from '../core/placement.js';
 import { stableKey } from '../core/util.js';
+import { accessDiagnostics, ACCESS_DIAGNOSTICS_RULES } from '../core/access-diagnostics.js';
 
 export interface ReportFact {
   id: string;
@@ -17,6 +18,10 @@ export interface ReportMetric {
   thresholdMinutes: number;
   beforeCoverage: number | null;
   afterCoverage: number | null;
+  beforeProximity: number | null;
+  afterProximity: number | null;
+  afterP90Minutes: number | null;
+  longRouteResidents: number;
   beforeMeanMinutes: number | null;
   afterMeanMinutes: number | null;
   commonMeanChangeMinutes: number | null;
@@ -115,8 +120,33 @@ export function makeReport(
   );
   fact('budget', 'Бюджет', result.scenario.budgetRub, '₽', 'Бюджет текущего сценария.');
   const oldHomes = new Map(before.perBuilding.map((h) => [h.buildingId, h]));
+  const oldDiagnostic = accessDiagnostics(before),
+    diagnostic = accessDiagnostics(after);
+  fact(
+    'proximity.before',
+    'Индекс близости до',
+    oldDiagnostic.score,
+    '/100',
+    'Среднее пяти индексов категорий с равными весами. Для каждой категории: среднее по населению max(0; 1 − время / порог) × 100. Недостижимость даёт 0. Это индекс бюджета времени, не официальный норматив.',
+  );
+  fact(
+    'proximity.after',
+    'Индекс близости после',
+    diagnostic.score,
+    '/100',
+    'Та же формула и пороги, что до изменений. 100% охвата не означает индекс 100.',
+  );
+  fact(
+    'long_routes.residents',
+    'Жители с долгим или недоступным маршрутом',
+    diagnostic.problemResidents,
+    'жителей',
+    `Хотя бы одна категория требует больше ${ACCESS_DIAGNOSTICS_RULES.longRouteFraction * 100}% её порога времени или недостижима. Каждый житель учитывается один раз; население модельное.`,
+  );
   const metrics = Object.entries(after.destinations).map(([id, a]): ReportMetric => {
     const b = before.destinations[id]!;
+    const quality = diagnostic.categories.find((c) => c.id === id)!,
+      oldQuality = oldDiagnostic.categories.find((c) => c.id === id)!;
     let commonResidents = 0,
       weightedChange = 0,
       gainedAccess = 0,
@@ -152,6 +182,10 @@ export function makeReport(
       thresholdMinutes: a.thresholdSeconds / 60,
       beforeCoverage: b.coveragePercent,
       afterCoverage: a.coveragePercent,
+      beforeProximity: oldQuality.score,
+      afterProximity: quality.score,
+      afterP90Minutes: minutes(quality.p90Seconds),
+      longRouteResidents: quality.longResidents,
       beforeMeanMinutes: minutes(b.meanSecondsReachableOnly),
       afterMeanMinutes: minutes(a.meanSecondsReachableOnly),
       commonMeanChangeMinutes: commonResidents ? weightedChange / commonResidents / 60 : null,
@@ -162,6 +196,27 @@ export function makeReport(
       lostAccess,
       unreachable: a.unreachableResidents,
     };
+    fact(
+      `${id}.proximity.after`,
+      `${name}: индекс близости после`,
+      row.afterProximity,
+      '/100',
+      'Средневзвешенное по населению max(0; 1 − время / порог) × 100. Недостижимость даёт 0; длинный путь внутри порога уменьшает индекс.',
+    );
+    fact(
+      `${id}.p90.after`,
+      `${name}: время для 90% жителей`,
+      row.afterP90Minutes,
+      'мин',
+      'Взвешенный по населению 90-й процентиль кратчайшего времени. Недостижимые остаются в распределении с бесконечным временем; null, если достижимы менее 90% жителей или населения нет.',
+    );
+    fact(
+      `${id}.long.after`,
+      `${name}: долгий или недоступный путь`,
+      row.longRouteResidents,
+      'жителей',
+      `Путь дольше ${ACCESS_DIAGNOSTICS_RULES.longRouteFraction * 100}% порога или недостижим. Это диагностическая граница, не норматив.`,
+    );
     fact(
       `${id}.coverage.before`,
       `${name}: охват до`,
@@ -275,9 +330,11 @@ export function makeReport(
       'Ближайший объект не гарантирует свободных мест. Вместимость не является измеренной посещаемостью; остановка не создаёт транспортный маршрут.',
       'Визуальная трава и деревья — оформление карты; они не увеличивают площадь общественных парков и не меняют расчёты.',
       'Отчёт не проверяет право строительства, все пересечения новых полигонов с препятствиями или полноту данных за границей района.',
+      'Охват — только попадание в порог; индекс близости отдельно учитывает время внутри порога. Этот отчёт сравнивает статическую доступность, а часовые потоки показываются отдельно на карте и не являются наблюдаемой посещаемостью.',
     ],
     assumptions: {
       placementSketch: PLACEMENT_RULES,
+      accessDiagnostics: ACCESS_DIAGNOSTICS_RULES,
       profile: data.profiles.find((p) => p.id === profileId),
       metricDefinitions: data.metricDefinitions,
       designRules: { ...DEFAULT_DESIGN_RULES, ...result.scenario.design?.rules },

@@ -12,6 +12,9 @@ import { materializeValidated, resolveProjectOrder } from './scenario.js';
 import { optimizeProjects } from './optimizer.js';
 import { requireCondition } from './errors.js';
 import { BoundedCache, deepFreeze, stableKey, round } from './util.js';
+import {planDailyActivity,activityAtHour} from './daily-activity.js';
+import type {DailyPlan} from './daily-activity.js';
+import type {ActivityInput,ActivitySnapshot} from './activity-types.js';
 
 const EMPTY: ScenarioInput = {projectIds: [], budgetRub: 0, operationalOverrides: []};
 
@@ -22,6 +25,7 @@ export class PlanningEngine {
   readonly #topology: Topology;
   readonly #cache: BoundedCache<ProfileAnalysis>;
   readonly #digest: string;
+  readonly #dailyPlans = new BoundedCache<DailyPlan>(4, 24*1024*1024);
 
   private constructor(data: DistrictData, options: EngineOptions, digest: string) {
     this.#data = data; this.#digest = digest;
@@ -55,7 +59,7 @@ export class PlanningEngine {
   materialize(input: ScenarioRequest): {data: DeepReadonly<DistrictData>; costs: import('./types.js').Costs; scenario: ScenarioInput;costItems?:import('./design-types.js').CostItem[]} {
     return materializeValidated(this.#data, parseScenario(input));
   }
-  clearCache(): void { this.#cache.clear(); }
+  clearCache(): void { this.#cache.clear(); this.#dailyPlans.clear(); }
   cacheStats() { return this.#cache.stats(); }
 
   #analysis(scenario: ScenarioInput, profileId: string, snapshot?: DistrictData): ProfileAnalysis {
@@ -119,6 +123,28 @@ export class PlanningEngine {
     const baseline = this.evaluate(EMPTY, [profileId]);
     return {result, baseline, loads:edgeLoadsForAnalysis(analysis, metricId),
       routes:buildingIds.map(id => routeForBuilding(analysis, id, metricId))};
+  }
+  activitySnapshot(input: ScenarioRequest, profileId: string, options: ActivityInput): ActivitySnapshot {
+    const scenario = parseScenario(input), profile = this.#profiles.get(profileId);
+    requireCondition(profile, 'UNKNOWN_ID', 'Неизвестный профиль потока');
+    requireCondition(
+      options && Number.isInteger(options.hour) && options.hour >= 0 && options.hour <= 23 &&
+      ['weekday', 'weekend'].includes(options.dayType) &&
+      (options.includeRoutes === undefined || typeof options.includeRoutes === 'boolean'),
+      'INVALID_INPUT', 'Некорректное время моделирования',
+    );
+    // Validate the budget and edits even when the geometry already has a cached daily plan.
+    const snapshot = materializeValidated(this.#data, scenario);
+    const key = stableKey({
+      projects: scenario.projectIds, overrides: scenario.operationalOverrides ?? [],
+      design: scenario.design ?? null, profileId, dayType: options.dayType,
+    });
+    let plan = this.#dailyPlans.get(key);
+    if (!plan) {
+      plan = deepFreeze(planDailyActivity(snapshot.data, profile, options.dayType));
+      this.#dailyPlans.set(key, plan, JSON.stringify(plan.events).length * 2 + snapshot.data.edges.length * 200);
+    }
+    return deepFreeze(activityAtHour(plan, options));
   }
 
   /** Network-based access values for coloring nodes; no circular-buffer approximation. */
