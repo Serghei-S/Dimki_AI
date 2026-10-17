@@ -199,7 +199,13 @@ export class DistrictScene {
     this.#buildProjects();
     this.#buildLabels();
     this.#updateColors();
-    this.#flow.setData(state.data, state.activity?.loads ?? { edges: [] }, ACTIVITY_RULES.flowDisplayScale);
+    this.#flow.setData(
+      state.data,
+      state.activity?.loads ?? { edges: [] },
+      ACTIVITY_RULES.flowDisplayScale,
+      state.activityBefore?.loads,
+      state.activityComparison,
+    );
     this.#editor.setData(state.data, state.editor, state.design);
     this.#updateMotion();
     this.#updateSelection();
@@ -1014,8 +1020,14 @@ export class DistrictScene {
       this.#buildLabels();
       this.#renderer.shadowMap.needsUpdate = true;
     }
-    if (old.activity !== state.activity || old.data !== state.data)
-      this.#flow.setData(state.data, state.activity?.loads ?? { edges: [] }, ACTIVITY_RULES.flowDisplayScale);
+    if (old.activity !== state.activity || old.activityBefore !== state.activityBefore || old.activityComparison !== state.activityComparison || old.data !== state.data)
+      this.#flow.setData(
+        state.data,
+        state.activity?.loads ?? { edges: [] },
+        ACTIVITY_RULES.flowDisplayScale,
+        state.activityBefore?.loads,
+        state.activityComparison,
+      );
     if (old.editor !== state.editor || old.data !== state.data)
       this.#editor.setData(state.data, state.editor, state.design);
     if (old.activity !== state.activity || old.profileId !== state.profileId) this.#updateMotion();

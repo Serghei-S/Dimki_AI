@@ -5,6 +5,7 @@ import type {
   RouteResult,
   EdgeLoadReport,
   ActivitySnapshot,
+  ActivityComparison,
 } from '../core/types.js';
 import type { DesignState } from '../core/types.js';
 import type { EditorView, EditorEvents } from './editor-types.js';
@@ -32,6 +33,8 @@ export interface ViewSettings {
 }
 export interface MapState {
   activity?: ActivitySnapshot | null;
+  activityBefore?: ActivitySnapshot | null;
+  activityComparison?: ActivityComparison | null;
   editor?: EditorView;
   design?: DeepReadonly<DesignState>;
   data: DeepReadonly<DistrictData>;

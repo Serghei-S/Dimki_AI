@@ -46,7 +46,6 @@ test('real environment and activity components render measured model values and 
     React.createElement(EnvironmentSummary, {
       analysis,
       busy: false,
-      baseData: data,
       onMetric: noop,
       onCompare: noop,
     }),
@@ -55,8 +54,8 @@ test('real environment and activity components render measured model values and 
     'Индекс близости',
     '54,4',
     '1\u00a0855',
-    '90% за',
-    'Как считаются показатели',
+    'Жители с трудным доступом',
+    'Что означают показатели',
     'До / 100',
     'После / 100',
   ])

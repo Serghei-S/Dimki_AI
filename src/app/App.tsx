@@ -2,7 +2,6 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useReducer, useRef, us
 import type { ReactNode } from 'react';
 import {
   ArrowUpRight,
-  ArrowDownRight,
   ArrowRight,
   Plus,
   Minus,
@@ -52,16 +51,19 @@ import type { MapState, SceneCallbacks, SceneStats, ViewSettings } from '../map/
 import { MapViewport } from './MapViewport.js';
 import { EnvironmentSummary } from './EnvironmentSummary.js';
 import { ActivityPanel } from './ActivityPanel.js';
+import { ActivityComparisonPanel } from './ActivityComparisonPanel.js';
+import { PlacementDecisionPanel } from './PlacementDecisionPanel.js';
 import { useActivity } from './useActivity.js';
 import type { DayType } from '../core/types.js';
 import { projectLocations } from '../map/focus.js';
 import { OBJECT_KINDS } from '../core/design-rules.js';
 import { ACCESS_DIAGNOSTICS_RULES } from '../core/access-diagnostics.js';
-import type { Analysis } from './useAnalysis.js';
+import { compareActivitySnapshots } from '../core/activity-comparison.js';
+import type { ActivityComparison } from '../core/types.js';
 import type { MapHandle } from './MapViewport.js';
 import { connectEngine } from './engine-client.js';
 import { useAnalysis, useSelectedRoute } from './useAnalysis.js';
-import { initialScenario, projectCost, scenarioHistory, selectProjects } from './state.js';
+import { copyScenario, initialScenario, projectCost, scenarioHistory, selectProjects } from './state.js';
 const DesignWorkbench = lazy(() =>
   import('./DesignWorkbench.js').then((module) => ({ default: module.DesignWorkbench })),
 );
@@ -262,8 +264,11 @@ function DistrictApp({
   const projectCheck = useRef(false),
     [checkingProject, setCheckingProject] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null),
-    [before, setBefore] = useState(false),
     [sidebarOpen, setSidebarOpen] = useState(false);
+  const [scenarioComparison, setScenarioComparison] = useState<{
+    before: ScenarioInput;
+    after: ScenarioInput;
+  } | null>(null);
   const [settings, setSettings] = useState<ViewSettings>(() => ({
     layers: {
       buildings: true,
@@ -283,7 +288,7 @@ function DistrictApp({
     planView: false,
     heightScale: 1.5,
   }));
-  const activeOverlay = before ? null : editorView.overlay;
+  const activeOverlay = editorView.overlay;
   const viewportSettings = useMemo(
     () =>
       activeOverlay && ['needs', 'vulnerability'].includes(activeOverlay.mode)
@@ -329,11 +334,28 @@ function DistrictApp({
   const pendingLocationFocus = useRef<XY[] | null>(null);
   const data = connection?.data ?? null,
     client = connection?.client ?? null;
-  const base = useMemo<ScenarioInput>(
-    () => ({ projectIds: [], budgetRub: history.current.budgetRub }),
-    [history.current.budgetRub],
-  );
-  const effectiveScenario = before ? base : (previewScenario ?? history.current);
+  const savedComparison =
+    scenarioComparison && JSON.stringify(scenarioComparison.after) === JSON.stringify(history.current)
+      ? scenarioComparison
+      : null;
+  const decisionPair = previewScenario
+    ? { before: history.current, after: previewScenario }
+    : savedComparison;
+  const changedKinds = useMemo(() => {
+    if (!decisionPair) return [];
+    const oldObjects = new Map(decisionPair.before.design?.objects.map((o) => [o.id, o]));
+    const newObjects = new Map(decisionPair.after.design?.objects.map((o) => [o.id, o]));
+    return [
+      ...new Set(
+        [...oldObjects.keys(), ...newObjects.keys()].flatMap((id) => {
+          const a = oldObjects.get(id),
+            b = newObjects.get(id);
+          return JSON.stringify(a) === JSON.stringify(b) ? [] : [(b ?? a)!.kind];
+        }),
+      ),
+    ];
+  }, [decisionPair?.before, decisionPair?.after]);
+  const effectiveScenario = previewScenario ?? history.current;
   const {
     analysis: completedAnalysis,
     busy,
@@ -343,7 +365,41 @@ function DistrictApp({
     snapshot: activity,
     busy: activityBusy,
     error: activityError,
-  } = useActivity(client, effectiveScenario, profileId, settings.hour, dayType, settings.layers.residents);
+  } = useActivity(
+    client,
+    effectiveScenario,
+    profileId,
+    settings.hour,
+    dayType,
+    settings.layers.residents || Boolean(scenarioComparison),
+  );
+  const comparisonBeforeScenario = scenarioComparison?.before ?? history.current;
+  const comparisonAfterScenario = scenarioComparison?.after ?? history.current;
+  const { snapshot: activityBefore } = useActivity(
+    client,
+    comparisonBeforeScenario,
+    profileId,
+    settings.hour,
+    dayType,
+    true,
+    Boolean(savedComparison) && !previewScenario,
+  );
+  const { snapshot: activityAfter } = useActivity(
+    client,
+    comparisonAfterScenario,
+    profileId,
+    settings.hour,
+    dayType,
+    true,
+    Boolean(savedComparison) && !previewScenario,
+  );
+  const activityComparison = useMemo<ActivityComparison | null>(
+    () =>
+      data && activityBefore && activityAfter && savedComparison && !previewScenario
+        ? compareActivitySnapshots(data, activityBefore, activityAfter)
+        : null,
+    [data, activityBefore, activityAfter, savedComparison, previewScenario],
+  );
   const analysis =
     completedAnalysis?.profileId === profileId &&
     completedAnalysis.metricId === metricId &&
@@ -351,26 +407,11 @@ function DistrictApp({
       ? completedAnalysis
       : null;
   const committedDistrict = useRef<DeepReadonly<DistrictData> | null>(null);
-  const committedAnalysis = useRef<Analysis | null>(null);
   if (analysis?.scenario === history.current) committedDistrict.current = analysis.district;
-  if (analysis?.scenario === history.current) committedAnalysis.current = analysis;
-  const comparisonAnalysis = before
-    ? committedAnalysis.current?.scenario === history.current &&
-      committedAnalysis.current.profileId === profileId
-      ? committedAnalysis.current
-      : null
-    : analysis;
+  const comparisonAnalysis = analysis;
   const selectedRoute = useSelectedRoute(client, analysis, selectedId);
   const selectedEdge = analysis?.district.edges.find((edge) => edge.id === selectedId);
   const selectedLoad = activity?.loads.edges.find((edge) => edge.edgeId === selectedId);
-  const busiestEdges = useMemo(
-    () =>
-      [...(activity?.loads.edges ?? [])]
-        .filter((edge) => edge.load > 0)
-        .sort((a, b) => b.load - a.load || a.edgeId.localeCompare(b.edgeId))
-        .slice(0, 3),
-    [activity],
-  );
   useEffect(() => {
     const controller = new AbortController();
     let owned: PlanningService | null = null;
@@ -431,6 +472,8 @@ function DistrictApp({
             routes: analysis.routes,
             loads: analysis.loads,
             activity,
+            activityBefore,
+            activityComparison,
             geometryKey: JSON.stringify({
               projects: analysis.result.scenario.projectIds,
               operations: analysis.result.scenario.operationalOverrides ?? [],
@@ -441,7 +484,7 @@ function DistrictApp({
             ...(analysis.result.scenario.design ? { design: analysis.result.scenario.design } : {}),
           }
         : null,
-    [analysis, profileId, metricId, selectedId, selectedRoute, activity],
+    [analysis, profileId, metricId, selectedId, selectedRoute, activity, activityBefore, activityComparison],
   );
   // During a profile/metric transition keep the last complete, internally consistent snapshot.
   const renderedState = useRef<MapState | null>(null);
@@ -453,16 +496,17 @@ function DistrictApp({
         ? {
             ...renderedMap,
             activity: mapState?.activity ?? null,
-            editor: before ? EMPTY_EDITOR : editorView,
+            activityBefore: mapState?.activityBefore ?? null,
+            activityComparison: mapState?.activityComparison ?? null,
+            editor: editorView,
             selectedId,
             selectedRoute: renderedMap.selectedId === selectedId ? renderedMap.selectedRoute : null,
           }
         : null,
-    [renderedMap, editorView, selectedId, before, mapState],
+    [renderedMap, editorView, selectedId, mapState],
   );
   const report = analysis?.result.profiles[profileId],
-    currentMetric = METRICS.find((m) => m.id === metricId)!,
-    totals = report?.destinations[metricId];
+    currentMetric = METRICS.find((m) => m.id === metricId)!;
   function showMetricProblem(id: string) {
     setMetricId(id);
     setSettings((old) => ({ ...old, colorMode: 'accessibility' }));
@@ -497,8 +541,6 @@ function DistrictApp({
       pendingLocationFocus.current = null;
     }
   }, [completedAnalysis, history.current]);
-  const delta =
-    analysis?.result.changesFromBaseline[profileId]?.[metricId]?.coverageDeltaPercentagePoints ?? 0;
   const committedKey = JSON.stringify(history.current);
   if (completedAnalysis?.scenario === history.current) {
     costCache.current.set(committedKey, completedAnalysis.result.costs.capexRub);
@@ -539,6 +581,20 @@ function DistrictApp({
     [data, searchableDistrict, query],
   );
   function apply(scenario: ScenarioInput, capexRub?: number) {
+    const previous = history.current;
+    const previousObjects = new Set((previous.design?.objects ?? []).map((object) => object.id));
+    const addedObject = (scenario.design?.objects ?? []).some(
+      (object) => object.active && !previousObjects.has(object.id),
+    );
+    if (addedObject) {
+      setScenarioComparison({ before: copyScenario(previous), after: copyScenario(scenario) });
+      setTab('overview');
+      setSidebarOpen(true);
+    } else if (scenario.design && JSON.stringify(scenario.design) !== JSON.stringify(previous.design)) {
+      setScenarioComparison({ before: copyScenario(previous), after: copyScenario(scenario) });
+    } else {
+      setScenarioComparison(null);
+    }
     if (JSON.stringify(scenario.projectIds) !== JSON.stringify(history.current.projectIds)) {
       pendingProjectFocus.current = scenario.projectIds.length
         ? [...scenario.projectIds]
@@ -548,7 +604,6 @@ function DistrictApp({
     if (capexRub !== undefined) costCache.current.set(JSON.stringify(scenario), capexRub);
     setPreviewScenario(null);
     dispatch({ type: 'apply', scenario });
-    setBefore(false);
   }
   async function toggleProject(id: string) {
     if (!data || projectCheck.current) return;
@@ -583,7 +638,6 @@ function DistrictApp({
   }
   function showChanges() {
     if (!data) return;
-    setBefore(false);
     setSettings((s) => ({ ...s, layers: { ...s.layers, projects: true } }));
     const points = [
       ...projectLocations(data, history.current.projectIds),
@@ -712,7 +766,6 @@ function DistrictApp({
             aria-current={tab !== 'scenarios' ? 'page' : undefined}
             onClick={() => {
               setTab('studio');
-              setBefore(false);
               setSidebarOpen(true);
             }}
           >
@@ -733,10 +786,8 @@ function DistrictApp({
           <button
             className="report-open-button"
             aria-label="Открыть отчёт и AI-помощника"
-            title={
-              before ? 'Переключите карту на «После», чтобы создать отчёт сценария' : 'Отчёт и AI-помощник'
-            }
-            disabled={!analysis || !data || busy || before || Boolean(previewScenario)}
+            title="Отчёт и AI-помощник"
+            disabled={!analysis || !data || busy || Boolean(previewScenario)}
             onClick={() => {
               if (!analysis || !data) return;
               void import('../reports/report.js')
@@ -852,7 +903,6 @@ function DistrictApp({
                 className={tab === id ? 'active' : ''}
                 onClick={() => {
                   setTab(id);
-                  if (id === 'studio') setBefore(false);
                   if (id === 'projects')
                     setSettings((s) => ({ ...s, layers: { ...s.layers, projects: true } }));
                 }}
@@ -863,6 +913,24 @@ function DistrictApp({
             ))}
           </div>
           <div className="sidebar-scroll">
+            {decisionPair &&
+              changedKinds.map((kind) => (
+                <PlacementDecisionPanel
+                  key={kind}
+                  client={client}
+                  before={decisionPair.before}
+                  after={decisionPair.after}
+                  kind={kind}
+                  profileId={profileId}
+                  preview={Boolean(previewScenario)}
+                />
+              ))}
+            {activityComparison && (
+              <details className="placement-flow-detail">
+                <summary>Потоки в выбранный час · подробное сравнение</summary>
+                <ActivityComparisonPanel value={activityComparison} hour={settings.hour} dayType={dayType} />
+              </details>
+            )}
             <Suspense fallback={<p className="studio-note">Загрузка редактора…</p>}>
               <DesignWorkbench
                 active={tab === 'studio'}
@@ -873,7 +941,7 @@ function DistrictApp({
                 analysis={analysis}
                 calculationBusy={busy}
                 calculationError={error}
-                baselineView={before}
+                baselineView={false}
                 onKindChange={(kind) => {
                   if (METRICS.some((m) => m.id === kind)) setMetricId(kind);
                 }}
@@ -888,7 +956,9 @@ function DistrictApp({
                 onApply={apply}
                 onPreview={(scenario) => {
                   setPreviewScenario(scenario);
-                  if (scenario) setBefore(false);
+                  if (scenario) {
+                    setSidebarOpen(true);
+                  }
                 }}
                 onView={setEditorView}
                 onNotify={setToast}
@@ -911,187 +981,12 @@ function DistrictApp({
             ) : (
               <>
                 {tab === 'overview' && (
-                  <>
-                    {before && !comparisonAnalysis ? (
-                      <button className="secondary-button full-width" onClick={() => setBefore(false)}>
-                        Включить «После» для сравнения этого режима
-                      </button>
-                    ) : (
-                      <EnvironmentSummary
-                        baseData={data}
-                        analysis={comparisonAnalysis}
-                        busy={busy}
-                        onMetric={showMetricProblem}
-                        onCompare={showChanges}
-                      />
-                    )}
-                    <details className="environment-details">
-                      <summary>Подробный анализ района</summary>
-                      <section
-                        className={`main-metric ${busy ? 'is-updating' : ''}`}
-                        aria-label={currentMetric.heading}
-                      >
-                        <div className="metric-overline">
-                          <currentMetric.icon size={16} />
-                          {currentMetric.heading}
-                        </div>
-                        <div className="metric-hero">
-                          <div>
-                            <strong>
-                              {percent(totals?.coveragePercent)}
-                              <span>%</span>
-                            </strong>
-                            <p>жителей в пределах {percent((totals?.thresholdSeconds ?? 600) / 60)} минут</p>
-                          </div>
-                          <svg
-                            className="metric-ring"
-                            width="65"
-                            height="65"
-                            viewBox="0 0 65 65"
-                            aria-hidden="true"
-                          >
-                            <circle
-                              cx="32.5"
-                              cy="32.5"
-                              r="26"
-                              fill="none"
-                              stroke="var(--line)"
-                              strokeWidth="5"
-                            />
-                            <circle
-                              cx="32.5"
-                              cy="32.5"
-                              r="26"
-                              fill="none"
-                              stroke="var(--accent)"
-                              strokeWidth="5"
-                              strokeLinecap="round"
-                              strokeDasharray={`${((totals?.coveragePercent ?? 0) / 100) * 163.36} 163.36`}
-                              transform="rotate(-90 32.5 32.5)"
-                            />
-                            <currentMetric.icon x="23" y="23" width="19" height="19" color="var(--accent)" />
-                          </svg>
-                        </div>
-                        <div className={`metric-delta ${delta < 0 ? 'negative' : ''}`}>
-                          {delta > 0 ? (
-                            <ArrowUpRight size={13} />
-                          ) : delta < 0 ? (
-                            <ArrowDownRight size={13} />
-                          ) : (
-                            <span className="neutral-dot" />
-                          )}
-                          {delta
-                            ? `${delta > 0 ? '+' : ''}${percent(delta)} п.п. к исходному`
-                            : before
-                              ? 'Исходный район'
-                              : 'Исходный уровень'}
-                        </div>
-                      </section>
-                      <div className="section-heading">
-                        <h2>Доступность объектов</h2>
-                        <span>пешком</span>
-                      </div>
-                      <div className="metric-list">
-                        {METRICS.map((item) => {
-                          const value = report?.destinations[item.id]?.coveragePercent ?? 0;
-                          return (
-                            <button
-                              key={item.id}
-                              className={`metric-row ${metricId === item.id ? 'active' : ''}`}
-                              onClick={() => setMetricId(item.id)}
-                              aria-pressed={metricId === item.id}
-                            >
-                              <item.icon size={17} />
-                              <span className="metric-row-content">
-                                <span>
-                                  {item.name}
-                                  <b>
-                                    {percent(value)}
-                                    <small>%</small>
-                                  </b>
-                                </span>
-                                <i>
-                                  <span style={{ width: `${value}%` }} />
-                                </i>
-                              </span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                      <details className="sidebar-detail">
-                        <summary>Сеть и население</summary>
-                        <section className="network-summary" aria-label="Нагрузка сети">
-                          <div className="section-heading">
-                            <h2>Самые нагруженные участки</h2>
-                            <span>проходов / час</span>
-                          </div>
-                          {busiestEdges.map((edge, i) => (
-                            <button
-                              key={edge.edgeId}
-                              aria-label={`Показать нагруженный участок ${i + 1}`}
-                              onClick={() => {
-                                setSelectedId(edge.edgeId);
-                                map.current?.focus(edge.edgeId);
-                                setSidebarOpen(false);
-                              }}
-                            >
-                              <span>
-                                <i>{i + 1}</i>Пешеходный участок
-                              </span>
-                              <strong>{percent(edge.load)}</strong>
-                              <ArrowUpRight size={13} />
-                            </button>
-                          ))}
-                          <p>Все цели выбранного часа и типа дня. Число фигур не влияет на расчёт.</p>
-                        </section>
-                        <div className="district-numbers">
-                          <div>
-                            <strong>{number(report?.evaluatedPopulation ?? 8636)}</strong>
-                            <span>жителей</span>
-                          </div>
-                          <div>
-                            <strong>{data.buildings.filter((b) => b.population).length}</strong>
-                            <span>жилых домов</span>
-                          </div>
-                        </div>
-                      </details>
-                      <details className="sidebar-detail">
-                        <summary>Бюджет и проекты · {money(cost)}</summary>
-                        <section className="project-summary">
-                          <div className="project-summary-title">
-                            <span className="little-square">
-                              <Layers size={15} />
-                            </span>
-                            <h2>Ваш проект</h2>
-                            <span className="count-badge">{history.current.projectIds.length}</span>
-                          </div>
-                          <div className="project-cost">
-                            <strong>{money(cost)}</strong>
-                            <span>из {money(history.current.budgetRub)}</span>
-                          </div>
-                          <div className="budget-track">
-                            <span
-                              style={{
-                                width: `${history.current.budgetRub ? (cost / history.current.budgetRub) * 100 : 0}%`,
-                              }}
-                            />
-                          </div>
-                          <button
-                            onClick={() => {
-                              setTab('projects');
-                              setSettings((s) => ({ ...s, layers: { ...s.layers, projects: true } }));
-                            }}
-                          >
-                            Выбрать улучшения <ArrowRight size={15} />
-                          </button>
-                        </section>
-                      </details>
-                      <p className="sidebar-footnote">
-                        <Info size={13} />
-                        <span>Население и спрос моделируются. Доступность считается по пешеходной сети.</span>
-                      </p>
-                    </details>
-                  </>
+                  <EnvironmentSummary
+                    analysis={comparisonAnalysis}
+                    busy={busy}
+                    onMetric={showMetricProblem}
+                    onCompare={showChanges}
+                  />
                 )}
                 {tab === 'projects' && (
                   <>
@@ -1337,23 +1232,6 @@ function DistrictApp({
                 План
               </button>
             </div>
-            <div className="comparison-toggle" aria-label="Сравнение состояния">
-              <button
-                aria-pressed={before}
-                className={before ? 'active' : ''}
-                onClick={() => setBefore(true)}
-              >
-                До
-              </button>
-              <button
-                aria-pressed={!before}
-                className={!before ? 'active' : ''}
-                onClick={() => setBefore(false)}
-              >
-                После
-                {history.current.projectIds.length > 0 && <span>{history.current.projectIds.length}</span>}
-              </button>
-            </div>
             <span className={`calculation-status ${busy ? 'busy' : ''}`}>
               {busy ? (
                 <>
@@ -1510,21 +1388,18 @@ function DistrictApp({
           )}
           <button
             className="editor-entry-button"
-            aria-pressed={
-              !before && editorView.active && (editorView.tool === 'place' || editorView.tool === 'polygon')
-            }
+            aria-pressed={editorView.active && (editorView.tool === 'place' || editorView.tool === 'polygon')}
             onClick={() => {
               setEditorLaunch((value) => value + 1);
               setSelectedId(null);
               setTab('studio');
               setSidebarOpen(true);
-              setBefore(false);
             }}
           >
             <Plus size={14} />
             {tab === 'studio' ? 'Новый объект' : 'Объект в любой точке'}
           </button>
-          {!before && editorView.active && (editorView.tool === 'place' || editorView.tool === 'polygon') && (
+          {editorView.active && (editorView.tool === 'place' || editorView.tool === 'polygon') && (
             <div className="map-placement-hint" role="status">
               <MapPin size={17} />
               <span>
@@ -1850,7 +1725,6 @@ function DistrictApp({
                 onClick={() => {
                   setPreviewScenario(null);
                   dispatch({ type: 'undo' });
-                  setBefore(false);
                 }}
               >
                 <Undo2 size={15} />
@@ -1862,7 +1736,6 @@ function DistrictApp({
                 onClick={() => {
                   setPreviewScenario(null);
                   dispatch({ type: 'redo' });
-                  setBefore(false);
                 }}
               >
                 <Redo2 size={15} />

@@ -13,4 +13,6 @@ export {DEFAULT_DESIGN_RULES,DESIGN_COSTS,LEVEL_NAMES,OBJECT_KINDS,objectFromDes
 export {nearestNetworkPoint,polygonArea,validatePolygon,autoParkEntrances,pointAlong} from './design-geometry.js';
 export { compareDistances } from './design-analysis.js';
 export {ACTIVITY_RULES,PURPOSE_NAMES,scheduledFraction} from './daily-activity.js';
+export {compareActivitySnapshots,NORMATIVE_REFERENCES} from './activity-comparison.js';
+export {placementDecision,STOP_ACCESS_REFERENCE} from './placement-decision.js';
 export {accessDiagnostics,ACCESS_DIAGNOSTICS_RULES} from './access-diagnostics.js';

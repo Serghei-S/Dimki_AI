@@ -8,12 +8,18 @@ export function useActivity(
   hour: number,
   dayType: DayType,
   includeRoutes: boolean,
+  enabled = true,
 ) {
   const [value, setValue] = useState<{ scenario: ScenarioInput; snapshot: ActivitySnapshot } | null>(null),
     [busy, setBusy] = useState(true),
     [error, setError] = useState<string | null>(null);
   useEffect(() => {
-    if (!client) return;
+    if (!client || !enabled) {
+      setBusy(false);
+      setError(null);
+      setValue(null);
+      return;
+    }
     const controller = new AbortController();
     setBusy(true);
     setError(null);
@@ -37,7 +43,7 @@ export function useActivity(
       clearTimeout(timer);
       controller.abort();
     };
-  }, [client, scenario, profileId, hour, dayType, includeRoutes]);
+  }, [client, scenario, profileId, hour, dayType, includeRoutes, enabled]);
   const snapshot =
     value?.scenario === scenario &&
     value.snapshot.profileId === profileId &&
@@ -46,5 +52,5 @@ export function useActivity(
     (!includeRoutes || !busy)
       ? value.snapshot
       : null;
-  return { snapshot, busy, error };
+  return { snapshot: enabled ? snapshot : null, busy: enabled ? busy : false, error: enabled ? error : null };
 }

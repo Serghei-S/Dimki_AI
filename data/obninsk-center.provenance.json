@@ -18,7 +18,7 @@
   "generator": "tools/build_obninsk.py",
   "shapelyVersion": "2.2.0",
   "detailsFile": "sources/obninsk-details.osm.json",
-  "detailsSha256": "9f46a3a4830a43fb972a6d2cbb2ac11de7ade03167efd285aab7b33e630e6f12",
+  "detailsSha256": "71f6015eb4b7e6fe25c7e33ba450796d2e19b5b75a4caa10740819150d7263b2",
   "assumptions": {
     "residentialFloorUsableFactor": 0.78,
     "apartmentAreaM2": 55,

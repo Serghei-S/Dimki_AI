@@ -1,6 +1,6 @@
 import type { Analysis } from './useAnalysis.js';
 import { OBJECT_KINDS } from '../core/design-rules.js';
-import type { Destination, DeepReadonly, DistrictData } from '../core/types.js';
+import type { Destination } from '../core/types.js';
 import { accessDiagnostics, ACCESS_DIAGNOSTICS_RULES } from '../core/access-diagnostics.js';
 const f = (n: number | null | undefined) =>
   n == null ? '—' : n.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
@@ -9,185 +9,112 @@ export function EnvironmentSummary({
   busy,
   onMetric,
   onCompare,
-  baseData,
 }: {
   analysis: Analysis | null;
   busy: boolean;
   onMetric: (id: string) => void;
   onCompare: () => void;
-  baseData: DeepReadonly<DistrictData> | null;
 }) {
   if (!analysis) return <p className="studio-note">Рассчитываем доступность района…</p>;
-  const after = analysis.result.profiles[analysis.profileId]!,
-    before = analysis.baseline.profiles[analysis.profileId]!;
-  const metrics = Object.entries(after.destinations),
-    valid = metrics.map(([, m]) => m.coveragePercent).filter((x): x is number => x !== null);
-  const average = valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : null;
-  const population = after.perBuilding.reduce((s, b) => s + b.residents, 0);
-  const complete = after.perBuilding
-    .filter((b) => Object.values(b.destinations).every((m) => m.withinThreshold))
-    .reduce((s, b) => s + b.residents, 0);
-  const changes = analysis.result.changesFromBaseline[analysis.profileId];
-  const diagnostic = accessDiagnostics(after),
-    oldDiagnostic = accessDiagnostics(before);
+  const after = accessDiagnostics(analysis.result.profiles[analysis.profileId]!);
+  const before = accessDiagnostics(analysis.baseline.profiles[analysis.profileId]!);
   return (
     <section
       className={`environment-summary ${busy ? 'is-updating' : ''}`}
       aria-label="Среда и сравнение сценария"
       aria-busy={busy}
     >
+      <p className="studio-note">До — исходный район; после — ваш сценарий.</p>
       <div className="environment-cards">
-        <div>
-          <strong>
-            {f(diagnostic.score)}
-            <small> / 100</small>
-          </strong>
-          <span>Индекс близости · было {f(oldDiagnostic.score)}</span>
-        </div>
-        <div>
-          <strong>{f(diagnostic.problemResidents)}</strong>
-          <span>жителей с долгим или недоступным маршрутом</span>
-        </div>
+        <article>
+          <h3>Индекс близости</h3>
+          <div className="environment-values">
+            <div>
+              <span>До</span>
+              <strong>
+                {f(before.score)}
+                <small> / 100</small>
+              </strong>
+            </div>
+            <div>
+              <span>После</span>
+              <strong>
+                {f(after.score)}
+                <small> / 100</small>
+              </strong>
+            </div>
+          </div>
+        </article>
+        <article>
+          <h3>Жители с трудным доступом</h3>
+          <div className="environment-values">
+            <div>
+              <span>До</span>
+              <strong>
+                {f(before.problemResidents)}
+                <small> чел.</small>
+              </strong>
+            </div>
+            <div>
+              <span>После</span>
+              <strong>
+                {f(after.problemResidents)}
+                <small> чел.</small>
+              </strong>
+            </div>
+          </div>
+        </article>
       </div>
-      <p className="studio-note">
-        Путь может укладываться в порог и оставаться долгим. Близость учитывает всё время пути, а не только
-        попадание в порог. Здесь сравнивается постоянная доступность по сети; расписания посещений учитываются
-        отдельно в потоке выбранного часа.
-      </p>
-      <details className="sidebar-detail">
-        <summary>Как считаются показатели</summary>
+      <div className="environment-explanations">
+        <h3>Что означают показатели</h3>
         <p>
-          Для каждого дома: max(0; 1 − время / порог) × 100, затем среднее с весом населения и равным весом
-          пяти категорий. Долгим считается путь дольше {ACCESS_DIAGNOSTICS_RULES.longRouteFraction * 100}%
-          бюджета времени; недостижимость тоже включена. Это явные правила индекса, не официальный норматив и
-          не оценка всего качества жизни.
+          <b>Чем выше, тем ближе нужные объекты.</b> Для каждого дома: 100 × max(0; 1 − время пути / порог).
+          Если пути нет, оценка равна нулю. Затем считаем среднее с учётом числа жителей и равным весом
+          категорий объектов.
         </p>
         <p>
-          В пределах порогов: в среднем {f(average)}%; все категории доступны{' '}
-          {f(population ? (100 * complete) / population : null)}% жителей. Эти проценты сохраняются отдельно и
-          не занижаются.
+          <b>Чем меньше, тем лучше.</b> Суммируем жителей домов, где хотя бы до одной категории объектов нет
+          пути или путь занимает больше {f(ACCESS_DIAGNOSTICS_RULES.longRouteFraction * 100)}% её порога
+          времени. Жителей каждого дома учитываем один раз.
         </p>
-      </details>
-      <div className="access-problems">
-        {diagnostic.categories
-          .filter((c) => c.longResidents > 0)
-          .sort((a, b) => b.longResidents - a.longResidents)
-          .slice(0, 3)
-          .map((c) => (
-            <button key={c.id} onClick={() => onMetric(c.id)}>
-              <strong>{OBJECT_KINDS[c.id as Destination['kind']]}</strong>
-              <span>
-                {f(c.longResidents)} жителей: путь дольше{' '}
-                {f((c.thresholdSeconds * ACCESS_DIAGNOSTICS_RULES.longRouteFraction) / 60)} мин или недостижим
-              </span>
-            </button>
-          ))}
       </div>
       {busy && (
         <p role="status" className="studio-note">
-          Обновляем расчёт… Показан последний завершённый результат.
+          Обновляем расчёт… Пока показан предыдущий результат.
         </p>
       )}
-      <h3>До и после · близость и время</h3>
-      <div className="environment-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Объект</th>
-              <th>До / 100</th>
-              <th>После / 100</th>
-              <th>90% за, мин</th>
-            </tr>
-          </thead>
-          <tbody>
-            {metrics.map(([id, m]) => (
-              <tr key={id}>
-                <th>
-                  <button onClick={() => onMetric(id)}>
-                    {OBJECT_KINDS[id as Destination['kind']] ?? id}
-                  </button>
-                  <small>до {f(m.thresholdSeconds / 60)} мин</small>
-                  <small>
-                    В пороге: {f(before.destinations[id]?.coveragePercent)} → {f(m.coveragePercent)}%
-                  </small>
-                </th>
-                <td>{f(oldDiagnostic.categories.find((c) => c.id === id)?.score)}</td>
-                <td>{f(diagnostic.categories.find((c) => c.id === id)?.score)}</td>
-                <td>
-                  {f(
-                    diagnostic.categories.find((c) => c.id === id)?.p90Seconds == null
-                      ? null
-                      : diagnostic.categories.find((c) => c.id === id)!.p90Seconds! / 60,
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="studio-note">
-        «90% за» — время, за которое доберутся 90% жителей с учётом населения каждого дома. Прочерк означает,
-        что достичь 90% невозможно или группа пуста.
-      </p>
       <details className="sidebar-detail">
-        <summary>Кому стало ближе и дальше</summary>
-        <p className="studio-note">
-          Жители между категориями не суммируются. Потерявшие путь включены в число тех, кому стало дальше.
-        </p>
+        <summary>По категориям объектов</summary>
         <div className="environment-table">
           <table>
             <thead>
               <tr>
-                <th>Категория</th>
-                <th>Ближе</th>
-                <th>Дальше</th>
-                <th>Потеряли путь</th>
+                <th>Объект</th>
+                <th>До / 100</th>
+                <th>После / 100</th>
               </tr>
             </thead>
             <tbody>
-              {metrics.map(([id]) => (
-                <tr key={id}>
-                  <th>{OBJECT_KINDS[id as Destination['kind']] ?? id}</th>
-                  <td>{f(changes?.[id]?.improvedResidents)}</td>
-                  <td>{f(changes?.[id]?.worsenedResidents)}</td>
-                  <td>
-                    {f(
-                      after.perBuilding
-                        .filter(
-                          (b) =>
-                            b.destinations[id]?.travelSeconds === null &&
-                            before.perBuilding.find((old) => old.buildingId === b.buildingId)?.destinations[
-                              id
-                            ]?.travelSeconds != null,
-                        )
-                        .reduce((sum, b) => sum + b.residents, 0),
-                    )}
-                  </td>
+              {after.categories.map((category) => (
+                <tr key={category.id}>
+                  <th>
+                    <button onClick={() => onMetric(category.id)}>
+                      {OBJECT_KINDS[category.id as Destination['kind']] ?? category.id}
+                    </button>
+                    <small>Порог: {f(category.thresholdSeconds / 60)} мин</small>
+                  </th>
+                  <td>{f(before.categories.find((c) => c.id === category.id)?.score)}</td>
+                  <td>{f(category.score)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </details>
-      <details className="sidebar-detail">
-        <summary>Благоустройство и расходы</summary>
-        <p>
-          Изменения: {analysis.result.scenario.design?.objects.length ?? 0} объектов;{' '}
-          {analysis.result.scenario.projectIds.length} проектов. Стоимость:{' '}
-          {f(analysis.baseline.costs.capexRub)} → {f(analysis.result.costs.capexRub)} ₽ · условная оценка.
-        </p>
-        {(['parking', 'playground', 'waste_bin'] as const).map((kind) => (
-          <p key={kind}>
-            {OBJECT_KINDS[kind]}:{' '}
-            {baseData?.destinations.filter((d) => d.active && d.kind === kind).length ?? 0} →{' '}
-            {analysis.district.destinations.filter((d) => d.active && d.kind === kind).length} шт.
-          </p>
-        ))}
-        <p className="studio-note">
-          Парковка, площадка и урна не улучшают охват школ, медицины или транспорта. Расстояния к ним можно
-          проверить в «Редактор → Анализ». Занятость парковок и сбор отходов не моделируются.
-        </p>
-      </details>
+      <p className="studio-note">
+        Это оценка доступности по сети, а не проверка СанПиН. Пороги заданы моделью; население расчётное.
+        Поток людей по часам считается отдельно.
+      </p>
       <button className="secondary-button full-width" onClick={onCompare}>
         Показать изменения на карте
       </button>

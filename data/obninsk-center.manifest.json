@@ -41,7 +41,7 @@
     },
     {
       "path": "obninsk-center.provenance.json",
-      "sha256": "005a66cb91a28b1cbed7849b298ecf337d157f4082c938d759600c62fd14b95c"
+      "sha256": "3b36ae104bafc17502242a0da4bee5f771f855dd82cd3601eeddd72416f8141e"
     },
     {
       "path": "sources/obninsk-center.osm.json",
@@ -49,7 +49,7 @@
     },
     {
       "path": "sources/obninsk-details.osm.json",
-      "sha256": "9f46a3a4830a43fb972a6d2cbb2ac11de7ade03167efd285aab7b33e630e6f12"
+      "sha256": "71f6015eb4b7e6fe25c7e33ba450796d2e19b5b75a4caa10740819150d7263b2"
     },
     {
       "path": "sources/obninsk-details.osm.xml",

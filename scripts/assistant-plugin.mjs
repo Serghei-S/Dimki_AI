@@ -1,7 +1,16 @@
 import { loadEnv } from 'vite';
+import tls from 'node:tls';
 import { createAssistantMiddleware } from './assistant-api.mjs';
 import { resolveAssistantProvider } from './assistant-provider.mjs';
 export function assistantPlugin() {
+  // Include Windows' trusted roots (for example a locally trusted HTTPS proxy).
+  // Preserve Node's defaults and keep certificate/hostname verification enabled.
+  if (process.platform === 'win32' && typeof tls.setDefaultCACertificates === 'function') {
+    tls.setDefaultCACertificates([
+      ...tls.getCACertificates('default'),
+      ...tls.getCACertificates('system'),
+    ]);
+  }
   let root = process.cwd(),
     mode = 'development';
   const environment = () => ({

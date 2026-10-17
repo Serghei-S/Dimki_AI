@@ -423,6 +423,12 @@ export function activityAtHour(plan: DailyPlan, input: ActivityInput): ActivityS
     expectedOnNetwork,
     purposes,
     routes,
+    objects: plan.data.destinations.map((destination) => ({
+      id: destination.id,
+      name: destination.name,
+      kind: destination.kind,
+      capacity: destination.capacity,
+    })),
     loads: {
       unit: 'pedestrian-trips-per-hour',
       maxLoad: edges.reduce((max, e) => Math.max(max, e.load), 0),
